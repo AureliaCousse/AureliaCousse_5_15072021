@@ -1,0 +1,29 @@
+.logo{
+margin:auto; /*margin auto cad par défaut met auto de marge à gauche qu'à droite => centre*/
+height: 93px;
+width: 268px;
+
+}
+/* .search{
+    display: flex;
+} */
+
+#mainSearch{
+height: 69px;
+width: 1240px;
+left: 0px;
+margin-top: 50px;
+border-radius: 5px;
+background-color: grey;
+}
+
+#searchIcon{
+height: 69px;
+width: 80px;
+background-color: grey;
+
+}
+
+#searchFormSubmitinputIcon.fas.fa-search::before {
+}
+    
