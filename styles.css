@@ -1,6 +1,6 @@
-*{
-  margin:0;
-  padding:0;
+* {
+  margin : 0;
+  padding: 0;
 }
 
 /*Reset CSS from Eric Meyer*/
@@ -85,12 +85,12 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+  margin         : 0;
+  padding        : 0;
+  border         : 0;
+  font-size      : 100%;
+  font           : inherit;
+  vertical-align : baseline;
   text-decoration: none;
 }
 
@@ -133,8 +133,9 @@ q:after {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
+  border-spacing : 0;
 }
+
 /*End reset CSS*/
 
 /******************************************************************************************************/
@@ -143,80 +144,256 @@ table {
 /*logo*/
 @font-face {
   font-family: "DMSans-Regular";
-  src: url("polices/DMSans-Regular.ttf") format("truetype");
+  src        : url("polices/DMSans-Regular.ttf") format("truetype");
 }
+
 /*instructions*/
 @font-face {
   font-family: "Roboto-Regular";
-  src: url("polices/Roboto-Regular.ttf") format("truetype");
+  src        : url("polices/Roboto-Regular.ttf") format("truetype");
 }
+
 /*all the rest*/
 @font-face {
   font-family: "Lato-Regular";
-  src: url("polices/Lato-Regular.ttf") format("truetype");
+  src        : url("polices/Lato-Regular.ttf") format("truetype");
 }
 
-/*Ci-dessous les caractéristiques communes à toute la page web*/ 
-body{
-  font-family: "Lato-Regular", Arial, Verdana, sans-serif; /* font used on all page unstead otherwise stated */
-  font-size: 100%; /* nota bene 100% i.e. 1rem = 16px  - else: confirm how many rem (for 32px show 2rem) */
+/*Ci-dessous les caractéristiques communes à toute la page web*/
+body {
+  font-family                               : "Lato-Regular", Arial, Verdana, sans-serif;
+  /* font used on all page unstead otherwise stated */
+  font-size                                 : 100%;
+  /* nota bene 100% i.e. 1rem = 16px  - else: confirm how many rem (for 32px show 2rem) */
 }
 
 /******************************************************************************************************/
 
-header{
-    display: flex;
-    justify-content: center;
+header {
+  display        : flex;
+  justify-content: center;
 }
 
-.logo{
-height: 93px;
-width: 268px;
+.logo {
+  height: 93px;
+  width : 268px;
 }
 
-main{
-  width:80%;
+main {
+  width : 80%;
   margin: 50px auto 0;
 }
 
-.mainSearchZone{
-  display: flex;  
-  flex-direction: row; 
-  /* width: 1240px;
-  height: 69px; */
-  align-items: stretch;
-  justify-content: flex-start;   
-  margin-top: 45px;      
-  margin-bottom: 45px; 
+/*Main Search bar*/
+.mainSearchZone {
+  display        : flex;
+  flex-direction : row;
+  align-items    : stretch;
+  justify-content: flex-start;
+  margin-top     : 45px;
+  margin-bottom  : 45px;
 }
 
-.mainSearch{
-  width: 1240px;
-  height: 40px;
-  padding-left: 15px;
-  font-family:"Lato-Regular", Arial, Verdana, sans-serif;
-  font-size: 0.7rem;
-  border: none;
-  background-color:#E7E7E7;
-  /* color:red; */
-  border-radius: 6px 0 0 6px;
+.mainSearch {
+  width           : 1240px;
+  height          : 40px;
+  padding-left    : 15px;
+  font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size       : 0.7rem;
+  border          : none;
+  background-color: #E7E7E7;
+  border-radius   : 6px 0 0 6px;
 }
 
-#searchicon{
-  display: block;
-  width: 60px;
-  height: 40px;
-  background-color:#E7E7E7;
-  color: black;
-  cursor: pointer; 
-  border:none;
-  border-radius: 0 6px 6px 0;
-  font-size: 20px;
-  padding-right: 10px;
+#searchicon {
+  display         : block;
+  width           : 60px;
+  height          : 40px;
+  background-color: #E7E7E7;
+  color           : black;
+  cursor          : pointer;
+  border          : none;
+  border-radius   : 0 6px 6px 0;
+  font-size       : 20px;
+  padding-right   : 10px;
 }
-     
-/* @media only screen and (max-width:1050px){  
-    #mainSearch{
-        
+
+/*Search by select*/
+
+i.far.fa-times-circle {
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  background-color: #3282F7;
+  color           : white;
+}
+
+.fa-chevron-down {
+  display         : block;
+  width           : 20px;
+  height          : 40px;
+  background-color: #3282F7;
+  color           : white;
+  cursor          : pointer;
+  border          : none;
+  border-radius   : 0 6px 6px 0;
+  font-size       : 15px;
+  padding-right   : 10px;
+}
+
+i.fas.fa-chevron-down {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+/*Tag button*/
+.tagZone {
+  display        : flex;
+  flex-direction : row;
+  align-items    : stretch;
+  justify-content: flex-start;
+  margin-top     : 45px;
+  margin-bottom  : 45px;
+}
+
+.tag {
+  width           : 60px;
+  height          : 40px;
+  padding-left    : 15px;
+  font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size       : 0.7rem;
+  border          : none;
+  background-color: #3282F7;
+  color           : white;
+  border-radius   : 6px 0 0 6px;
+}
+
+.fa-times-circle {
+  display            : block;
+  width              : 20px;
+  height             : 40px;
+
+  color              : white;
+  cursor             : pointer;
+  border             : none;
+  border-radius      : 0 6px 6px 0;
+  font-size          : 15px;
+  padding-right      : 10px;
+}
+
+/*Filter zone*/
+.filterZone{
+  margin: 0 0 0 0
+}
+
+/*Ingredients button*/
+.filterIngredients {
+  display        : flex;
+  flex-direction : row;
+  align-items    : stretch;
+  justify-content: flex-start;
+  margin-top     : 5px;
+  margin-bottom  : 5px;
+}
+
+.selectIngredients {
+  width           : 100px;
+  height          : 40px;
+  padding-left    : 15px;
+  font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size       : 1rem;
+  border          : none;
+  background-color: #3282F7;
+  color           : white;
+  border-radius   : 6px 0 0 6px;
+}
+
+#chevronIngredients {
+  background-color: #3282F7;
+}
+
+/*Appareil button*/
+.filterAppareil {
+  display        : flex;
+  flex-direction : row;
+  align-items    : stretch;
+  justify-content: flex-start;
+  margin-top     : 5px;
+  margin-bottom  : 5px;
+}
+
+.selectAppareil {
+  width           : 100px;
+  height          : 40px;
+  padding-left    : 15px;
+  font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size       : 1rem;
+  border          : none;
+  background-color: #68D9A4;
+  color           : white;
+  border-radius   : 6px 0 0 6px;
+}
+
+#chevronAppareil {
+  background-color: #68D9A4;
+}
+
+/*Ustensiles button*/
+.filterUstensiles {
+  display        : flex;
+  flex-direction : row;
+  align-items    : stretch;
+  justify-content: flex-start;
+  margin-top     : 5px;
+  margin-bottom  : 5px;
+}
+
+.selectUstensiles {
+  width           : 100px;
+  height          : 40px;
+  padding-left    : 15px;
+  font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size       : 1rem;
+  border          : none;
+  background-color: #ED6454;
+  color           : white;
+  border-radius   : 6px 0 0 6px;
+}
+
+#chevronUstensiles {
+  background-color: #ED6454;
+}
+
+@media only screen and (min-width:450px) {
+  .filterZone{
+    display: flex;
+    flex-direction: row;
     }
-} */
+
+    .filterIngredients {
+      margin-right: 20px;
+    }
+
+    .filterAppareil {
+      margin-right: 20px;
+    }
+
+    .filterUstensiles {
+      margin-right: 20px;
+    }
+}
+
+@media only screen and (min-width:769px) {
+  .mainSearch {
+    height   : 69px;
+    font-size: 1.2rem;
+  }
+
+  #searchicon {
+    height: 69px;
+  }
+
+  
+
+}
