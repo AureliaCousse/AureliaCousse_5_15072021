@@ -202,7 +202,7 @@ main {
   font-size       : 0.7rem;
   border          : none;
   background-color: #E7E7E7;
-  border-radius   : 6px 0 0 6px;
+  border-radius   : 5px 0 0 5px;
 }
 
 #searchicon {
@@ -213,7 +213,7 @@ main {
   color           : black;
   cursor          : pointer;
   border          : none;
-  border-radius   : 0 6px 6px 0;
+  border-radius   : 0 5px 5px 0;
   font-size       : 20px;
   padding-right   : 10px;
 }
@@ -236,7 +236,7 @@ i.far.fa-times-circle {
   color           : white;
   cursor          : pointer;
   border          : none;
-  border-radius   : 0 6px 6px 0;
+  border-radius   : 0 5px 5px 0;
   font-size       : 15px;
   padding-right   : 10px;
 }
@@ -266,24 +266,23 @@ i.fas.fa-chevron-down {
   border          : none;
   background-color: #3282F7;
   color           : white;
-  border-radius   : 6px 0 0 6px;
+  border-radius   : 5px 0 0 5px;
 }
 
 .fa-times-circle {
-  display            : block;
-  width              : 20px;
-  height             : 40px;
-
-  color              : white;
-  cursor             : pointer;
-  border             : none;
-  border-radius      : 0 6px 6px 0;
-  font-size          : 15px;
-  padding-right      : 10px;
+  display: block;
+  width  : 20px;
+  height : 40px;
+  color        : white;
+  cursor       : pointer;
+  border       : none;
+  border-radius: 0 5px 5px 0;
+  font-size    : 15px;
+  padding-right: 10px;
 }
 
 /*Filter zone*/
-.filterZone{
+.filterZone {
   margin: 0 0 0 0
 }
 
@@ -298,7 +297,7 @@ i.fas.fa-chevron-down {
 }
 
 .selectIngredients {
-  width           : 100px;
+  width           : 300px;
   height          : 40px;
   padding-left    : 15px;
   font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
@@ -306,15 +305,15 @@ i.fas.fa-chevron-down {
   border          : none;
   background-color: #3282F7;
   color           : white;
-  border-radius   : 6px 0 0 6px;
+  border-radius   : 5px 0 0 5px;
 }
 
 #chevronIngredients {
   background-color: #3282F7;
 }
 
-/*Appareil button*/
-.filterAppareil {
+/*Appliance button*/
+.filterAppliance {
   display        : flex;
   flex-direction : row;
   align-items    : stretch;
@@ -323,8 +322,8 @@ i.fas.fa-chevron-down {
   margin-bottom  : 5px;
 }
 
-.selectAppareil {
-  width           : 100px;
+.selectAppliance {
+  width           : 300px;
   height          : 40px;
   padding-left    : 15px;
   font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
@@ -332,15 +331,15 @@ i.fas.fa-chevron-down {
   border          : none;
   background-color: #68D9A4;
   color           : white;
-  border-radius   : 6px 0 0 6px;
+  border-radius   : 5px 0 0 5px;
 }
 
-#chevronAppareil {
+#chevronAppliance {
   background-color: #68D9A4;
 }
 
-/*Ustensiles button*/
-.filterUstensiles {
+/*Ustensils button*/
+.filterUstensils {
   display        : flex;
   flex-direction : row;
   align-items    : stretch;
@@ -349,8 +348,8 @@ i.fas.fa-chevron-down {
   margin-bottom  : 5px;
 }
 
-.selectUstensiles {
-  width           : 100px;
+.selectUstensils {
+  width           : 300px;
   height          : 40px;
   padding-left    : 15px;
   font-family     : "Lato-Regular", Arial, Verdana, sans-serif;
@@ -358,30 +357,34 @@ i.fas.fa-chevron-down {
   border          : none;
   background-color: #ED6454;
   color           : white;
-  border-radius   : 6px 0 0 6px;
+  border-radius   : 5px 0 0 5px;
 }
 
-#chevronUstensiles {
+#chevronUstensils {
   background-color: #ED6454;
 }
 
-@media only screen and (min-width:450px) {
-  .filterZone{
-    display: flex;
-    flex-direction: row;
-    }
+/*Recipe List*/
 
-    .filterIngredients {
-      margin-right: 20px;
-    }
+.recipe {
+  display         : flex;
+  flex-direction  : column;
+  height: 300px;
+  border-radius   : 5px;
+  overflow        : hidden;
+  background-color: #E7E7E7;
+  margin-top: 20px;
+}
 
-    .filterAppareil {
-      margin-right: 20px;
-    }
+.recipeHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 
-    .filterUstensiles {
-      margin-right: 20px;
-    }
+
+.recipePhoto{
+  height: 178px;
 }
 
 @media only screen and (min-width:769px) {
@@ -394,6 +397,51 @@ i.fas.fa-chevron-down {
     height: 69px;
   }
 
-  
+  .filterZone {
+    display       : flex;
+    flex-direction: row;
+  } 
+
+  /*Ingredients button*/
+  .selectIngredients {
+    width           : 170px;
+    height          : 69px;
+  }
+  #chevronIngredients {
+    height: 69px;
+    margin-right: 20px;
+  }
+
+  /*Appliance button*/
+  .selectAppliance {
+    width           : 170px;
+    height          : 69px;
+  }
+  #chevronAppliance {
+    height: 69px;
+    margin-right: 20px;
+  }
+
+  /*Ustensils button*/
+  .selectUstensils {
+    width           : 170px;
+    height          : 69px;
+  }
+  #chevronUstensils {
+    height: 69px;
+    margin-right: 20px;
+  }
+
+  /*Recipe List*/
+
+#recipeList {
+  display         : flex; 
+  justify-content: space-evenly;
+}
+
+.recipe{
+  width           :33%;
+  margin: 10px 20px 10px 0;
+}
 
 }

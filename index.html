@@ -4,28 +4,31 @@
 <head>
   <meta charset="utf-8" /> <!-- to keep the encoding style & charater set -->
   <title>Les petits plats</title> <!-- Title of this web page (on Google, tabs…) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- pour l'utilisation de # affichages selon le nav/appareil utilisé-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- pour l'utilisation de # affichages selon le nav/appareil utilisé-->
   <meta name="description" content="Site de recettes de cuisine" />
   <link rel="stylesheet" href="styles.css" /> <!-- Link to the CSS page-->
   <link rel="shortcut icon" sizes="16x16" href="https://aureliacousse.github.io/AureliaCousse_5_15072021/favicon.ico">
-  <script src="https://kit.fontawesome.com/32e4f6682e.js" crossorigin="anonymous"></script> <!-- Personal Fontawesome icon kit link-->
-  
+  <script src="https://kit.fontawesome.com/32e4f6682e.js" crossorigin="anonymous"></script>
+  <!-- Personal Fontawesome icon kit link-->
+
 </head>
 
 <body>
 
   <header>
-      <img src="images/logo.png" class="logo" alt="logo les petits plats" />
+    <img src="images/logo.png" class="logo" alt="logo les petits plats" />
   </header>
 
 
   <main>
-   
-    <div class="mainSearchZone">             
-      <input class="mainSearch" type="search" placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette" >
+
+    <div class="mainSearchZone">
+      <input class="mainSearch" type="search"
+        placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
       <!-- <button class="submit" id="submit">Rechercher</button> -->
       <button class="searchFormSubmitinputIcon fas fa-search" id="searchicon"></button>
-  </div>
+    </div>
     <!-- <div class="mainSearchZone">
       <form action="" data-forms="search" data-input-id="mainSearch" id="searchForm" method="get">
         <div class="search">
@@ -44,24 +47,101 @@
     </div>
 
     <div class="filterZone">
-      <div class="filterIngredients"> 
-        <button class="selectIngredients" type="button">Ingrédients</button>  
-        <i class="fas fa-chevron-down" id="chevronIngredients"></i>   
-      </div> 
+      <div class="filterIngredients">
+        <button class="selectIngredients" type="button">Ingrédients</button>
+        <i class="fas fa-chevron-down" id="chevronIngredients"></i>
+      </div>
 
-      <div class="filterAppareil">  
-        <button class="selectAppareil" type="button">Appareil</button>  
-        <i class="fas fa-chevron-down" id="chevronAppareil"></i>       
-      </div> 
-      <div class="filterUstensiles">  
-        <button class="selectUstensiles" type="button">Ustensiles</button>  
-        <i class="fas fa-chevron-down" id="chevronUstensiles"></i>       
+      <div class="filterAppliance">
+        <button class="selectAppliance" type="button">Appareil</button>
+        <i class="fas fa-chevron-down" id="chevronAppliance"></i>
+      </div>
+      <div class="filterUstensils">
+        <button class="selectUstensils" type="button">Ustensiles</button>
+        <i class="fas fa-chevron-down" id="chevronUstensils"></i>
       </div>
     </div>
 
-    <div class="recipeList">
+    <ul id="recipeList">
+      <li class="recipe" id="1">
+        <img class="recipePhoto" alt="photo recipe">
 
-    </div>
+        <div class="recipeInfo">
+
+          <div class="recipeHeader">
+            <h1 class="name">name</h1>
+            <i class="far fa-clock" id="clockTime"></i>
+            <h1 class="time">min</h1>
+          </div>
+
+          <h1 class="servings"></h1>
+
+          <ul class="ingredientList">
+            <li class="ingredient"></li>
+            <li class="quantity"></li>
+            <li class="unit"></li>
+          </ul>
+
+          <ul class="instructions">
+            <li class="description"></li>
+            <li class="appliance"></li>
+            <li class="ustensils"></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="recipe" id="2">
+        <img class="recipePhoto" alt="photo recipe">
+
+        <div class="recipeInfo">
+
+          <div class="recipeHeader">
+            <h1 class="name"></h1>
+            <i class="far fa-clock" id="clockTime"></i>
+            <h1 class="time">min</h1>
+            <h1 class="servings"></h1>
+          </div>
+
+          <ul class="ingredientList">
+            <li class="ingredient"></li>
+            <li class="quantity"></li>
+            <li class="unit"></li>
+          </ul>
+
+          <ul class="instructions">
+            <li class="description"></li>
+            <li class="appliance"></li>
+            <li class="ustensils"></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="recipe" id="1">
+        <img class="recipePhoto" alt="photo recipe">
+
+        <div class="recipeInfo">
+
+          <div class="recipeHeader">
+            <h1 class="name"></h1>
+            <i class="far fa-clock" id="clockTime"></i>
+            <h1 class="time">min</h1>
+            <h1 class="servings"></h1>
+          </div>
+
+          <ul class="ingredientList">
+            <li class="ingredient"></li>
+            <li class="quantity"></li>
+            <li class="unit"></li>
+          </ul>
+
+          <ul class="instructions">
+            <li class="description"></li>
+            <li class="appliance"></li>
+            <li class="ustensils"></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
 
 
 
