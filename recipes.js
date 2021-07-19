@@ -1723,19 +1723,6 @@ const recipes = [
     }
 ]
 
-/*******************************************************************/
-
-//to confirm what kind of input is expected in field//
-let nameRegex = /^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF-\s]+$/; //accepte minuscule majuscule tiret et espaces
-let servingsRegex = /^[0-99]$/;
-let ingredientsRegex = /^[a-zA-Z-\s]+$/;
-let quantityRegex = /^[0-9999]$/;;
-let unitRegex = /^[a-zA-Z]+$/;
-let timeRegex = /^[0-999]$/;
-let descriptionRegex = /^[a-zA-Z-\s]+$/;
-let applianceRegex = /^[a-zA-Z-\s]+$/;
-let ustensilesRegex = /^[a-zA-Z-\s]+$/;
-
 
 
 
