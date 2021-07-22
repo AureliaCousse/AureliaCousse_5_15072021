@@ -20,10 +20,11 @@
   <main>
 
     <div class="mainSearchZone">
-      <input class="mainSearch" type="search"
+      <input class="mainSearch" type="text" id="userInput" onkeyup="myFunction()"
         placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette"><!-- <button class="submit" id="submit">Rechercher</button> -->
       <button class="searchFormSubmitinputIcon fas fa-search" id="searchicon"></button>
     </div>
+    <ul id="recipeData"></ul>
 
     <div class="tagZone">
       <button class="tag" type="button">mot-clé</button>
@@ -78,6 +79,7 @@
   
   <script src="recipes.js"></script>
   <script src="dynamique.js"></script>
+  <script src="draft.js"></script>
 </body>
 
 </html>
