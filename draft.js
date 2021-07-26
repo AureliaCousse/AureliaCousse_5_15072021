@@ -1,25 +1,27 @@
 /*SEARCH BAR*/
 
-function myFunction() {
-    // Declare variables
-    var input, filter, txtValue;
-    input = document.getElementById('userInput');
-    filter = input.value.toUpperCase();
-    
-  
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i <recipeTab.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  }
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("keyup", function(){
+  const userInput = searchInput.value;
+
+  console.log(userInput);
 
 
+  /* on filtre pour aller chercher tous les mots commencant par les caracteres de la barre de recherche que ce soit en mimuscules ou majuscules */
+const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(userInput.toLocaleLowerCase()));
+
+let suggestion = "";
+
+if(userInput !=""){
+ result.forEach(resultItem =>
+  suggestion +=
+    "<div class='suggestion'>"+resultItem.name+"</div>"   /* OU  `div class='suggestion'>${resultItem.name}</div>`*/
+  )
+ }
+document.getElementById("suggestion").innerHTML = suggestion;
+
+
+});
 
 
 

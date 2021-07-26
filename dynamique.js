@@ -1,14 +1,3 @@
-//to confirm what kind of input is expected in field//
-let nameRegex = /^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF-\s]+$/; //accepte minuscule majuscule tiret et espaces
-let servingsRegex = /^[0-99]$/;
-let ingredientsRegex = /^[a-zA-Z-\s]+$/;
-let quantityRegex = /^[0-9999]$/;;
-let unitRegex = /^[a-zA-Z]+$/;
-let timeRegex = /^[0-999]$/;
-let descriptionRegex = /^[a-zA-Z-\s]+$/;
-let applianceRegex = /^[a-zA-Z-\s]+$/;
-let ustensilsRegex = /^[a-zA-Z-\s]+$/;
-
 /*on crée le tableau vide où seront stockées ensuite les recettes*/
 let tabRecette = [];
 
@@ -31,7 +20,6 @@ function filtreRecette(recipeTab) {
     }
 }
 
-
 /** Fonction 2 pour afficher toutes les recettes en fonction des filtres
 * @param recipeTab: le tableau contenant les recettes à afficher
 */
@@ -43,7 +31,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on crée la div generale vide qui va contenir tous les objects nécessaire constituant la boite recette*/
         let newRecipe = document.createElement("a");
         newRecipe.setAttribute("class", "recipe");
-        newRecipe.setAttribute("href", "newRecipe.html");
+        // newRecipe.setAttribute("href", "newRecipe.html"); *************    A REMETTRE QD CSS TERMINE   ***************
         newRecipe.setAttribute("id", i + 1);
 
         /*on crée une image*/
@@ -85,33 +73,39 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         recipeHeader.appendChild(timeIcon);
         recipeHeader.appendChild(recipeTime);
 
+        /*on crée la div recipeDetails*/
+        let recipeDetails = document.createElement("div");
+        recipeDetails.setAttribute("class", "recipeDetails");
+
+        /*on met l'objet recipeDetails dans l'objet div generale:*/
+        newRecipe.appendChild(recipeDetails);
+
 
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
         let instructions = recipeTab[i]["description"];
         const maxLength = 300;
 
         /*on crée la div recipeDescription*/
-
         let recipeDescription = document.createElement("div");
-        recipeDescription.setAttribute("class", "description");
-        recipeDescription.innerHTML = instructions;  /*on va chercher les instructions de la recette*/
+        recipeDescription.setAttribute("class", "recipeDescription");
+        recipeDescription.innerHTML = instructions.length>maxLength ? instructions.substring(0, maxLength) + "..." : instructions;  /*on va chercher les instructions de la recette*/
+            /* instructions ternaires: ? => if // ":" =>else*/
+
+        // to be deleted (replaced by line85 all in 1):
+        //   if (instructions.length > maxLength) {
+        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la llogueur des instructions - si trop long; ...*/
+        // }
 
 
-
-        if (instructions.length > maxLength) {
-            recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la llogueur des instructions - si trop long; ...*/
-        }
-        /*on met l'objet recipeInstructions dans l'objet div generale recipe:*/
-        newRecipe.appendChild(recipeDescription);
-
-
+        /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
+        recipeDetails.appendChild(recipeDescription);
 
         /*on crée la liste ul des recipeIngredients*/
         let recipeIngredients = document.createElement("ul");
         recipeIngredients.setAttribute("class", "ingredients");
 
         /*on met l'objet recipeIngredients dans l'objet div generale recipe:*/
-        newRecipe.appendChild(recipeIngredients);
+        recipeDetails.appendChild(recipeIngredients);
 
         let ingredientsTab = recipeTab[i]["ingredients"];
 
@@ -124,7 +118,9 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
             /*on crée un élément li qui contiendra les info ingredient+quantity+unit si existant*/
             let ingredientInfoList = document.createElement("li");
-            ingredientInfoList.innerHTML = ingredientData["ingredient"] + " "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
+            ingredientInfoList.innerHTML = ingredientData["ingredient"] + ":  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
+
+           /* OU BIEN ECRIRE: ingredientInfoList.innerHTML = ingredientData.ingredient + " "*/
 
             /*dans le cas où seul l'ingrédient apparait sans quty ni unit (par exemple le sel)*/
             if (ingredientData.hasOwnProperty("quantity") == true) { /*dans js possible de ne pas mettre ==true (true est implicite)*/
@@ -137,6 +133,13 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
             /*on met l'objet li ingredient+qty+unit dans l'objet ul recipeIngredients*/
             recipeIngredients.appendChild(ingredientInfoList);
         }
+
+
+
+
+
+
+
 
         /*on ajoute le tout au fichier html*/
         let recipeList = document.getElementById("recipeList"); /*cette div est déjà créée dans fichier html*/

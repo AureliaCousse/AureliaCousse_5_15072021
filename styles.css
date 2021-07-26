@@ -378,6 +378,12 @@ i.fas.fa-chevron-down {
   padding: 15px;
 }
 
+.recipePhoto {
+  height: 178px;
+  background-color: #C7BEBE;
+  margin: -15px -15px 15px -15px;
+}
+
 .recipeHeader {
   display        : flex;
   flex-direction : row;
@@ -393,18 +399,21 @@ i.fas.fa-chevron-down {
   font-weight: 700;
 }
 
-.recipePhoto {
-  height: 178px;
-  background-color: #C7BEBE;
-  margin: -15px -15px 15px -15px;
+.recipeDetails{
+  display        : flex;
+  flex-direction : row-reverse;
+  margin-top: 20px; 
 }
 
-.description{
+.recipeIngredients{
+width: 150px;
+}
+
+.recipeDescription{
   font-family: "Roboto-Regular", Arial, Verdana, sans-serif;
   font-size: 12px;
   width: 195px;
   height: 109px;
-  margin : 20px -10px 0 165px;
 }
 
 @media only screen and (min-width:769px) {
