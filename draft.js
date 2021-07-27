@@ -1,27 +1,70 @@
 /*SEARCH BAR*/
 
-const searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("keyup", function(){
-  const userInput = searchInput.value;
+const mainInput = document.getElementById("mainInput");
 
-  console.log(userInput);
+mainInput.addEventListener("keyup", function(){
+const mainInput = mainInput.value;
 
-
-  /* on filtre pour aller chercher tous les mots commencant par les caracteres de la barre de recherche que ce soit en mimuscules ou majuscules */
 const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(userInput.toLocaleLowerCase()));
 
-let suggestion = "";
+let suggestions = "";
 
-if(userInput !=""){
- result.forEach(resultItem =>
-  suggestion +=
-    "<div class='suggestion'>"+resultItem.name+"</div>"   /* OU  `div class='suggestion'>${resultItem.name}</div>`*/
+if (mainInput !=""){
+  result.forEach(resultItem => 
+    suggestions +=
+    "<div class='suggestion'>"+resultItem.name+"</div>"
   )
- }
-document.getElementById("suggestion").innerHTML = suggestion;
+  }
+
+  document.getElementById("suggestions)".innerHTML = suggestions);
+
+})
+
+ 
 
 
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const searchInput = document.getElementById("searchInput");
+// searchInput.addEventListener("keyup", function(){
+//   const userInput = searchInput.value;
+
+//   console.log(userInput);
+
+
+//   /* on filtre pour aller chercher tous les mots commencant par les caracteres dans la barre de recherche que ce soit en mimuscules ou majuscules */
+// const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(userInput.toLocaleLowerCase()));
+
+// // const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(userInput.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(userInput.toLocaleLowerCase()) );
+
+// let suggestion = "";
+
+// if(userInput !=""){
+//  result.forEach(resultItem =>
+//   suggestion +=
+//     "<div class='suggestion'>"+resultItem.name+"</div>"   /* OU  `div class='suggestion'>${resultItem.name}</div>`*/
+//   )
+//  }
+// document.getElementById("suggestion").innerHTML = suggestion;
+
+// });
 
 
 
