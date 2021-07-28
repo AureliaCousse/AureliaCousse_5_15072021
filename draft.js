@@ -10,10 +10,10 @@ searchinput.addEventListener("keyup", function(){
 
   let suggestion = "";
 
-  if (input !=""){
+  if (input !=""){  /*if field input is not empty show result if not show nothing*/
     result.forEach(resultItem => 
       suggestion += `
-      <div class="suggestion">${resultItem.name}</div>`
+      <div class="suggestions">${resultItem.name}</div>`
     )
   }
 
