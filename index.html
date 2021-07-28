@@ -20,10 +20,14 @@
   <main>
 
     <div class="mainSearchZone">
-      <input class="mainInput" type="text" id="mainInput" onkeyup="myFunction()"
-        placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette"><!-- <button class="submit" id="submit">Rechercher</button> -->
+      <div class="userInput">  
+        <input class="input" type="text" id="searchInput"
+          placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette"><!-- <button class="submit" id="submit">Rechercher</button> -->
+        <div id="suggestions"></div>
+      </div>
       <button class="searchFormSubmitinputIcon fas fa-search" id="searchicon"></button>
     </div>
+
     <ul id="recipeData"></ul>
 
     <div class="tagZone">

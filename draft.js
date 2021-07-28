@@ -1,23 +1,24 @@
 /*SEARCH BAR*/
 
-const mainInput = document.getElementById("mainInput");
+const searchinput = document.getElementById("searchInput");
 
-mainInput.addEventListener("keyup", function(){
-const mainInput = mainInput.value;
+searchinput.addEventListener("keyup", function(){
 
-const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(userInput.toLocaleLowerCase()));
+  const input = searchinput.value;
 
-let suggestions = "";
+  const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
 
-if (mainInput !=""){
-  result.forEach(resultItem => 
-    suggestions +=
-    "<div class='suggestion'>"+resultItem.name+"</div>"
-  )
+  let suggestion = "";
+
+  if (input !=""){
+    result.forEach(resultItem => 
+      suggestion += `
+      <div class="suggestion">${resultItem.name}</div>`
+    )
   }
 
-  document.getElementById("suggestions)".innerHTML = suggestions);
-
+  document.getElementById("suggestions").innerHTML = suggestion;
+  
 })
 
  

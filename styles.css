@@ -193,9 +193,10 @@ main {
   justify-content: flex-start;
   margin-top     : 45px;
   margin-bottom  : 45px;
+  
 }
 
-.mainInput {
+#searchInput {
   width           : 1240px;
   height          : 69px;
   padding-left    : 15px;
@@ -206,6 +207,16 @@ main {
   background-color: #E7E7E7;
   border-radius   : 5px 0 0 5px;
 }
+
+/* #suggestions{
+  color:red;
+} */
+
+#suggestions:hover{
+  color:white;
+  background-color: blueviolet;
+}
+
 
 #searchicon {
   display         : block;
