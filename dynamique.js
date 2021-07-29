@@ -2,10 +2,10 @@
 let tabRecette = [];
 
 
-/*On appelle les fonctions*/
+/*On appelle les fonctions (on aurait pu ne créer qu'une seule fonction display all recipes puisque on ne nous demande pas de filtrer les recettes elles sont toutes listée*/
 
 filtreRecette(tabRecette); /*on appelle la fonction 1 ci-dessous qui permet d'ajouter les recettes du fichier js*/
-showRecipes(tabRecette);/*on appelle la fonction 2 ci-dessous qui permet d'aafficher les recettes*/
+showRecipes(tabRecette);/*on appelle la fonction 2 ci-dessous qui permet d'afficher les recettes*/
 
 
 
@@ -14,7 +14,6 @@ showRecipes(tabRecette);/*on appelle la fonction 2 ci-dessous qui permet d'aaffi
 */
 
 function filtreRecette(recipeTab) {
-    // a developper par defaut ajoute toutes les recettes
     for (let i = 0; i < recipes.length; i++) {
         recipeTab.push(recipes[i])
     }
