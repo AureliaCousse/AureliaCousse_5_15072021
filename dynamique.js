@@ -1,29 +1,14 @@
-/*on crée le tableau vide où seront stockées ensuite les recettes*/
-let tabRecette = [];
 
-
-/*On appelle les fonctions (on aurait pu ne créer qu'une seule fonction display all recipes puisque on ne nous demande pas de filtrer les recettes elles sont toutes listée*/
-
-filtreRecette(tabRecette); /*on appelle la fonction 1 ci-dessous qui permet d'ajouter les recettes du fichier js*/
-showRecipes(tabRecette);/*on appelle la fonction 2 ci-dessous qui permet d'afficher les recettes*/
+showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
 
 
 
-/** Fonction 1 pour ajouter les recettes dans le tableau en fonction des filtres
-* @param recipeTab: le tableau contenant les recettes à afficher
-*/
 
-function filtreRecette(recipeTab) {
-    for (let i = 0; i < recipes.length; i++) {
-        recipeTab.push(recipes[i])
-    }
-}
 
-/** Fonction 2 pour afficher toutes les recettes en fonction des filtres
+/** Fonction pour afficher toutes les recettes en paramètre
 * @param recipeTab: le tableau contenant les recettes à afficher
 */
 function showRecipes(recipeTab) { /*fonction qui contient:*/
-
     /*on lance une boucle pour afficher toutes les recettes en répétant le code en partant de index 0 et on l'implemente autant de fois jusque indice soit égal à recipeTab.length (cad aller jusque à la fin du tableau des recettes*/
     for (let i = 0; i < recipeTab.length; i++) {
 
@@ -92,7 +77,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
         // to be deleted (replaced by line85 all in 1):
         //   if (instructions.length > maxLength) {
-        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la llogueur des instructions - si trop long; ...*/
+        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la longueur des instructions - si trop long; ...*/
         // }
 
 
@@ -117,7 +102,8 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
             /*on crée un élément li qui contiendra les info ingredient+quantity+unit si existant*/
             let ingredientInfoList = document.createElement("li");
-            ingredientInfoList.innerHTML = ingredientData["ingredient"] + ":  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
+            ingredientInfoList.innerHTML = `<b>${ingredientData.ingredient}</b>: `
+            // "<b>" + ingredientData["ingredient"] + "</b>:  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
 
            /* OU BIEN ECRIRE: ingredientInfoList.innerHTML = ingredientData.ingredient + " "*/
 
@@ -149,11 +135,11 @@ searchinput.addEventListener("keyup", function(){
   if (input !=""){  /*if field input is not empty show result if not show nothing*/
     result.forEach(resultItem => 
       suggestion += `
-      <div class="suggestions">${resultItem.name}</div>`
+      <div class="suggSearch">${resultItem.name}</div>`
     )
   }
 
-  document.getElementById("suggestions").innerHTML = suggestion;
+  document.getElementById("suggSearch").innerHTML = suggestion;
   
 })
 

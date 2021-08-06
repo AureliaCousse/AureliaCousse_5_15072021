@@ -23,16 +23,30 @@
       <div class="userInput">  
         <input class="input" type="text" id="searchInput"
           placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
-        <div id="suggestions"></div>
-      </div>
-      <button class="searchFormSubmitinputIcon fas fa-search" id="searchicon"></button>
+        <button class="searchFormSubmitinputIcon fas fa-search" id="searchicon"></button>
+        </div>
+      <div id="suggSearch"></div>
     </div>
 
     <ul id="recipeData"></ul>
 
+
     <div class="tagZone">
-      <button class="tag" type="button">mot-clé</button>
-      <i class="far fa-times-circle"></i>
+      <div class="tag" id="tagIngr">
+        <label>mot clé</label>
+        <button class="tagBtn far fa-times-circle" type="button"></button>
+      </div>
+
+      <div class="tag" id="tagApp">
+        <label>mot clé</label>
+        <button class="tagBtn far fa-times-circle" type="button"></button>
+      </div>
+
+      <div class="tag" id="tagUst">
+        <label>mot clé</label>
+        <button class="tagBtn far fa-times-circle" type="button"></button>
+      </div>
+      
     </div>
 
 
@@ -40,29 +54,29 @@
 
       <div class="filter" id="ingrFilter">
         <div class="filterInput">  
-          <input class="input" type="text" id="userIngr"
+          <input class="inputFilter" type="text" id="userIngr"
             placeholder="Ingrédients">
-          <div id="suggestionsIngr"></div>
+          <button class="selectBtn fas fa-chevron-down"></button>
         </div>
-        <button class="selectBtn fas fa-chevron-down" id="chevronIngr"></button>
+        <div class="suggestions" id="suggIngr"></div>      
       </div>
 
       <div class="filter" id="appFilter">
         <div class="filterInput">  
-          <input class="input" type="text" id="userApp"
+          <input class="inputFilter" type="text" id="userApp"
             placeholder="Appareil">
-          <div id="suggestionsApp"></div>
+          <button class="selectBtn fas fa-chevron-down"></button>
         </div>
-        <button class="selectBtn fas fa-chevron-down" id="chevronApp"></button>
+        <div class="suggestions" id="suggApp"></div>      
       </div>
 
       <div class="filter" id="ustFilter">
         <div class="filterInput">  
-          <input class="input" type="text" id="userUst"
+          <input class="inputFilter" type="text" id="userUst"
             placeholder="Ustensiles">
-          <div id="suggestionsUst"></div>
+          <button class="selectBtn fas fa-chevron-down"></button>
         </div>
-        <button class="selectBtn fas fa-chevron-down" id="chevronUst"></button>
+        <div class="suggestions" id="suggUst"></div>      
       </div>
     
     </div>
