@@ -2,16 +2,10 @@
 /* version 2 + rapide:  on crée la tab contenant tous les ingrédients pour ne les charger qu'une seule fois dans le tableau puis la fonction servira à n'afficher que ceux correspondant à la recherche
 
 
-
 /*INGREDIENT TAB*/
 
 /*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
 let tabIngredients = getAllIngr();
-
-
-
-/* Boucle qui permet de remplir le tableau avec tous les ingrédients en évitant les doublons*/
-
 
 /*on écoute ce qui est dans le tableau*/
 
@@ -39,11 +33,6 @@ searchIngr.addEventListener("keyup", function(){
     document.getElementById("suggIngr").innerHTML = suggestion;
 })
 
-
-
-
-
-
 function getAllIngr(){
 
     let tabAllIngr = []; /*on crée un tableau vide contenant tous les ingredients*/
@@ -64,22 +53,29 @@ function getAllIngr(){
     }) 
 
     return tabAllIngr;
-
 }
-
-
 
 function addTag(element,type){
     if(type=='ingredient'){
-        let tag = document.getElementById('tagIngr'); /*on va chercher le tag qui correspond au type ingredient sur lequel on a cliqué dans les suggestions  */
-        tag.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
+        let tagIngr = document.getElementById('tagIngr'); /*on va chercher le tag qui correspond au type ingredient sur lequel on a cliqué dans les suggestions  */
+        tagIngr.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
 
-        let label = tag.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
+        let label = tagIngr.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
         label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
     }
-    else if(type=='appareil'){
-    }
+    else if(type=='ingredient'){
+    }   
+} 
 
-    
+/**/
+
+const tagBtn = document.querySelectorAll(".tagBtn");
+
+tagBtn.forEach((Btn) => Btn.addEventListener("click", closeTag));
+
+function closetag(){
+    tagIngr.style.display = 'none'; /* on fait disparaitre le tag pour annuler le display block du CSS*/ 
 }
+
+
 

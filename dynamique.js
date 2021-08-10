@@ -142,17 +142,9 @@ searchinput.addEventListener("keyup", function(){
   document.getElementById("suggSearch").innerHTML = suggestion;
   
 })
-
-
-
-
-
-
-
-
         /*on ajoute le tout au fichier html*/
         let recipeList = document.getElementById("recipeList"); /*cette div est déjà créée dans fichier html*/
         recipeList.appendChild(newRecipe);
-
     }
 }
+
