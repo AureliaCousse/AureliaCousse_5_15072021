@@ -67,14 +67,14 @@ function addTag(element,type){
     }   
 } 
 
-/**/
+/*Close Tag*/
 
 const tagBtn = document.querySelectorAll(".tagBtn");
 
 tagBtn.forEach((Btn) => Btn.addEventListener("click", closeTag));
 
-function closetag(){
-    tagIngr.style.display = 'none'; /* on fait disparaitre le tag pour annuler le display block du CSS*/ 
+function closeTag(){
+    tagIngr.style.display = 'none'; 
 }
 
 
