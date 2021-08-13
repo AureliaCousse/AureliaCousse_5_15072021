@@ -148,3 +148,192 @@ searchinput.addEventListener("keyup", function(){
     }
 }
 
+/*INGREDIENT TAB*/
+
+/*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
+let tabIngredients = getAllIngr();
+
+/*on écoute ce qui est dans le tableau*/
+
+const searchIngr = document.getElementById("userIngr"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userIngr*/
+
+searchIngr.addEventListener("keyup", function(){
+
+    const input = searchIngr.value;
+
+    let suggestion = "";
+
+    if (input !=""){ /*if input is not empty */
+    
+       tabIngredients.forEach(currentIngredient=>{ /*on parcourt tout le tableau */
+
+        if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*et on verifie pour chaque ingredient si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis illeurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+
+        suggestion += `
+        <div class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
+            
+        }  
+    }) 
+    }
+    
+    document.getElementById("suggIngr").innerHTML = suggestion;
+})
+
+function getAllIngr(){
+
+    let tabAllIngr = []; /*on crée un tableau vide contenant tous les ingredients*/
+
+    recipes.forEach(recette=>{ /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
+
+        recette.ingredients.forEach(currentIngredient=>{   /*current ingredient représente chaque pavé ingredient+qty+unit dans le tableau général des ingrédients d'une recette donnéee*/
+        /*currentIngredient n'existe que pour cette boucle: c'est une variable locale donc on peut réutliser le terme dans une autre boucle, fonction etc...*/
+
+        let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle locale*/
+
+            if (!tabAllIngr.includes(ingr.toLowerCase())){  /*si un ingrédient d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ingrédients, on l'affiche*/
+                /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en miniscules; on utilise CSS text transorm capitalize pour afficher mots avec 1ère lettre en majuscule*/
+            
+                tabAllIngr.push(ingr.toLowerCase()); /*push: à chaque boucle, on ajoute l' ingrédient si correspondant à la recherche*/ 
+            } 
+        })   
+    }) 
+
+    return tabAllIngr;
+}
+
+
+/*APPAREILS TAB*/
+
+/*on crée le tableau vide où seront stockés ensuite tous les appareils*/
+let tabAppareils = getAllApp();
+
+/*on écoute ce qui est dans le tableau*/
+
+const searchApp = document.getElementById("userApp"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userApp*/
+
+searchApp.addEventListener("keyup", function(){
+
+    const inputApp = searchApp.value;
+
+    let suggestion = "";
+
+    if (inputApp !=""){ /*if input is not empty */
+    
+       tabAppareils.forEach(currentAppareil=>{ /*on parcourt tout le tableau */
+
+        if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())){ /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+
+        suggestion += `
+        <div class="suggApp" onclick = "addTag(this,'appareil')">${currentAppareil}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
+            
+        }  
+    }) 
+    }
+    
+    document.getElementById("suggApp").innerHTML = suggestion;
+})
+
+function getAllApp(){
+
+    let tabAllApp = []; /*on crée un tableau vide contenant tous les appareils*/
+
+    recipes.forEach(recette=>{ /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
+
+        let app = recette.appliance; /*variable pour aller chercher l'info appareil dans chaque recette*/
+
+            if (!tabAllApp.includes(app.toLowerCase())){  /*si un ingrédient d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ingrédients, on l'affiche*/
+                /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en miniscules; on utilise CSS text transorm capitalize pour afficher mots avec 1ère lettre en majuscule*/
+            
+                tabAllApp.push(app.toLowerCase()); /*push: à chaque boucle, on ajoute l' appareil si correspondant à la recherche*/ 
+            }   
+    }) 
+
+    return tabAllApp;
+}
+
+
+
+
+/*USTENSILES TAB*/
+
+/*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
+let tabUstensiles = getAllUst();
+
+/*on écoute ce qui est dans le tableau*/
+
+const searchUst = document.getElementById("userUst"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userUst*/
+
+searchUst.addEventListener("keyup", function(){
+
+    const input = searchUst.value;
+
+    let suggestion = "";
+
+    if (input !=""){ /*if input is not empty */
+    
+       tabUstensiles.forEach(currentUstensile=>{ /*on parcourt tout le tableau */
+
+        if (currentUstensile.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*et on verifie pour chaque ingredient si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis illeurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+
+        suggestion += `
+        <div class="suggUst" onclick = "addTag(this,'ustensils')">${currentUstensile}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
+            
+        }  
+    }) 
+    }
+    
+    document.getElementById("suggUst").innerHTML = suggestion;
+})
+
+function getAllUst(){
+
+    let tabAllUst = []; /*on crée un tableau vide contenant tous les ustensiles*/
+
+    recipes.forEach(recette=>{ /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
+
+        recette.ustensils.forEach(currentUstensile=>{   /*current ingredient représente chaque pavé ingredient+qty+unit dans le tableau général des ingrédients d'une recette donnéee*/
+        /*currentIngredient n'existe que pour cette boucle: c'est une variable locale donc on peut réutliser le terme dans une autre boucle, fonction etc...*/
+
+        let ust = currentUstensile; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle locale*/
+
+            if (!tabAllUst.includes(ust.toLowerCase())){  /*si un ingrédient d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ingrédients, on l'affiche*/
+                /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en miniscules; on utilise CSS text transorm capitalize pour afficher mots avec 1ère lettre en majuscule*/
+            
+                tabAllUst.push(ust.toLowerCase()); /*push: à chaque boucle, on ajoute l' ingrédient si correspondant à la recherche*/ 
+            } 
+        })   
+    }) 
+
+    return tabAllUst;
+}
+
+function addTag(element,type){
+    if(type=='ingredient'){
+        let tagIngr = document.getElementById('tagIngr'); /*on va chercher le tag qui correspond au type ingredient sur lequel on a cliqué dans les suggestions  */
+        tagIngr.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
+
+        let label = tagIngr.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
+        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+    }
+    else if(type=='appareil'){
+        let tagApp = document.getElementById('tagApp'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
+        tagApp.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
+
+        let label = tagApp.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
+        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+    }   
+    else if(type=='ustensils'){
+        let tagUst = document.getElementById('tagUst'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
+        tagUst.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
+
+        let label = tagUst.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
+        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+    }   
+} 
+
+/*Close Tag*/
+
+function closeTag(tag){
+    tag.parentNode.style.display = 'none'; 
+  }
+  

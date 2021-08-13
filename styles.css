@@ -217,6 +217,7 @@ main {
 
 .inputSearch::placeholder {
   color: #757474;
+  /* text-overflow: ellipsis; */ /*A revoir: ne marche pas???*/
 }
 
 .searchBtn {
@@ -355,6 +356,11 @@ i.far.fa-times-circle {
   background-color: transparent;
   border          : transparent;
   color           : white;
+}
+
+.selectBtn.fa-chevron-up {
+
+
 }
 
 .suggestions {
