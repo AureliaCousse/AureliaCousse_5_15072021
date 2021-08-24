@@ -110,7 +110,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
                 ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
             if (ingredientData.hasOwnProperty("unite") == true) {
-                ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
+                ingredientInfoList.innerHTML += ingredientData["unite"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
 
             /*on met l'objet li ingredient+qty+unit dans l'objet ul recipeIngredients*/
@@ -134,7 +134,7 @@ searchinput.addEventListener("keyup", function(){
   showRecipes(result);
   let suggestion = "";
 
-  if (input !=""){  /*if field input is not empty show result if not show nothing*/
+  if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
     result.forEach(resultItem => 
       suggestion += `
       <div class="suggSearch">${resultItem.name}</div>`
