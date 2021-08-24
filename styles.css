@@ -198,7 +198,7 @@ main {
   background-color: #E7E7E7;
 }
 
-.userInput {
+#userInput {
   width          : 100%;
   height         : 69px;
   display        : flex;
@@ -500,8 +500,9 @@ footer h4 {
   }
 
   .filter {
-    width : 250px;
+    width : 170px;
     height: 69px;
+    margin-right: 25px;
   }
 
 
