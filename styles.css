@@ -216,8 +216,8 @@ main {
 }
 
 .inputSearch::placeholder {
-  color: #757474;
-  /* text-overflow: ellipsis; */ /*A revoir: ne marche pas???*/
+  color        : #757474;
+  text-overflow: ellipsis;  /*A revoir   : ne marche pas???*/
 }
 
 .searchBtn {
@@ -226,7 +226,7 @@ main {
   border          : transparent;
   color           : black;
   font-size       : 24px;
-  padding-right: 10px;
+  padding-right   : 10px;
 }
 
 .suggSearch {
@@ -259,7 +259,7 @@ main {
   border       : none;
   color        : white;
   border-radius: 5px;
-  margin-right : 20px;
+  margin       : 10px 20px 10px 0;
 }
 
 #tagIngr {
@@ -283,6 +283,7 @@ main {
   border          : none;
   font-size       : 15px;
   background-color: transparent;
+  padding         : 0 30px 0 20px;
 }
 
 i.far.fa-times-circle {
@@ -356,7 +357,7 @@ i.far.fa-times-circle {
   background-color: transparent;
   border          : transparent;
   color           : white;
-  opacity: 1;
+  opacity         : 1;
 }
 
 .selectBtn.fa-chevron-up {
@@ -369,6 +370,7 @@ i.far.fa-times-circle {
   line-height   : 30px;
   text-transform: capitalize;
   color         : white;
+  column-count  : 1;
 }
 
 /*Recipe List*/
@@ -479,6 +481,7 @@ footer h4 {
 }
 
 
+
 @media only screen and (min-width:768px) {
   .mainSearch {
     width    : 95%;
@@ -501,11 +504,15 @@ footer h4 {
   }
 
   .filter {
-    width : 170px;
-    height: 69px;
+    width       : 170px;
+    height      : 69px;
     margin-right: 25px;
+    display     : flex;
   }
 
+  .suggestions {
+    column-count: 3;
+  }
 
   #chevronIngr {
     height      : 69px;
@@ -521,6 +528,8 @@ footer h4 {
     height      : 69px;
     margin-right: 20px;
   }
+
+
 
   /*Recipe List*/
 
