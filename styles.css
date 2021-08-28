@@ -135,7 +135,6 @@ table {
   border-collapse: collapse;
   border-spacing : 0;
 }
-
 /*End reset CSS*/
 
 /******************************************************************************************************/
@@ -159,7 +158,7 @@ table {
   src        : url("polices/Lato-Regular.ttf") format("truetype");
 }
 
-/*Ci-dessous les caractéristiques communes à toute la page web*/
+/*here below all caracteristics valid on all web page*/
 body {
   font-family                               : "Lato-Regular", Arial, Verdana, sans-serif;
   /* font used on all page unstead otherwise stated */
@@ -217,7 +216,8 @@ main {
 
 .inputSearch::placeholder {
   color        : #757474;
-  text-overflow: ellipsis;  /*A revoir   : ne marche pas???*/
+  text-overflow: ellipsis;
+  /*A revoir   : ne marche pas???*/
 }
 
 .searchBtn {
@@ -238,12 +238,19 @@ main {
 
 /*Search by select*/
 
-/*Tab Ingr List*/
+/*Tab Ingr, App & Ust Lists*/
 
-#suggIngr{
+#suggIngr {
   display: none;
 }
 
+#suggApp {
+  display: none;
+}
+
+#suggUst {
+  display: none;
+}
 
 
 /*Tag button*/
@@ -331,12 +338,10 @@ i.far.fa-times-circle {
 .filter { /*no width constraint in filter container; only width for input*/
   display        : flex;
   flex-direction : column;
-  /* align-items    : stretch; */
-  align-items: flex-start;
+  align-items    : flex-start;
   justify-content: flex-start;
   margin-top     : 5px;
   margin-bottom  : 5px;
-  /* width          : 100%; */
   border-radius  : 5px 5px 5px 5px;
 }
 
@@ -370,16 +375,15 @@ i.far.fa-times-circle {
 
 .selectBtn.fa-chevron-up {
   display: none;
-
 }
 
-.suggestions { /*should be the only one to have a width constraint*/
+.suggestions {
+  /*should be the only one to have a width constraint*/
   padding-left  : 20px;
   line-height   : 30px;
   text-transform: capitalize;
   color         : white;
-  display: flex;
-  /* column-count  : 1; */
+  display       : flex;
 }
 
 /*Recipe List*/
@@ -404,7 +408,6 @@ i.far.fa-times-circle {
 .recipeHeader {
   display           : flex;
   flex-direction    : row;
-  /* justify-content: space-evenly; */
 }
 
 .name {
@@ -439,7 +442,6 @@ b {
   width      : 195px;
   height     : 109px;
 }
-
 
 /*Footer*/
 
@@ -507,42 +509,39 @@ footer h4 {
   }
 
   .filterZone {
-    display        : flex;
-    flex-direction : row;
-    /* justify-content: left; */
-    justify-content: flex-start;
-    align-items: flex-start;
-
+    display           : flex;
+    flex-direction    : row;
+    justify-content   : flex-start;
+    align-items       : flex-start;
   }
 
   .filter {
-    min-width       : 170px;
-    min-height      : 69px;
+    min-width   : 170px;
+    min-height  : 69px;
     margin-right: 25px;
     display     : flex;
   }
 
   .suggestions {
-    /* column-count: 3; */
-    display: flex;
-    align-items: flex-start;
+    display        : flex;
+    align-items    : flex-start;
     justify-content: flex-start;
-    /* width:auto; */
-    flex-wrap: wrap;
-    width: 800px;
+    flex-wrap      : wrap;
+    min-width      : 800px;
   }
 
-  .suggIngr{
+  .suggIngr {
     width: fit-content;
   }
 
-  .suggApp{
+  .suggApp {
     width: fit-content;
   }
 
-  .suggUst{
+  .suggUst {
     width: fit-content;
   }
+
   #chevronIngr {
     height      : 69px;
     margin-right: 20px;
@@ -557,7 +556,6 @@ footer h4 {
     height      : 69px;
     margin-right: 20px;
   }
-
 
 
   /*Recipe List*/

@@ -1,20 +1,19 @@
 showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
 /** Fonction pour afficher toutes les recettes en paramètre
+ * 
 * @param recipeTab: le tableau contenant les recettes à afficher
 */
  
-/*Variable pour TableauX INGR, APP & UST*/
-
-/*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
+/*Variables pour créer chacun des les Tableaux où seront ensuite stockés tous les INGR, APP & UST*/
+ 
 let tabIngredients = getAllIngr();
 let tabSelectIngr = [];
 
-/*on crée le tableau vide où seront stockés ensuite tous les appareils*/
 let tabAppareils = getAllApp();
+let tabSelectApp = [];
 
-
-/*on crée le tableau vide où seront stockés ensuite tous les ustensiles*/
 let tabUstensiles = getAllUst();
+let tabSelectUst = [];
 
 /*********************************************************************************************/
 
@@ -179,14 +178,11 @@ function loadAllIngr() {
 // btnDownIngr.onclick = function() {
 //     let suggIngr = document.getElementById("suggIngr");
 //     suggIngr.style.display = "block";
-// }
-/*replaced by:*/
+// }   REPLACED BY:
 
-/*use query selector when no id, class only*/
-
-document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } 
-
+document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } /*use query selector when no id, class only*/
 document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrList() }
+
 
 function displayIngrList() { /*to show the all ingredient list*/
     loadAllIngr();
@@ -201,12 +197,10 @@ function hideIngrList() { /*to hide the all ingredient list*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";    
 }
 
-
-/*on écoute ce qui est dans le tableau*/
-const searchIngr = document.getElementById("userIngr"); /*on dit ce que l'on va écouter i.e. l'input du user, i.e. userIngr*/
+/*listen to what's in the tab*/
+const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
 
 searchIngr.addEventListener("keyup", function(){
-
     
     displayIngrList();
     
@@ -218,12 +212,12 @@ searchIngr.addEventListener("keyup", function(){
 
     if (input !=""){ /*if input is not empty */
     
-       tabIngredients.forEach(currentIngredient=>{ /*on parcourt tout le tableau */
+       tabIngredients.forEach(currentIngredient=>{ /*to check in all the tab*/
 
-        if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*et on verifie pour chaque ingredient si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis illeurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+        if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
 
         suggestion += `
-        <p class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggIngr" onclick = "addTag(this,'ingrédient')"*/     
+        <p class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/     
         }  
     })
     }
@@ -256,13 +250,38 @@ function getAllIngr(){
 
 /*APPAREILS TAB*/
 
+function loadAllApp() {
+    let allApp = ""
+    tabAppareils.forEach(currentAppareil => {
+        allApp += `<p class="suggApp" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`
+    })
+    document.getElementById("suggApp").innerHTML = allApp;
+}
 
+document.querySelector("#appFilter .fa-chevron-down").onclick = () => { displayAppList() } 
+
+document.querySelector("#appFilter .fa-chevron-up").onclick = () => { hideAppList() }
+
+function displayAppList() { /*to show the all appareil list*/
+    loadAllApp();
+    document.getElementById("suggApp").style.display = "block";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideAppList() { /*to hide the all appareil list*/
+    document.getElementById("suggApp").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";    
+}
 
 /*on écoute ce qui est dans le tableau*/
 
 const searchApp = document.getElementById("userApp"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userApp*/
 
 searchApp.addEventListener("keyup", function(){
+
+    displayAppList();
 
     const inputApp = searchApp.value;
 
@@ -306,13 +325,38 @@ function getAllApp(){
 
 /*USTENSILES TAB*/
 
+function loadAllUst() {
+    let allUst = ""
+    tabUstensiles.forEach(currentUstensile => {
+        allUst += `<p class="suggUst" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`
+    })
+    document.getElementById("suggUst").innerHTML = allUst;
+}
 
+document.querySelector("#ustFilter .fa-chevron-down").onclick = () => { displayUstList() } 
+
+document.querySelector("#ustFilter .fa-chevron-up").onclick = () => { hideUstList() }
+
+function displayUstList() { /*to show the all ustensiles list*/
+    loadAllUst();
+    document.getElementById("suggUst").style.display = "block";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideUstList() { /*to hide the all ustensiles list*/
+    document.getElementById("suggUst").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";    
+}
 
 /*on écoute ce qui est dans le tableau*/
 
 const searchUst = document.getElementById("userUst"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userUst*/
 
 searchUst.addEventListener("keyup", function(){
+
+    displayUstList();
 
     const input = searchUst.value;
 
