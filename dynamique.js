@@ -1,8 +1,22 @@
 showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
-
 /** Fonction pour afficher toutes les recettes en paramètre
 * @param recipeTab: le tableau contenant les recettes à afficher
 */
+ 
+/*Variable pour TableauX INGR, APP & UST*/
+
+/*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
+let tabIngredients = getAllIngr();
+let tabSelectIngr = [];
+
+/*on crée le tableau vide où seront stockés ensuite tous les appareils*/
+let tabAppareils = getAllApp();
+
+
+/*on crée le tableau vide où seront stockés ensuite tous les ustensiles*/
+let tabUstensiles = getAllUst();
+
+/*********************************************************************************************/
 
 function showRecipes(recipeTab) { /*fonction qui contient:*/
 
@@ -110,7 +124,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
                 ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
             if (ingredientData.hasOwnProperty("unite") == true) {
-                ingredientInfoList.innerHTML += ingredientData["unite"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
+                ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
 
             /*on met l'objet li ingredient+qty+unit dans l'objet ul recipeIngredients*/
@@ -147,13 +161,55 @@ searchinput.addEventListener("keyup", function(){
 
 /*INGREDIENT TAB*/
 
-/*on crée le tableau vide où seront stockés ensuite tous les ingrédients*/
-let tabIngredients = getAllIngr();
+// tabIngredients = [
+//     "salade",
+//     "tomate",
+//     "oignon"
+// ]
+
+function loadAllIngr() {
+    let allIngr = ""
+    tabIngredients.forEach(currentIngredient => {
+        allIngr += `<p class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`
+    })
+    document.getElementById("suggIngr").innerHTML = allIngr;
+}
+
+// let btnDownIngr = document.querySelector("#ingrFilter .fa-chevron-down")
+// btnDownIngr.onclick = function() {
+//     let suggIngr = document.getElementById("suggIngr");
+//     suggIngr.style.display = "block";
+// }
+/*replaced by:*/
+
+/*use query selector when no id, class only*/
+
+document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } 
+
+document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrList() }
+
+function displayIngrList() { /*to show the all ingredient list*/
+    loadAllIngr();
+    document.getElementById("suggIngr").style.display = "block";
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideIngrList() { /*to hide the all ingredient list*/
+    document.getElementById("suggIngr").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";    
+}
+
+
 /*on écoute ce qui est dans le tableau*/
 const searchIngr = document.getElementById("userIngr"); /*on dit ce que l'on va écouter i.e. l'input du user, i.e. userIngr*/
 
 searchIngr.addEventListener("keyup", function(){
 
+    
+    displayIngrList();
+    
     const input = searchIngr.value;
 
     const resultIngr = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
@@ -167,10 +223,9 @@ searchIngr.addEventListener("keyup", function(){
         if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*et on verifie pour chaque ingredient si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis illeurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
 
         suggestion += `
-        <div class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
-            
+        <p class="suggIngr" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggIngr" onclick = "addTag(this,'ingrédient')"*/     
         }  
-    }) 
+    })
     }
     
     document.getElementById("suggIngr").innerHTML = suggestion;
@@ -201,8 +256,7 @@ function getAllIngr(){
 
 /*APPAREILS TAB*/
 
-/*on crée le tableau vide où seront stockés ensuite tous les appareils*/
-let tabAppareils = getAllApp();
+
 
 /*on écoute ce qui est dans le tableau*/
 
@@ -223,7 +277,7 @@ searchApp.addEventListener("keyup", function(){
         if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())){ /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
 
         suggestion += `
-        <div class="suggApp" onclick = "addTag(this,'appareil')">${currentAppareil}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
+        <p class="suggApp" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
             
         }  
     }) 
@@ -252,8 +306,7 @@ function getAllApp(){
 
 /*USTENSILES TAB*/
 
-/*on crée le tableau vide où seront stockés ensuite tous les ustensiles*/
-let tabUstensiles = getAllUst();
+
 
 /*on écoute ce qui est dans le tableau*/
 
@@ -274,7 +327,7 @@ searchUst.addEventListener("keyup", function(){
         if (currentUstensile.toLocaleLowerCase().includes(input.toLocaleLowerCase())){ /*et on verifie pour chaque ustensile si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
 
         suggestion += `
-        <div class="suggUst" onclick = "addTag(this,'ustensils')">${currentUstensile}</div>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
+        <p class="suggUst" onclick = "addTag(this,'ustensils')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
             
         }  
     }) 

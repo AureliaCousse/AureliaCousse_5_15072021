@@ -238,6 +238,14 @@ main {
 
 /*Search by select*/
 
+/*Tab Ingr List*/
+
+#suggIngr{
+  display: none;
+}
+
+
+
 /*Tag button*/
 .tagZone {
   display        : flex;
@@ -320,14 +328,15 @@ i.far.fa-times-circle {
   background-color: #ED6454;
 }
 
-.filter {
+.filter { /*no width constraint in filter container; only width for input*/
   display        : flex;
   flex-direction : column;
-  align-items    : stretch;
+  /* align-items    : stretch; */
+  align-items: flex-start;
   justify-content: flex-start;
   margin-top     : 5px;
   margin-bottom  : 5px;
-  width          : 100%;
+  /* width          : 100%; */
   border-radius  : 5px 5px 5px 5px;
 }
 
@@ -357,20 +366,20 @@ i.far.fa-times-circle {
   background-color: transparent;
   border          : transparent;
   color           : white;
-  opacity         : 1;
 }
 
 .selectBtn.fa-chevron-up {
-  opacity: 0;
+  display: none;
 
 }
 
-.suggestions {
+.suggestions { /*should be the only one to have a width constraint*/
   padding-left  : 20px;
   line-height   : 30px;
   text-transform: capitalize;
   color         : white;
-  column-count  : 1;
+  display: flex;
+  /* column-count  : 1; */
 }
 
 /*Recipe List*/
@@ -467,7 +476,7 @@ footer h4 {
   flex-direction: row;
 }
 
-/*icons for pages Proposer un partenariat & Devenir partenaire*/
+/*icons for pages "Proposer un partenariat" & "Devenir partenaire"*/
 .icon1 {
   padding-right: 20px;
   font-size    : 0.8rem;
@@ -500,20 +509,40 @@ footer h4 {
   .filterZone {
     display        : flex;
     flex-direction : row;
-    justify-content: left;
+    /* justify-content: left; */
+    justify-content: flex-start;
+    align-items: flex-start;
+
   }
 
   .filter {
-    width       : 170px;
-    height      : 69px;
+    min-width       : 170px;
+    min-height      : 69px;
     margin-right: 25px;
     display     : flex;
   }
 
   .suggestions {
-    column-count: 3;
+    /* column-count: 3; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* width:auto; */
+    flex-wrap: wrap;
+    width: 800px;
   }
 
+  .suggIngr{
+    width: fit-content;
+  }
+
+  .suggApp{
+    width: fit-content;
+  }
+
+  .suggUst{
+    width: fit-content;
+  }
   #chevronIngr {
     height      : 69px;
     margin-right: 20px;
