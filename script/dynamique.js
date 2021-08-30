@@ -3,23 +3,26 @@
 // -----------------------------------------------------
 
 const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
-const searchUst = document.getElementById("userUst"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userUst*/
-const searchApp = document.getElementById("userApp"); /*on dit ce que l'on va écouter i.e. l'input du user, soit userApp*/
+const searchUst = document.getElementById("userUst"); /*tells what is to be listened: the user input i.e. userUst*/
+const searchApp = document.getElementById("userApp"); /*tells what is to be listened: the user input i.e. userApp*/
 
 
 // -----------------------------------------------------
 // VARIABLES
 // -----------------------------------------------------
 
-/*To create each table in which will be stoked the elements INGR, APP & UST*/
+/*To create tables in which will be stoked the elements INGR, APP & UST */
 
-let tabIngredients = getAllIngr();
-let tabSelectIngr = []; /*Tab of all Ingr selected as tag*/
+let tabIngredients = getAllIngr(); /*Tab with all Ingr*/
+let sortedIngr = tabIngredients.sort(); /*get all Ingr in the table and sort them alphabetically*/
+let tabSelectIngr = []; /*Tab of Ingr selected as tag only*/
 
 let tabAppareils = getAllApp();
+let sortedApp = tabAppareils.sort();/*get all App in the table and sort them alphabetically*/
 let tabSelectApp = [];/*Tab of all App selected as tag*/
 
 let tabUstensiles = getAllUst();
+let sortedUst = tabUstensiles.sort();/*get all Ust in the table and sort them alphabetically*/
 let tabSelectUst = [];/*Tab of all Ust selected as tag*/
 
 
@@ -68,43 +71,12 @@ function getAllUst() {
     return tabAllUst;
 }
 
-function displayIngrList() { /*to show the all ingredient list*/
-    loadAllIngr();
-    document.getElementById("suggIngr").style.display = "flex";
-    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
-    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
-}
-
-function hideIngrList() { /*to hide the all ingredient list*/
-    document.getElementById("suggIngr").style.display = "none";
-    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "none";
-    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
-}
-
-function displayUstList() { /*to show the all ustensiles list*/
-    loadAllUst();
-    document.getElementById("suggUst").style.display = "flex";
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
-    document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
-}
-
-function hideUstList() { /*to hide the all ustensiles list*/
-    document.getElementById("suggUst").style.display = "none";
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
-    document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
-}
-
-function displayAppList() { /*to show the all appareil list*/
-    loadAllApp();
-    document.getElementById("suggApp").style.display = "flex";
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
-    document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
-}
-
-function hideAppList() { /*to hide the all appareil list*/
-    document.getElementById("suggApp").style.display = "none";
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
-    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+function loadAllIngr() {
+    let allIngr = ""
+    tabIngredients.forEach(currentIngredient => {
+        allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`
+    })
+    document.getElementById("suggIngr").innerHTML = allIngr;
 }
 
 function loadAllApp() {
@@ -123,13 +95,45 @@ function loadAllUst() {
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
-function loadAllIngr() {
-    let allIngr = ""
-    tabIngredients.forEach(currentIngredient => {
-        allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`
-    })
-    document.getElementById("suggIngr").innerHTML = allIngr;
+function displayIngrList() { /*to show the all ingredient list*/
+    loadAllIngr();
+    document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
 }
+
+function hideIngrList() { /*to hide the all ingredient list*/
+    document.getElementById("suggIngr").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
+}
+
+function displayUstList() { /*to show the all ustensiles list*/
+    loadAllUst();
+    document.getElementById("suggUst").style.display = "flex"; /*flex to allow suggUst to appear in column*/
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideUstList() { /*to hide the all ustensiles list*/
+    document.getElementById("suggUst").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
+}
+
+function displayAppList() { /*to show the all appareil list*/
+    loadAllApp();
+    document.getElementById("suggApp").style.display = "flex";/*flex to allow suggApp to appear in column*/
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideAppList() { /*to hide the all appareil list*/
+    document.getElementById("suggApp").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+}
+
 
 // -----------------------------------------------------
 // OUVERTURE ET FERMETURE DE LA FLECHE DU DROPDOWN
@@ -155,8 +159,7 @@ document.querySelector("#ustFilter .fa-chevron-up").onclick = () => { hideUstLis
 // LISTENER - DROPDOWN SEARCH BAR
 // -----------------------------------------------------
 
-/*listen to what's in the tab*/
-searchIngr.addEventListener("keyup", function () {
+searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
     const input = searchIngr.value;
     const resultIngr = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
@@ -178,8 +181,7 @@ searchIngr.addEventListener("keyup", function () {
     document.getElementById("suggIngr").innerHTML = suggestion;
 })
 
-/*on écoute ce qui est dans le tableau*/
-searchApp.addEventListener("keyup", function () {
+searchApp.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayAppList();
     const inputApp = searchApp.value;
     /*const resultApp = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
@@ -196,8 +198,7 @@ searchApp.addEventListener("keyup", function () {
     document.getElementById("suggApp").innerHTML = suggestion;
 })
 
-/*To listen input entered in search bar to actually start the function*/
-searchUst.addEventListener("keyup", function () {
+searchUst.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayUstList();
     const input = searchUst.value;
     const resultUst = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
@@ -267,10 +268,12 @@ function addTag(element, type) {
 
         let label = tagIngr.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
         label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
-        removeElement(tabIngredients, label.innerHTML);
-        loadAllIngr()
         
+        tabIngredients = getAllIngr(); /*at each event we get new tab with all ingr even the ones previously tagged*/
+        removeElement(tabIngredients, label.innerHTML); /*call the function that removes the ingr tagged*/
+        loadAllIngr(); /*load list of all the ingr that are not tagged*/    
     }
+
     else if (type == 'appareil') {
         let tagApp = document.getElementById('tagApp'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
         tagApp.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
@@ -293,6 +296,8 @@ function addTag(element, type) {
 
 function closeTag(tag) {
     tag.parentNode.style.display = 'none';
-    // addElement(tabIngredients, label.innerHTML);
-    //     loadAllIngr()
+   
+    tabIngredients = getAllIngr(); /*at each event we get new tab with all ingr even the ones previously tagged*/
+    addElement(tabIngredients, label.innerHTML); /*call the function that get back the ingr untagged*/
+        loadAllIngr(); /*load list of all the ingr that are not tagged*/  
 }
