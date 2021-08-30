@@ -135,6 +135,7 @@ table {
   border-collapse: collapse;
   border-spacing : 0;
 }
+
 /*End reset CSS*/
 
 /******************************************************************************************************/
@@ -335,7 +336,8 @@ i.far.fa-times-circle {
   background-color: #ED6454;
 }
 
-.filter { /*no width constraint in filter container; only width for input*/
+.filter {
+  /*no width constraint in filter container; only width for input*/
   display        : flex;
   flex-direction : column;
   align-items    : flex-start;
@@ -406,8 +408,8 @@ i.far.fa-times-circle {
 }
 
 .recipeHeader {
-  display           : flex;
-  flex-direction    : row;
+  display       : flex;
+  flex-direction: row;
 }
 
 .name {
@@ -509,10 +511,11 @@ footer h4 {
   }
 
   .filterZone {
-    display           : flex;
-    flex-direction    : row;
-    justify-content   : flex-start;
-    align-items       : flex-start;
+    display        : flex;
+    flex-direction : row;
+    justify-content: flex-start;
+    align-items    : flex-start;
+    flex-wrap      : wrap;
   }
 
   .filter {
@@ -524,14 +527,18 @@ footer h4 {
 
   .suggestions {
     display        : flex;
-    align-items    : flex-start;
-    justify-content: flex-start;
+    min-width          : 800px;
+    /* align-items    : flex-start; */
+    /* justify-content: flex-start; */
     flex-wrap      : wrap;
-    min-width      : 800px;
   }
 
-  .suggIngr {
-    width: fit-content;
+  .resultSugg{
+    width: 33%;
+  }
+  
+  /* .suggIngr {
+    width: fit-content(33%);
   }
 
   .suggApp {
@@ -540,7 +547,7 @@ footer h4 {
 
   .suggUst {
     width: fit-content;
-  }
+  } */
 
   #chevronIngr {
     height      : 69px;
