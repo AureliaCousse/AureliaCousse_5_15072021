@@ -1,9 +1,15 @@
+/* -----------------------------------------------------
+RESET Margin & Padding on all page
+----------------------------------------------------- */
+
 * {
   margin : 0;
   padding: 0;
 }
 
-/*Reset CSS from Eric Meyer*/
+/* -----------------------------------------------------
+RESET CSS / Eric Meyer
+----------------------------------------------------- */
 html,
 body,
 div,
@@ -94,7 +100,10 @@ video {
   text-decoration: none;
 }
 
-/* HTML5 display-role reset for older browsers */
+/* -----------------------------------------------------
+HTML5 display-role reset for older browsers
+----------------------------------------------------- */
+
 article,
 aside,
 details,
@@ -136,10 +145,9 @@ table {
   border-spacing : 0;
 }
 
-/*End reset CSS*/
-
-/******************************************************************************************************/
-/*List of fonts used in this web page: one specific @font-face line for each font*/
+/* -----------------------------------------------------
+FONTS (one specific @font-face line for each font)
+----------------------------------------------------- */
 
 /*logo*/
 @font-face {
@@ -159,7 +167,10 @@ table {
   src        : url("polices/Lato-Regular.ttf") format("truetype");
 }
 
-/*here below all caracteristics valid on all web page*/
+/* -----------------------------------------------------
+CARATERISTICS valid on all this web page
+----------------------------------------------------- */
+
 body {
   font-family                               : "Lato-Regular", Arial, Verdana, sans-serif;
   /* font used on all page unstead otherwise stated */
@@ -167,7 +178,9 @@ body {
   /* nota bene 100% i.e. 1rem = 16px  - else: confirm how many rem (for 32px show 2rem) */
 }
 
-/******************************************************************************************************/
+/* -----------------------------------------------------
+PAGE & HEADER
+----------------------------------------------------- */
 
 header {
   display        : flex;
@@ -184,7 +197,9 @@ main {
   margin: 50px auto 0;
 }
 
-/*Main Search bar*/
+/* -----------------------------------------------------
+MAIN SEARCH BAR
+----------------------------------------------------- */
 
 .mainSearchZone {
   display         : flex;
@@ -237,9 +252,9 @@ main {
   color         : black;
 }
 
-/*Search by select*/
-
-/*Tab Ingr, App & Ust Lists*/
+/* -----------------------------------------------------
+SEARCH BY SELECT - INGR, APP & UST TAB LISTS
+----------------------------------------------------- */
 
 #suggIngr {
   display: none;
@@ -253,8 +268,10 @@ main {
   display: none;
 }
 
+/* -----------------------------------------------------
+TAG BUTTON
+----------------------------------------------------- */
 
-/*Tag button*/
 .tagZone {
   display        : flex;
   flex-direction : row;
@@ -315,14 +332,15 @@ i.far.fa-times-circle {
   margin-right: auto;
 }
 
-/*Filter zone*/
+/* -----------------------------------------------------
+FILTER ZONE
+----------------------------------------------------- */
+
 .filterZone {
   margin        : 0 0 0 0;
   display       : flex;
   flex-direction: column;
 }
-
-/*Filter*/
 
 #ingrFilter {
   background-color: #3282F7;
@@ -380,7 +398,6 @@ i.far.fa-times-circle {
 }
 
 .suggestions {
-  /*should be the only one to have a width constraint*/
   padding-left  : 20px;
   line-height   : 30px;
   text-transform: capitalize;
@@ -388,7 +405,10 @@ i.far.fa-times-circle {
   display       : flex;
 }
 
-/*Recipe List*/
+
+/* -----------------------------------------------------
+RECIPE LIST
+----------------------------------------------------- */
 
 .recipe {
   display         : flex;
@@ -445,7 +465,9 @@ b {
   height     : 109px;
 }
 
-/*Footer*/
+/* -----------------------------------------------------
+FOOTER
+----------------------------------------------------- */
 
 footer {
   background-color: #C7BEBE;
@@ -480,19 +502,24 @@ footer h4 {
   flex-direction: row;
 }
 
-/*icons for pages "Proposer un partenariat" & "Devenir partenaire"*/
+
 .icon1 {
+  /*icons for page "Proposer un partenariat"*/
   padding-right: 20px;
   font-size    : 0.8rem;
   margin-top   : 5px;
 }
 
 .icon2 {
+  /*icons for page "Devenir partenaire"*/
   padding-right: 15px;
   font-size    : 0.8rem;
   margin-top   : 5px;
 }
 
+/* -----------------------------------------------------
+MEDIA QUERIES
+----------------------------------------------------- */
 
 @media only screen and (min-width:768px) {
   .mainSearch {
@@ -525,12 +552,12 @@ footer h4 {
   }
 
   .suggestions {
-    min-width             : 170px;
-    max-width             : 700px;
-    display               : flex;
-    /* align-items        : flex-start; */
-    /* justify-content    : flex-start; */
-    flex-wrap             : wrap;
+    min-width      : 170px;
+    max-width      : 700px;
+    display        : flex;
+    align-items    : flex-start;
+    justify-content: flex-start;
+    flex-wrap      : wrap;
   }
 
   .resultSugg {
@@ -552,9 +579,6 @@ footer h4 {
     height      : 69px;
     margin-right: 20px;
   }
-
-
-  /*Recipe List*/
 
   #recipeList {
     display        : flex;

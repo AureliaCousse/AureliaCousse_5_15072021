@@ -14,15 +14,12 @@ const searchApp = document.getElementById("userApp"); /*tells what is to be list
 /*To create tables in which will be stoked the elements INGR, APP & UST */
 
 let tabIngredients = getAllIngr(); /*Tab with all Ingr*/
-let sortedIngr = tabIngredients.sort(); /*get all Ingr in the table and sort them alphabetically*/
 let tabSelectIngr = []; /*Tab of Ingr selected as tag only*/
 
 let tabAppareils = getAllApp();
-let sortedApp = tabAppareils.sort();/*get all App in the table and sort them alphabetically*/
 let tabSelectApp = [];/*Tab of all App selected as tag*/
 
 let tabUstensiles = getAllUst();
-let sortedUst = tabUstensiles.sort();/*get all Ust in the table and sort them alphabetically*/
 let tabSelectUst = [];/*Tab of all Ust selected as tag*/
 
 
@@ -31,43 +28,46 @@ let tabSelectUst = [];/*Tab of all Ust selected as tag*/
 // -----------------------------------------------------
 
 function getAllIngr() {
-    let tabAllIngr = []; /*on crée un tableau vide contenant tous les ingredients*/
-    recipes.forEach(recette => { /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
-        recette.ingredients.forEach(currentIngredient => {   /*current ingredient représente chaque pavé ingredient+qty+unit dans le tableau général des ingrédients d'une recette donnéee*/
-            /*currentIngredient n'existe que pour cette boucle: c'est une variable locale donc on peut réutliser le terme dans une autre boucle, fonction etc...*/
+    let tabAllIngr = []; /*to create an empty tab that will contain all the App*/
+    recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
+        recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
+            /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
             let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle locale*/
-            if (!tabAllIngr.includes(ingr.toLowerCase())) {  /*si un ingrédient d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ingrédients, on l'affiche*/
-                /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en miniscules; on utilise CSS text transorm capitalize pour afficher mots avec 1ère lettre en majuscule*/
-                tabAllIngr.push(ingr.toLowerCase()); /*push: à chaque boucle, on ajoute l' ingrédient si correspondant à la recherche*/
+            if (!tabAllIngr.includes(ingr.toLowerCase())) {  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
+               /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
+                tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
         })
     })
+    tabAllIngr.sort();
     return tabAllIngr;
 }
 
 function getAllApp() {
-    let tabAllApp = []; /*on crée un tableau vide contenant tous les appareils*/
-    recipes.forEach(recette => { /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
-        let app = recette.appliance; /*variable pour aller chercher l'info appareil dans chaque recette*/
-        if (!tabAllApp.includes(app.toLowerCase())) {  /*si un ingrédient d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ingrédients, on l'affiche*/
-            /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en miniscules; on utilise CSS text transorm capitalize pour afficher mots avec 1ère lettre en majuscule*/
-            tabAllApp.push(app.toLowerCase()); /*push: à chaque boucle, on ajoute l' appareil si correspondant à la recherche*/
+    let tabAllApp = []; /*to create an empty tab that will contain all the App*/
+    recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
+        let app = recette.appliance; /*variable to avoid to repeat of currentUstensile.ustensile in the same local loop */
+        if (!tabAllApp.includes(app.toLowerCase())) {  /*if one App of one of the recipes is not yet (negative shown by "!") listed in the Ust table, then  it is displayed*/
+        /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
+            tabAllApp.push(app.toLowerCase()); /*push: at each loop, we add the App if it is what we are searching for*/
         }
     })
+    tabAllApp.sort();
     return tabAllApp;
 }
 
 function getAllUst() {
-    let tabAllUst = []; /*on crée un tableau vide contenant tous les ustensiles*/
-    recipes.forEach(recette => { /*=on parcourt les recettes 1 à 1 avec la variable "recette" qui représente la recette courante en commencant par la recette indice 0 puis indice 1 etc... jusque fin du tableau*/
+    let tabAllUst = []; /*to create an empty tab that will contain all the Ust*/
+    recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
         recette.ustensils.forEach(currentUstensile => {
-            let ust = currentUstensile; /*variable pour éviter les répétitions de currentUstensile.ustensile dans cette même boucle locale*/
-            if (!tabAllUst.includes(ust.toLowerCase())) {  /*si un inustensile d'une des recettes n'est pas déjà (négation traduite par !) listé dans le tableau des ustensiles, on l'affiche*/
-                /* quelque soit la facon dont est écrit le mot dans la recette, on le fait remonter en tout en minuscules; on utilise CSS text transform capitalize pour afficher mots avec 1ère lettre en majuscule*/
-                tabAllUst.push(ust.toLowerCase()); /*push: à chaque boucle, on ajoute l' ustensile si correspondant à la recherche*/
+            let ust = currentUstensile; /*variable to avoid to repeat of currentUstensile.ustensile in the same local loop */
+            if (!tabAllUst.includes(ust.toLowerCase())) {  /*if one Ust of one of the recipes is not yet (negative shown by "!") listed in the Ust table, then  it is displayed*/
+                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
+                tabAllUst.push(ust.toLowerCase()); /*push: at each loop, we add the Ust if it is what we are searching for*/
             }
         })
     })
+    tabAllUst.sort();
     return tabAllUst;
 }
 
@@ -269,9 +269,9 @@ function addTag(element, type) {
         let label = tagIngr.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
         label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
         
-        tabIngredients = getAllIngr(); /*at each event we get new tab with all ingr even the ones previously tagged*/
-        removeElement(tabIngredients, label.innerHTML); /*call the function that removes the ingr tagged*/
-        loadAllIngr(); /*load list of all the ingr that are not tagged*/    
+        tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
+        removeElement(tabIngredients, label.innerHTML); /*call the function that removes the Ingr tagged*/
+        loadAllIngr(); /*load list of all the Ingr that are not tagged*/    
     }
 
     else if (type == 'appareil') {
@@ -280,6 +280,10 @@ function addTag(element, type) {
 
         let label = tagApp.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
         label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+
+        tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
+        removeElement(tabAppareils, label.innerHTML); /*call the function that removes the App tagged*/
+        loadAllApp(); /*load list of all the App that are not tagged*/    
     }
     else if (type == 'ustensils') {
         let tagUst = document.getElementById('tagUst'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
@@ -287,6 +291,10 @@ function addTag(element, type) {
 
         let label = tagUst.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
         label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+
+        tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
+        removeElement(tabUstensiles, label.innerHTML); /*call the function that removes the Ust tagged*/
+        loadAllUst(); /*load list of all the Ust that are not tagged*/    
     }
 }
 
@@ -297,7 +305,10 @@ function addTag(element, type) {
 function closeTag(tag) {
     tag.parentNode.style.display = 'none';
    
-    tabIngredients = getAllIngr(); /*at each event we get new tab with all ingr even the ones previously tagged*/
+    tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
+    tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
+    tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
+    
 //     addElement(tabIngredients, label.innerHTML); /*call the function that get back the ingr untagged*/
 //         loadAllIngr(); /*load list of all the ingr that are not tagged*/  
 }
