@@ -184,8 +184,8 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
 searchApp.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayAppList();
     const inputApp = searchApp.value;
-    /*const resultApp = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-    showRecipes(resultApp);*/
+    const resultApp = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+    showRecipes(resultApp);
     let suggestion = "";
     if (inputApp != "") { /*if input is not empty */
         tabAppareils.forEach(currentAppareil => { /*on parcourt tout le tableau */
@@ -298,6 +298,6 @@ function closeTag(tag) {
     tag.parentNode.style.display = 'none';
    
     tabIngredients = getAllIngr(); /*at each event we get new tab with all ingr even the ones previously tagged*/
-    addElement(tabIngredients, label.innerHTML); /*call the function that get back the ingr untagged*/
-        loadAllIngr(); /*load list of all the ingr that are not tagged*/  
+//     addElement(tabIngredients, label.innerHTML); /*call the function that get back the ingr untagged*/
+//         loadAllIngr(); /*load list of all the ingr that are not tagged*/  
 }

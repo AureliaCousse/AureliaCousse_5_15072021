@@ -494,7 +494,6 @@ footer h4 {
 }
 
 
-
 @media only screen and (min-width:768px) {
   .mainSearch {
     width    : 95%;
@@ -526,28 +525,17 @@ footer h4 {
   }
 
   .suggestions {
-    display        : flex;
-    /* min-width          : 500px; */
-    /* align-items    : flex-start; */
-    /* justify-content: flex-start; */
-    flex-wrap      : wrap;
+    min-width             : 170px;
+    max-width             : 700px;
+    display               : flex;
+    /* align-items        : flex-start; */
+    /* justify-content    : flex-start; */
+    flex-wrap             : wrap;
   }
 
-  .resultSugg{
-    min-width: 33%; /*so that the element result only takes 1/3 of the container sugg to get 3 columns*/
-  }
-  
-  .suggIngr {
-    /* width: fit-content; */
-
-  }
-
-  .suggApp {
-    /* width: fit-content; */
-  }
-
-  .suggUst {
-    /* width: fit-content; */
+  .resultSugg {
+    min-width: 33%;
+    /*so that the element result only takes 1/3 of the container sugg to get 3 columns*/
   }
 
   #chevronIngr {
