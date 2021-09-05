@@ -1,10 +1,12 @@
 // -----------------------------------------------------
-// CONSTANTES
+// CONSTANTS
 // -----------------------------------------------------
 
 const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
 const searchUst = document.getElementById("userUst"); /*tells what is to be listened: the user input i.e. userUst*/
 const searchApp = document.getElementById("userApp"); /*tells what is to be listened: the user input i.e. userApp*/
+
+
 
 
 // -----------------------------------------------------
@@ -24,8 +26,11 @@ let tabSelectUst = [];/*Tab of all Ust selected as tag*/
 
 
 // -----------------------------------------------------
-// FONCTIONS
+// FUNCTIONS
 // -----------------------------------------------------
+// function normString(strToNorm){
+//     return (strToNorm.toLowerCase()).normalize("NFD").replace(/\p{Diacritic}/gu, "");
+// } : REPLACED BY CLASS UTILS
 
 function getAllIngr() {
     let tabAllIngr = []; /*to create an empty tab that will contain all the App*/
@@ -33,7 +38,7 @@ function getAllIngr() {
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
             let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle locale*/
-            if (!tabAllIngr.includes(ingr.toLowerCase())) {  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
+            if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
@@ -72,6 +77,7 @@ function getAllUst() {
 }
 
 function loadAllIngr() {
+    
     let allIngr = ""
     tabIngredients.forEach(currentIngredient => {
         allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`
@@ -80,6 +86,7 @@ function loadAllIngr() {
 }
 
 function loadAllApp() {
+
     let allApp = ""
     tabAppareils.forEach(currentAppareil => {
         allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`
@@ -88,6 +95,7 @@ function loadAllApp() {
 }
 
 function loadAllUst() {
+    
     let allUst = ""
     tabUstensiles.forEach(currentUstensile => {
         allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`
@@ -135,17 +143,37 @@ function hideAppList() { /*to hide the all appareil list*/
 }
 
 
+//STILL ON GOING.........NOT WORKING .....YET....
+
+function displayIngrInput2() { /*to show text input2*/
+    document.getElementById("userIngr2").style.display = "block"; 
+    document.querySelector("#ingrFilter .inputFilter2").style.display = "block"; 
+    document.querySelector("#ingrFilter .inputFilter").style.display = "none";
+}
+
+function hideIngrInput2() { /*to hide text input2*/
+    document.getElementById("userIngr2").style.display = "none";
+    document.querySelector("#ingrFilter .inputFilter2").style.display = "none";
+    document.querySelector("#ingrFilter .inputFilter").style.display = "block";
+}
+
+
+document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrInput2() } /*use query selector when no id, class only*/
+document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrInput2() }
+
+
 // -----------------------------------------------------
-// OUVERTURE ET FERMETURE DE LA FLECHE DU DROPDOWN
+//OPEN  & CLOSE THE DROPDOWN HARROW
 // -----------------------------------------------------
 
 // let btnDownIngr = document.querySelector("#ingrFilter .fa-chevron-down")
 // btnDownIngr.onclick = function() {
 //     let suggIngr = document.getElementById("suggIngr");
 //     suggIngr.style.display = "block";
-// }   REPLACED BY:
+// }   
+//REPLACED BY:
 
-document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } /*use query selector when no id, class only*/
+document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } /*use querySelector when no id but class only*/
 document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrList() }
 
 document.querySelector("#appFilter .fa-chevron-down").onclick = () => { displayAppList() }
@@ -168,12 +196,12 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
 
     if (input != "") { /*if input is not empty */
 
-        tabIngredients.forEach(currentIngredient => { /*to check in all the tab*/
+        tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
 
             if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
 
                 suggestion += `
-        <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
+                <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
             }
         })
     }
@@ -187,14 +215,18 @@ searchApp.addEventListener("keyup", function () { /*To listen input entered in s
     const resultApp = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
     showRecipes(resultApp);
     let suggestion = "";
+
     if (inputApp != "") { /*if input is not empty */
-        tabAppareils.forEach(currentAppareil => { /*on parcourt tout le tableau */
+        tabAppareils.forEach(currentAppareil => { /*to browse & check in all the tab */
+
             if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+                
                 suggestion += `
-            <p class="suggApp  resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
+                <p class="suggApp  resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
             }
         })
     }
+
     document.getElementById("suggApp").innerHTML = suggestion;
 })
 
@@ -204,11 +236,14 @@ searchUst.addEventListener("keyup", function () { /*To listen input entered in s
     const resultUst = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
     showRecipes(resultUst);
     let suggestion = "";
+
     if (input != "") { /*if input is not empty */
-        tabUstensiles.forEach(currentUstensile => { /*on parcourt tout le tableau */
+        tabUstensiles.forEach(currentUstensile => { /*to browse & check in all the tab */
+
             if (currentUstensile.toLocaleLowerCase().includes(input.toLocaleLowerCase())) { /*et on verifie pour chaque ustensile si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+            
                 suggestion += `
-            <p class="suggUst resultSugg" onclick = "addTag(this,'ustensils')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
+                <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
             }
         })
     }
@@ -240,75 +275,129 @@ searchUst.addEventListener("keyup", function () { /*To listen input entered in s
 // element = "pomme"
 
     // let count = 0
-    // tab.forEach(currentElem => {
+    // tab.forEach(currentElem  {
     //     if (currentElement == element) {
     //         // remove currentElem
     //     }
     //     count = count + 1
     // })
 
-function removeElement(tab, element) {
+function removeElementFromTab(tab, searchElement) {
     for(let i = 0; i < tab.length; i++){
-        if (tab[i] == element) {
-            tab.splice(i,1)
+        if (tab[i] == searchElement) {
+            tab.splice(i,1) // splice(index_debut_suppr, nombre_element_a_suppr)
             break;
         }
     }
 }
 
+function displayTags(idTagZone, tabSelect){
+    let tagZone = document.getElementById(idTagZone);
+    tagZone.innerHTML = "" 
+
+    tabSelect.forEach(currentElement => {
+        let div = document.createElement("div")
+        div.className = "inner-tag"
+
+        let label = document.createElement("label")
+        label.innerHTML = currentElement;
+        div.appendChild(label);
+
+        let button = document.createElement("button")
+        button.className = "tagBtn far fa-times-circle"
+
+        switch (idTagZone) {
+            case "tagIngr":
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ingr")`)
+                break;
+            case "tagApp":
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`)
+                break;
+            default:
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ust")`)
+                break;
+        }
+
+        div.appendChild(button);
+        tagZone.appendChild(div);
+    })
+}
+
+function moveElementFromTabToTab(fromTab, toTab, elem){
+    if (fromTab.includes(elem)) {
+        removeElementFromTab(fromTab, elem);  
+        toTab.push(elem);
+    }
+}
 
 // -----------------------------------------------------
 // ADD TAGS & REMOVE ELEMENT FROM LIST
 // -----------------------------------------------------
 
+
+// <div class="inner-tag">
+    // <label>mot clé</label>
+    // <button class="tagBtn far fa-times-circle" type="button" onclick="closeTag(this)"></button>
+// </div>
+
+ 
 function addTag(element, type) {
     if (type == 'ingredient') {
-        let tagIngr = document.getElementById('tagIngr'); /*on va chercher le tag qui correspond au type ingredient sur lequel on a cliqué dans les suggestions  */
-        tagIngr.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
-
-        let label = tagIngr.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
-        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
-        
-        tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
-        removeElement(tabIngredients, label.innerHTML); /*call the function that removes the Ingr tagged*/
-        loadAllIngr(); /*load list of all the Ingr that are not tagged*/    
+        // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
+        removeElementFromTab(tabIngredients, element.innerHTML);  
+        tabSelectIngr.push(element.innerHTML);
+        // moveElementFromTabToTab(tabIngredients, tabSelectIngr, element.innerHTML);
+        displayTags("tagIngr", tabSelectIngr);
+        loadAllIngr(); /*load list of all the Ingr that are not tagged*/
     }
 
     else if (type == 'appareil') {
-        let tagApp = document.getElementById('tagApp'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
-        tagApp.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
+        let tagApp = document.getElementById('tagApp'); /*to get the tag for the App we clicked on in the suggestion list*/
+        tagApp.style.display = 'block'; /*to show the tag, cancel the CSS display none by replacing it with display block*/
 
-        let label = tagApp.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
-        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+        let label = tagApp.getElementsByTagName('label')[0]; /*to get the label i.e. the element that contains the name of the selected App*/
+        label.innerHTML = element.innerHTML; /*to get the text of the label i.e. the content of the label takes for value the element content*/
 
         tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
-        removeElement(tabAppareils, label.innerHTML); /*call the function that removes the App tagged*/
+        removeElementFromTab(tabAppareils, label.innerHTML); /*call the function that removes the App tagged*/
         loadAllApp(); /*load list of all the App that are not tagged*/    
     }
-    else if (type == 'ustensils') {
-        let tagUst = document.getElementById('tagUst'); /*on va chercher le tag qui correspond au type appareil sur lequel on a cliqué dans les suggestions  */
-        tagUst.style.display = 'block'; /* on fait apparaitre le tag pour annuler le display none du CSS*/
 
-        let label = tagUst.getElementsByTagName('label')[0]; /*on va chercher le label cad l'élément qui contient le nom de l'ingredient sélectionné*/
-        label.innerHTML = element.innerHTML; /*ceci permet de faire remonter le texte du label cad le contenu du label prend pour valeur le contenu de l'élément*/
+    else if (type == 'ustensile') {
+        let tagUst = document.getElementById('tagUst'); /*to get the tag for the Ust we clicked on in the suggestion list*/
+        tagUst.style.display = 'block'; /* to show the tag, cancel the CSS display none by replacing it with display block*/
+
+        let label = tagUst.getElementsByTagName('label')[0]; /*to get the label i.e. the element that contains the name of the selected Ust*/
+        label.innerHTML = element.innerHTML; /*to get the text of the label i.e. the content of the label takes for value the element content*/
 
         tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
-        removeElement(tabUstensiles, label.innerHTML); /*call the function that removes the Ust tagged*/
+        removeElementFromTab(tabUstensiles, label.innerHTML); /*call the function that removes the Ust tagged*/
         loadAllUst(); /*load list of all the Ust that are not tagged*/    
     }
 }
 
 // -----------------------------------------------------
-// CLOSE TAGS & SHOW ELEMENT BACK IN LIST
+// CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
 // -----------------------------------------------------
 
-function closeTag(tag) {
-    tag.parentNode.style.display = 'none';
-   
-    tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
-    tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
-    tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
-    
-//     addElement(tabIngredients, label.innerHTML); /*call the function that get back the ingr untagged*/
-//         loadAllIngr(); /*load list of all the ingr that are not tagged*/  
+function closeTag(btn_close, element, type) {
+    btn_close.parentNode.style.display = 'none';
+
+    if(type == "ingr") {
+        moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
+        tabIngredients.sort()
+        loadAllIngr(); 
+    } else if(type == "app") {
+        moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
+        tabAppareils.sort();
+        loadAllApp();
+    } else {
+        moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
+        tabUstensiles.sort()
+        loadAllUst();
+    }
+
+    // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
+    // tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
+    // tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
 }

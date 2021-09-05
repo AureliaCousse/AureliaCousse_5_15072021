@@ -283,7 +283,7 @@ TAG BUTTON
 }
 
 .tag {
-  display      : none;
+  /* display      : none; */
   width        : auto;
   height       : 40px;
   padding-left : 15px;
@@ -295,9 +295,10 @@ TAG BUTTON
   margin       : 10px 20px 10px 0;
 }
 
-#tagIngr {
+#tagIngr .inner-tag {
   background-color: #3282F7;
 }
+
 
 #tagApp {
   background-color: #68D9A4;
@@ -394,6 +395,10 @@ FILTER ZONE
 }
 
 .selectBtn.fa-chevron-up {
+  display: none;
+}
+
+.inputFilter2{
   display: none;
 }
 
