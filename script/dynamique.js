@@ -7,8 +7,6 @@ const searchUst = document.getElementById("userUst"); /*tells what is to be list
 const searchApp = document.getElementById("userApp"); /*tells what is to be listened: the user input i.e. userApp*/
 
 
-
-
 // -----------------------------------------------------
 // VARIABLES
 // -----------------------------------------------------
@@ -143,23 +141,21 @@ function hideAppList() { /*to hide the all appareil list*/
 }
 
 
-//STILL ON GOING.........NOT WORKING .....YET....
+// -----------------------------------------------------
+// PLACEHOLDER CHANGE on click
+// -----------------------------------------------------
 
 function displayIngrInput2() { /*to show text input2*/
-    document.getElementById("userIngr2").style.display = "block"; 
-    document.querySelector("#ingrFilter .inputFilter2").style.display = "block"; 
-    document.querySelector("#ingrFilter .inputFilter").style.display = "none";
+    document.getElementById("userIngr").placeholder = "Rechercher un ingrédient"; 
 }
 
 function hideIngrInput2() { /*to hide text input2*/
-    document.getElementById("userIngr2").style.display = "none";
-    document.querySelector("#ingrFilter .inputFilter2").style.display = "none";
-    document.querySelector("#ingrFilter .inputFilter").style.display = "block";
+    document.getElementById("userIngr").placeholder = "Ingrédients";
 }
 
-
-document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrInput2() } /*use query selector when no id, class only*/
-document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrInput2() }
+document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); /*pas de ()*/ 
+document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2); /*pas de ()*/ 
+// document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrInput2() } /*do not use .onclick c'est librairie JQUERY - neplus utiliser*/
 
 
 // -----------------------------------------------------
@@ -194,7 +190,7 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
     showRecipes(resultIngr);
     let suggestion = "";
 
-    if (input != "") { /*if input is not empty */
+    if (input != "") { /*i.e. if input is not empty */
 
         tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
 
@@ -291,6 +287,9 @@ function removeElementFromTab(tab, searchElement) {
     }
 }
 
+// -----------------------------------------------------
+// CREATION & DISPLAY TAG ZONE
+// -----------------------------------------------------
 function displayTags(idTagZone, tabSelect){
     let tagZone = document.getElementById(idTagZone);
     tagZone.innerHTML = "" 
