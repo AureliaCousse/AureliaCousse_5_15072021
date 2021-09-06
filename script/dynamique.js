@@ -3,9 +3,8 @@
 // -----------------------------------------------------
 
 const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
-const searchUst = document.getElementById("userUst"); /*tells what is to be listened: the user input i.e. userUst*/
-const searchApp = document.getElementById("userApp"); /*tells what is to be listened: the user input i.e. userApp*/
-
+const searchUst = document.getElementById("userUst"); 
+const searchApp = document.getElementById("userApp"); 
 
 // -----------------------------------------------------
 // VARIABLES
@@ -17,18 +16,25 @@ let tabIngredients = getAllIngr(); /*Tab with all Ingr*/
 let tabSelectIngr = []; /*Tab of Ingr selected as tag only*/
 
 let tabAppareils = getAllApp();
-let tabSelectApp = [];/*Tab of all App selected as tag*/
+let tabSelectApp = [];
 
 let tabUstensiles = getAllUst();
-let tabSelectUst = [];/*Tab of all Ust selected as tag*/
-
+let tabSelectUst = [];
 
 // -----------------------------------------------------
 // FUNCTIONS
 // -----------------------------------------------------
-// function normString(strToNorm){
+
+
+// .....................................................
+// Tables containing element list
+// .....................................................
+
+
+// NB
+//function normString(strToNorm){
 //     return (strToNorm.toLowerCase()).normalize("NFD").replace(/\p{Diacritic}/gu, "");
-// } : REPLACED BY CLASS UTILS
+// } is REPLACED BY CLASS "Utils"
 
 function getAllIngr() {
     let tabAllIngr = []; /*to create an empty tab that will contain all the App*/
@@ -47,12 +53,11 @@ function getAllIngr() {
 }
 
 function getAllApp() {
-    let tabAllApp = []; /*to create an empty tab that will contain all the App*/
-    recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
-        let app = recette.appliance; /*variable to avoid to repeat of currentUstensile.ustensile in the same local loop */
-        if (!tabAllApp.includes(app.toLowerCase())) {  /*if one App of one of the recipes is not yet (negative shown by "!") listed in the Ust table, then  it is displayed*/
-        /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
-            tabAllApp.push(app.toLowerCase()); /*push: at each loop, we add the App if it is what we are searching for*/
+    let tabAllApp = []; 
+    recipes.forEach(recette => { 
+        let app = recette.appliance; 
+        if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
+            tabAllApp.push(app.toLowerCase()); 
         }
     })
     tabAllApp.sort();
@@ -60,19 +65,22 @@ function getAllApp() {
 }
 
 function getAllUst() {
-    let tabAllUst = []; /*to create an empty tab that will contain all the Ust*/
-    recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
+    let tabAllUst = []; 
+    recipes.forEach(recette => { 
         recette.ustensils.forEach(currentUstensile => {
-            let ust = currentUstensile; /*variable to avoid to repeat of currentUstensile.ustensile in the same local loop */
-            if (!tabAllUst.includes(ust.toLowerCase())) {  /*if one Ust of one of the recipes is not yet (negative shown by "!") listed in the Ust table, then  it is displayed*/
-                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
-                tabAllUst.push(ust.toLowerCase()); /*push: at each loop, we add the Ust if it is what we are searching for*/
+            let ust = currentUstensile; 
+            if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
+                tabAllUst.push(ust.toLowerCase()); 
             }
         })
     })
     tabAllUst.sort();
     return tabAllUst;
 }
+
+// .....................................................
+// 
+// .....................................................
 
 function loadAllIngr() {
     
@@ -101,6 +109,11 @@ function loadAllUst() {
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
+
+// .....................................................
+// Show & hide all the element lists
+// .....................................................
+
 function displayIngrList() { /*to show the all ingredient list*/
     loadAllIngr();
     document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
@@ -114,30 +127,58 @@ function hideIngrList() { /*to hide the all ingredient list*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
 }
 
-function displayUstList() { /*to show the all ustensiles list*/
+function displayAppList() { 
+    loadAllApp();
+    document.getElementById("suggApp").style.display = "flex";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; 
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
+}
+
+function hideAppList() { 
+    document.getElementById("suggApp").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+}
+
+function displayUstList() { 
     loadAllUst();
-    document.getElementById("suggUst").style.display = "flex"; /*flex to allow suggUst to appear in column*/
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.getElementById("suggUst").style.display = "flex"; 
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
 }
 
-function hideUstList() { /*to hide the all ustensiles list*/
+function hideUstList() { 
     document.getElementById("suggUst").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
 }
 
-function displayAppList() { /*to show the all appareil list*/
-    loadAllApp();
-    document.getElementById("suggApp").style.display = "flex";/*flex to allow suggApp to appear in column*/
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
-    document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
+// .....................................................
+// Show & hide Placeholder text
+// .....................................................
+
+function displayIngrInput2() { /*to show placeholder text input2*/
+    document.getElementById("userIngr").placeholder = "Rechercher un ingrédient"; 
 }
 
-function hideAppList() { /*to hide the all appareil list*/
-    document.getElementById("suggApp").style.display = "none";
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
-    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+function hideIngrInput2() { /*to hide placeholder text input2*/
+    document.getElementById("userIngr").placeholder = "Ingrédients";
+}
+
+function displayAppInput2() { /*to show placeholder text input2*/
+    document.getElementById("userApp").placeholder = "Rechercher un appareil"; 
+}
+
+function hideAppInput2() { /*to hide placeholder text input2*/
+    document.getElementById("userApp").placeholder = "Appareils";
+}
+
+function displayUstInput2() { /*to show placeholder text input2*/
+    document.getElementById("userUst").placeholder = "Rechercher un ustensile"; 
+}
+
+function hideUstInput2() { /*to hide placeholder text input2*/
+    document.getElementById("userUst").placeholder = "Ustensiles";
 }
 
 
@@ -145,18 +186,14 @@ function hideAppList() { /*to hide the all appareil list*/
 // PLACEHOLDER CHANGE on click
 // -----------------------------------------------------
 
-function displayIngrInput2() { /*to show text input2*/
-    document.getElementById("userIngr").placeholder = "Rechercher un ingrédient"; 
-}
+document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); 
+document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2);  
 
-function hideIngrInput2() { /*to hide text input2*/
-    document.getElementById("userIngr").placeholder = "Ingrédients";
-}
+document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppInput2); 
+document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hideAppInput2);
 
-document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); /*pas de ()*/ 
-document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2); /*pas de ()*/ 
-// document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrInput2() } /*do not use .onclick c'est librairie JQUERY - neplus utiliser*/
-
+document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstInput2); 
+document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstInput2);
 
 // -----------------------------------------------------
 //OPEN  & CLOSE THE DROPDOWN HARROW
@@ -169,14 +206,14 @@ document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", h
 // }   
 //REPLACED BY:
 
-document.querySelector("#ingrFilter .fa-chevron-down").onclick = () => { displayIngrList() } /*use querySelector when no id but class only*/
-document.querySelector("#ingrFilter .fa-chevron-up").onclick = () => { hideIngrList() }
+document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrList); 
+document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrList);
 
-document.querySelector("#appFilter .fa-chevron-down").onclick = () => { displayAppList() }
-document.querySelector("#appFilter .fa-chevron-up").onclick = () => { hideAppList() }
+document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppList); 
+document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hideAppList);
 
-document.querySelector("#ustFilter .fa-chevron-down").onclick = () => { displayUstList() }
-document.querySelector("#ustFilter .fa-chevron-up").onclick = () => { hideUstList() }
+document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstList); 
+document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstList);
 
 
 // -----------------------------------------------------
@@ -246,37 +283,7 @@ searchUst.addEventListener("keyup", function () { /*To listen input entered in s
     document.getElementById("suggUst").innerHTML = suggestion;
 })
 
-// a = [1,2,3,4]
-// (4) [1, 2, 3, 4]
 
-// a.splice(1,1)
-// [2]
-
-// a
-// (3) [1, 3, 4]
-
-// a.splice(1,2)
-// (2) [3, 4]
-
-// a
-// [1]
-
-
-// tab = [
-//     "tomate",
-//     "salade",
-//     "pomme"
-// ]
-
-// element = "pomme"
-
-    // let count = 0
-    // tab.forEach(currentElem  {
-    //     if (currentElement == element) {
-    //         // remove currentElem
-    //     }
-    //     count = count + 1
-    // })
 
 function removeElementFromTab(tab, searchElement) {
     for(let i = 0; i < tab.length; i++){
@@ -396,7 +403,5 @@ function closeTag(btn_close, element, type) {
         loadAllUst();
     }
 
-    // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
-    // tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
-    // tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
+    
 }
