@@ -109,9 +109,8 @@ function loadAllUst() {
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
-
 // .....................................................
-// Show & hide all the element lists
+// Show or hide all the element lists 
 // .....................................................
 
 function displayIngrList() { /*to show the all ingredient list*/
@@ -181,7 +180,6 @@ function hideUstInput2() { /*to hide placeholder text input2*/
     document.getElementById("userUst").placeholder = "Ustensiles";
 }
 
-
 // -----------------------------------------------------
 // PLACEHOLDER CHANGE on click
 // -----------------------------------------------------
@@ -196,7 +194,7 @@ document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstInput2);
 
 // -----------------------------------------------------
-//OPEN  & CLOSE THE DROPDOWN HARROW
+//OPEN  or CLOSE element list when click on dropdown harrow
 // -----------------------------------------------------
 
 // let btnDownIngr = document.querySelector("#ingrFilter .fa-chevron-down")
@@ -217,7 +215,7 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 
 
 // -----------------------------------------------------
-// LISTENER - DROPDOWN SEARCH BAR
+// Element list when user input entered in dropdown search bar
 // -----------------------------------------------------
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
@@ -358,27 +356,17 @@ function addTag(element, type) {
     }
 
     else if (type == 'appareil') {
-        let tagApp = document.getElementById('tagApp'); /*to get the tag for the App we clicked on in the suggestion list*/
-        tagApp.style.display = 'block'; /*to show the tag, cancel the CSS display none by replacing it with display block*/
-
-        let label = tagApp.getElementsByTagName('label')[0]; /*to get the label i.e. the element that contains the name of the selected App*/
-        label.innerHTML = element.innerHTML; /*to get the text of the label i.e. the content of the label takes for value the element content*/
-
-        tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
-        removeElementFromTab(tabAppareils, label.innerHTML); /*call the function that removes the App tagged*/
-        loadAllApp(); /*load list of all the App that are not tagged*/    
+        removeElementFromTab(tabAppareils, element.innerHTML);
+        tabSelectApp.push(element.innerHTML);
+        displayTags("tagApp", tabSelectApp);
+        loadAllApp();  
     }
 
     else if (type == 'ustensile') {
-        let tagUst = document.getElementById('tagUst'); /*to get the tag for the Ust we clicked on in the suggestion list*/
-        tagUst.style.display = 'block'; /* to show the tag, cancel the CSS display none by replacing it with display block*/
-
-        let label = tagUst.getElementsByTagName('label')[0]; /*to get the label i.e. the element that contains the name of the selected Ust*/
-        label.innerHTML = element.innerHTML; /*to get the text of the label i.e. the content of the label takes for value the element content*/
-
-        tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
-        removeElementFromTab(tabUstensiles, label.innerHTML); /*call the function that removes the Ust tagged*/
-        loadAllUst(); /*load list of all the Ust that are not tagged*/    
+        removeElementFromTab(tabUstensiles, element.innerHTML);
+        tabSelectUst.push(element.innerHTML);
+        displayTags("tagUst", tabSelectUst);
+        loadAllUst();  
     }
 }
 
@@ -402,6 +390,4 @@ function closeTag(btn_close, element, type) {
         tabUstensiles.sort()
         loadAllUst();
     }
-
-    
 }
