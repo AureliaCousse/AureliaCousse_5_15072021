@@ -457,7 +457,6 @@ RECIPE LIST
 
 .recipeDetails {
   display       : flex;
-  flex-direction: row-reverse;
   margin-top    : 20px;
 }
 
@@ -531,10 +530,10 @@ footer h4 {
 }
 
 /* -----------------------------------------------------
-MEDIA QUERIES
+MEDIA QUERIES (changed from 768 to 850)
 ----------------------------------------------------- */
 
-@media only screen and (min-width:768px) {
+@media only screen and (min-width:850px) {
   .mainSearch {
     width    : 95%;
     height   : 69px;
@@ -605,6 +604,9 @@ MEDIA QUERIES
   }
   .recipe {
     width: 30%;
+  }
+  .ingredients {
+    width      : 250px;
   }
 
 }

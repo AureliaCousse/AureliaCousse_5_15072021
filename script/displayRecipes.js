@@ -1,5 +1,16 @@
 showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
 
+function renameUnit(longUnit){
+    switch (longUnit) {
+        case "grammes":
+            return "g"
+        case "cuillères à soupe":
+            return "cas"
+        default:
+            return longUnit
+    }
+}
+
 /** Fonction pour afficher toutes les recettes en paramètre
  * 
  * @param recipeTab: le tableau contenant les recettes à afficher
@@ -60,24 +71,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on met l'objet recipeDetails dans l'objet div generale:*/
         newRecipe.appendChild(recipeDetails);
 
-        /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
-        let instructions = recipeTab[i]["description"];
-        const maxLength = 300;
-
-        /*on crée la div recipeDescription*/
-        let recipeDescription = document.createElement("div");
-        recipeDescription.setAttribute("class", "recipeDescription");
-        recipeDescription.innerHTML = instructions.length>maxLength ? instructions.substring(0, maxLength) + "..." : instructions;  /*on va chercher les instructions de la recette*/
-            /* instructions ternaires: ? => if // ":" =>else*/
-
-        // to be deleted (replaced by line85 all in 1):
-        //   if (instructions.length > maxLength) {
-        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la longueur des instructions - si trop long; ...*/
-        // }
-
-        /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
-        recipeDetails.appendChild(recipeDescription);
-
         /*on crée la liste ul des recipeIngredients*/
         let recipeIngredients = document.createElement("ul");
         recipeIngredients.setAttribute("class", "ingredients");
@@ -94,7 +87,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
             /*on crée un élément li qui contiendra les info ingredient+quantity+unit si existant*/
             let ingredientInfoList = document.createElement("li");
-            ingredientInfoList.innerHTML = `<b>${ingredientData.ingredient}</b>: `
+            ingredientInfoList.innerHTML = `<b>${ingredientData["ingredient"]}</b>: `
             // "<b>" + ingredientData["ingredient"] + "</b>:  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
 
            /* OU BIEN ECRIRE: ingredientInfoList.innerHTML = ingredientData.ingredient + " "*/
@@ -107,16 +100,40 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
                 ingredientInfoList.innerHTML += ingredientData["quantite"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
             }
             if (ingredientData.hasOwnProperty("unit") == true) {
-                ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
+               ingredientInfoList.innerHTML += renameUnit(ingredientData["unit"]);/*pour dire qu'on rajoute (+=) au texte, l'unité (si il y a une clé unit)*/
             }
             if (ingredientData.hasOwnProperty("unite") == true) {
-                ingredientInfoList.innerHTML += ingredientData["unit"];/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
+                ingredientInfoList.innerHTML += renameUnit(ingredientData["unite"]);/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
 
             /*on met l'objet li ingredient+qty+unit dans l'objet ul recipeIngredients*/
             recipeIngredients.appendChild(ingredientInfoList);
         }
 
+        /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
+        let instructions = recipeTab[i]["description"];
+
+        let maxLength = 500; // maxLength pour les ecrans > 850px
+        if (window.matchMedia("(max-width: 850px)").matches) {
+            // les ecrans < 850px
+            maxLength = 300 // maxLength pour les ecrans < 850px
+        }
+
+        /*on crée la div recipeDescription*/
+        let recipeDescription = document.createElement("div");
+        recipeDescription.setAttribute("class", "recipeDescription");
+        recipeDescription.innerHTML = instructions.length>maxLength ? instructions.substring(0, maxLength) + "..." : instructions;  /*on va chercher les instructions de la recette*/
+            /* instructions ternaires: ? => if // ":" =>else*/
+
+        // to be deleted (replaced by line85 all in 1):
+        //   if (instructions.length > maxLength) {
+        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la longueur des instructions - si trop long; ...*/
+        // }
+
+        /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
+        recipeDetails.appendChild(recipeDescription);
+
+        
         /*on ajoute le tout au fichier html*/
         recipeList.appendChild(newRecipe);
     }

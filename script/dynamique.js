@@ -6,6 +6,7 @@ const searchIngr = document.getElementById("userIngr"); /*tells what is to be li
 const searchUst = document.getElementById("userUst"); 
 const searchApp = document.getElementById("userApp"); 
 
+
 // -----------------------------------------------------
 // VARIABLES
 // -----------------------------------------------------
@@ -19,7 +20,11 @@ let tabAppareils = getAllApp();
 let tabSelectApp = [];
 
 let tabUstensiles = getAllUst();
-let tabSelectUst = [];
+let tabSelectUst = []; 
+
+let grammes = "grammes";
+let emptyUnit = ":   ";
+// grammes.substring(0,1);
 
 // -----------------------------------------------------
 // FUNCTIONS
@@ -30,11 +35,10 @@ let tabSelectUst = [];
 // Tables containing element list
 // .....................................................
 
-
 // NB
 //function normString(strToNorm){
 //     return (strToNorm.toLowerCase()).normalize("NFD").replace(/\p{Diacritic}/gu, "");
-// } is REPLACED BY CLASS "Utils"
+// } is REPLACED BY CLASS "Utils" in dedicated file
 
 function getAllIngr() {
     let tabAllIngr = []; /*to create an empty tab that will contain all the App*/
@@ -391,3 +395,4 @@ function closeTag(btn_close, element, type) {
         loadAllUst();
     }
 }
+
