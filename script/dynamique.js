@@ -22,13 +22,18 @@ let tabSelectApp = [];
 let tabUstensiles = getAllUst();
 let tabSelectUst = []; 
 
-let grammes = "grammes";
-let emptyUnit = ":   ";
-// grammes.substring(0,1);
-
 // -----------------------------------------------------
 // FUNCTIONS
 // -----------------------------------------------------
+
+function renameElement(suggElement){
+    switch (suggElement) {
+        case "Bananes":
+            return "Banane"
+        default:
+            return suggElement
+    }
+}
 
 
 // .....................................................
@@ -113,6 +118,9 @@ function loadAllUst() {
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
+
+
+
 // .....................................................
 // Show or hide all the element lists 
 // .....................................................
@@ -120,6 +128,8 @@ function loadAllUst() {
 function displayIngrList() { /*to show the all ingredient list*/
     loadAllIngr();
     document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
+    // document.getElementById("suggApp").style.display = "none";
+    // document.getElementById("suggUst").style.display = "none";
     document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
 }
@@ -133,6 +143,8 @@ function hideIngrList() { /*to hide the all ingredient list*/
 function displayAppList() { 
     loadAllApp();
     document.getElementById("suggApp").style.display = "flex";
+    // document.getElementById("suggIngr").style.display = "none";
+    // document.getElementById("suggUst").style.display = "none";
     document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
 }
@@ -146,6 +158,8 @@ function hideAppList() {
 function displayUstList() { 
     loadAllUst();
     document.getElementById("suggUst").style.display = "flex"; 
+    // document.getElementById("suggIngr").style.display = "none";
+    // document.getElementById("suggApp").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
 }
@@ -155,6 +169,7 @@ function hideUstList() {
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
 }
+
 
 // .....................................................
 // Show & hide Placeholder text

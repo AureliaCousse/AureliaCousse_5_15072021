@@ -178,6 +178,10 @@ body {
   /* nota bene 100% i.e. 1rem = 16px  - else: confirm how many rem (for 32px show 2rem) */
 }
 
+input{
+  background-color: none;
+}
+
 /* -----------------------------------------------------
 PAGE & HEADER
 ----------------------------------------------------- */
@@ -228,12 +232,13 @@ MAIN SEARCH BAR
   outline         : transparent;
   border          : transparent;
   color           : black;
+  overflow        : hidden;
+  text-overflow   : ellipsis;
+  padding-right   : 15px;
 }
 
 .inputSearch::placeholder {
-  color        : #757474;
-  text-overflow: ellipsis;
-  /*A revoir   : ne marche pas???*/
+  color: #757474;
 }
 
 .searchBtn {
@@ -251,6 +256,10 @@ MAIN SEARCH BAR
   text-transform: capitalize;
   color         : black;
 }
+
+/* #searchInput.inputSearch {
+  background: green;
+} */
 
 /* -----------------------------------------------------
 SEARCH BY SELECT - INGR, APP & UST TAB LISTS
@@ -283,8 +292,8 @@ TAG BUTTON
 }
 
 .tag {
-  display    : flex;
-  align-items: center;
+  display      : flex;
+  align-items  : center;
   width        : auto;
   height       : 40px;
   font-family  : "Lato-Regular", Arial, Verdana, sans-serif;
@@ -292,11 +301,11 @@ TAG BUTTON
   border       : none;
   color        : white;
   border-radius: 5px;
-  margin       : 0px 5px 10px 0;
+  margin       : 0 0 5px 0;
 }
 
 .inner-tag {
-  margin        : 0 5px 10px 0;
+  margin        : 0 5px 5px 0;
   padding-left  : 10px;
   text-transform: capitalize;
   border-radius : 5px;
@@ -409,26 +418,34 @@ FILTER ZONE
 }
 
 .suggestions {
-  padding-left  : 20px;
-  line-height   : 30px;
-  text-transform: capitalize;
-  color         : white;
-  display       : flex;
+  max-width      : 200px;
+  padding-left   : 20px;
+  line-height    : 30px;
+  text-transform : capitalize;
+  color          : white;
+  display        : flex;
+  align-items    : flex-start;
+  justify-content: flex-start;
+  flex-wrap      : wrap;
 }
 
+.resultSugg {
+  min-width: 100%;
+  /*so that the element result only takes all width of the container sugg to get 1 single column*/
+}
 
 /* -----------------------------------------------------
 RECIPE LIST
 ----------------------------------------------------- */
-#recipeList{
-  margin-top      : 300px;
+#recipeList {
+  margin-top: 300px;
 }
+
 .recipe {
   display         : flex;
   flex-direction  : column;
   height          : 350px;
   border-radius   : 5px;
-  overflow        : hidden;
   background-color: #E7E7E7;
   margin-top      : 20px;
   padding         : 15px;
@@ -456,14 +473,15 @@ RECIPE LIST
 }
 
 .recipeDetails {
-  display       : flex;
-  margin-top    : 20px;
+  display   : flex;
+  margin-top: 20px;
 }
 
 .ingredients {
-  width      : 150px;
-  font-family: "Lato-Regular", Arial, Verdana, sans-serif;
-  font-size  : 12px;
+  width        : 220px;
+  font-family  : "Lato-Regular", Arial, Verdana, sans-serif;
+  font-size    : 12px;
+  padding-right: 20px;
 }
 
 b {
@@ -473,7 +491,7 @@ b {
 .recipeDescription {
   font-family: "Roboto-Regular", Arial, Verdana, sans-serif;
   font-size  : 12px;
-  width      : 195px;
+  width      : 280px;
   height     : 109px;
 }
 
@@ -532,6 +550,11 @@ footer h4 {
 /* -----------------------------------------------------
 MEDIA QUERIES (changed from 768 to 850)
 ----------------------------------------------------- */
+@media only screen and (min-width:500px) {
+  .recipe {
+    width: 70%;
+  }
+}
 
 @media only screen and (min-width:850px) {
   .mainSearch {
@@ -557,7 +580,6 @@ MEDIA QUERIES (changed from 768 to 850)
   }
 
   .filter {
-    /* min-width   : 170px; */
     min-height  : 69px;
     margin-right: 25px;
     display     : flex;
@@ -592,6 +614,9 @@ MEDIA QUERIES (changed from 768 to 850)
     margin-right: 20px;
   }
 
+  .recipe {
+    width: 45%;
+  }
   #recipeList {
     display        : flex;
     flex-direction : row;
@@ -599,14 +624,19 @@ MEDIA QUERIES (changed from 768 to 850)
     justify-content: space-between;
   }
 
-  #recipeList{
-    margin-top      : 150px;
+  #recipeList {
+    margin-top: 150px;
   }
-  .recipe {
-    width: 30%;
-  }
+
   .ingredients {
-    width      : 250px;
+    width: 250px;
   }
 
 }
+
+@media only screen and (min-width:1200px) {
+  .recipe {
+    width: 30%;
+  }
+}
+

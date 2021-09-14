@@ -6,6 +6,12 @@ function renameUnit(longUnit){
             return "g"
         case "cuillères à soupe":
             return "cas"
+        case "cuillère à soupe":
+            return "cas"
+        case "litres":
+            return "l"
+        case "litre":
+            return "l"
         default:
             return longUnit
     }
@@ -116,7 +122,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         let maxLength = 500; // maxLength pour les ecrans > 850px
         if (window.matchMedia("(max-width: 850px)").matches) {
             // les ecrans < 850px
-            maxLength = 300 // maxLength pour les ecrans < 850px
+            maxLength = 235 // maxLength pour les ecrans < 850px
         }
 
         /*on crée la div recipeDescription*/
