@@ -178,7 +178,7 @@ body {
   /* nota bene 100% i.e. 1rem = 16px  - else: confirm how many rem (for 32px show 2rem) */
 }
 
-input{
+input {
   background-color: none;
 }
 
@@ -430,7 +430,8 @@ FILTER ZONE
 }
 
 .resultSugg {
-  min-width: 100%;
+  min-width    : 100%;
+  padding-right: 50px;
   /*so that the element result only takes all width of the container sugg to get 1 single column*/
 }
 
@@ -489,10 +490,12 @@ b {
 }
 
 .recipeDescription {
-  font-family: "Roboto-Regular", Arial, Verdana, sans-serif;
-  font-size  : 12px;
-  width      : 280px;
-  height     : 109px;
+  font-family  : "Roboto-Regular", Arial, Verdana, sans-serif;
+  font-size    : 12px;
+  width        : 300px;
+  height       : 109px;
+  /* text-align: justify;
+  text-justify : inter-word;   */
 }
 
 /* -----------------------------------------------------
@@ -617,6 +620,7 @@ MEDIA QUERIES (changed from 768 to 850)
   .recipe {
     width: 45%;
   }
+
   #recipeList {
     display        : flex;
     flex-direction : row;
@@ -639,4 +643,3 @@ MEDIA QUERIES (changed from 768 to 850)
     width: 30%;
   }
 }
-

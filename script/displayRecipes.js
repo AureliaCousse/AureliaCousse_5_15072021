@@ -93,17 +93,17 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
             /*on crée un élément li qui contiendra les info ingredient+quantity+unit si existant*/
             let ingredientInfoList = document.createElement("li");
-            ingredientInfoList.innerHTML = `<b>${ingredientData["ingredient"]}</b>: `
+            ingredientInfoList.innerHTML = `<b>${ingredientData["ingredient"]}</b>`
             // "<b>" + ingredientData["ingredient"] + "</b>:  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
 
            /* OU BIEN ECRIRE: ingredientInfoList.innerHTML = ingredientData.ingredient + " "*/
 
             /*dans le cas où seul l'ingrédient apparait sans qty ni unit (par exemple le sel) et palier aux différentes orthographes de qty & qté // unit & unite*/
             if (ingredientData.hasOwnProperty("quantity") == true) { /*dans js possible de ne pas mettre ==true (true est implicite)*/
-                ingredientInfoList.innerHTML += ingredientData["quantity"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
+                ingredientInfoList.innerHTML += ": " + ingredientData["quantity"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
             }
             if (ingredientData.hasOwnProperty("quantite") == true) { /*dans js possible de ne pas mettre ==true (true est implicite)*/
-                ingredientInfoList.innerHTML += ingredientData["quantite"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
+                ingredientInfoList.innerHTML += ": " + ingredientData["quantite"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
             }
             if (ingredientData.hasOwnProperty("unit") == true) {
                ingredientInfoList.innerHTML += renameUnit(ingredientData["unit"]);/*pour dire qu'on rajoute (+=) au texte, l'unité (si il y a une clé unit)*/
@@ -119,10 +119,9 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
         let instructions = recipeTab[i]["description"];
 
-        let maxLength = 500; // maxLength pour les ecrans > 850px
-        if (window.matchMedia("(max-width: 850px)").matches) {
-            // les ecrans < 850px
-            maxLength = 235 // maxLength pour les ecrans < 850px
+        let maxLength = 345; // maxLength for screens > 850px
+        if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
+            maxLength = 250; 
         }
 
         /*on crée la div recipeDescription*/
@@ -156,14 +155,11 @@ searchinput.addEventListener("keyup", function(){
   const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
   showRecipes(result);
   let suggestion = "";
-
   if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
     result.forEach(resultItem => 
       suggestion += `
       <div class="suggSearch">${resultItem.name}</div>`
     )
   }
-
   document.getElementById("suggSearch").innerHTML = suggestion;
-  
 })

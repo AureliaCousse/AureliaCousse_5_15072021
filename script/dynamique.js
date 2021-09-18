@@ -35,7 +35,6 @@ function renameElement(suggElement){
     }
 }
 
-
 // .....................................................
 // Tables containing element list
 // .....................................................
@@ -119,19 +118,23 @@ function loadAllUst() {
 }
 
 
-
-
 // .....................................................
-// Show or hide all the element lists 
+// Show or hide all the element lists / list closed when another open
 // .....................................................
 
 function displayIngrList() { /*to show the all ingredient list*/
     loadAllIngr();
     document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
-    // document.getElementById("suggApp").style.display = "none";
-    // document.getElementById("suggUst").style.display = "none";
-    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: parent space & as many children created*/
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: block-> parent space & as many children created*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
+
+    document.getElementById("suggApp").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
+
+    document.getElementById("suggUst").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";    
 }
 
 function hideIngrList() { /*to hide the all ingredient list*/
@@ -143,10 +146,17 @@ function hideIngrList() { /*to hide the all ingredient list*/
 function displayAppList() { 
     loadAllApp();
     document.getElementById("suggApp").style.display = "flex";
-    // document.getElementById("suggIngr").style.display = "none";
-    // document.getElementById("suggUst").style.display = "none";
     document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
+
+
+    document.getElementById("suggIngr").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "none";
+
+    document.getElementById("suggUst").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";   
 }
 
 function hideAppList() { 
@@ -158,10 +168,16 @@ function hideAppList() {
 function displayUstList() { 
     loadAllUst();
     document.getElementById("suggUst").style.display = "flex"; 
-    // document.getElementById("suggIngr").style.display = "none";
-    // document.getElementById("suggApp").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
+
+    document.getElementById("suggIngr").style.display = "none";
+    document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "none";
+
+    document.getElementById("suggApp").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";   
 }
 
 function hideUstList() { 
@@ -183,24 +199,24 @@ function hideIngrInput2() { /*to hide placeholder text input2*/
     document.getElementById("userIngr").placeholder = "Ingrédients";
 }
 
-function displayAppInput2() { /*to show placeholder text input2*/
+function displayAppInput2() { 
     document.getElementById("userApp").placeholder = "Rechercher un appareil"; 
 }
 
-function hideAppInput2() { /*to hide placeholder text input2*/
+function hideAppInput2() { 
     document.getElementById("userApp").placeholder = "Appareils";
 }
 
-function displayUstInput2() { /*to show placeholder text input2*/
+function displayUstInput2() { 
     document.getElementById("userUst").placeholder = "Rechercher un ustensile"; 
 }
 
-function hideUstInput2() { /*to hide placeholder text input2*/
+function hideUstInput2() { 
     document.getElementById("userUst").placeholder = "Ustensiles";
 }
 
 // -----------------------------------------------------
-// PLACEHOLDER CHANGE on click
+// Placeholder change on click
 // -----------------------------------------------------
 
 document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); 
@@ -239,68 +255,80 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
-    const input = searchIngr.value;
-    const resultIngr = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-    showRecipes(resultIngr);
+    const inputIngr = searchIngr.value;
     let suggestion = "";
-
-    if (input != "") { /*i.e. if input is not empty */
-
-        tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
-
-            if (currentIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
-
-                suggestion += `
-                <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
-            }
-        })
-    }
-
+    tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
+        if (currentIngredient.toLocaleLowerCase().includes(inputIngr.toLocaleLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
+            suggestion += `
+            <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
+        }
+    })
     document.getElementById("suggIngr").innerHTML = suggestion;
 })
 
-searchApp.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
+searchApp.addEventListener("keyup", function () { 
     displayAppList();
     const inputApp = searchApp.value;
-    const resultApp = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-    showRecipes(resultApp);
     let suggestion = "";
-
-    if (inputApp != "") { /*if input is not empty */
-        tabAppareils.forEach(currentAppareil => { /*to browse & check in all the tab */
-
-            if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
-                
-                suggestion += `
-                <p class="suggApp  resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
-            }
-        })
-    }
-
+    tabAppareils.forEach(currentAppareil => { 
+        if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { 
+            suggestion += `
+            <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` 
+        }
+    })
     document.getElementById("suggApp").innerHTML = suggestion;
 })
 
-searchUst.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
+searchUst.addEventListener("keyup", function () { 
     displayUstList();
-    const input = searchUst.value;
-    const resultUst = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-    showRecipes(resultUst);
+    const inputUst = searchUst.value;
     let suggestion = "";
-
-    if (input != "") { /*if input is not empty */
-        tabUstensiles.forEach(currentUstensile => { /*to browse & check in all the tab */
-
-            if (currentUstensile.toLocaleLowerCase().includes(input.toLocaleLowerCase())) { /*et on verifie pour chaque ustensile si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
-            
-                suggestion += `
-                <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
-            }
-        })
-    }
+    tabUstensiles.forEach(currentUstensile => { 
+        if (currentUstensile.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase())) { 
+            suggestion += `
+            <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` 
+        }
+    })
     document.getElementById("suggUst").innerHTML = suggestion;
 })
 
 
+// searchApp.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
+//     displayAppList();
+//     const inputApp = searchApp.value;
+//      const resultApp = recipes.filter(item => item.appliance.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase()));
+//     showRecipes(resultApp);
+//     let suggestion = "";
+
+//     if (inputApp != "") { /*if input is not empty */
+//         tabAppareils.forEach(currentAppareil => { /*to browse & check in all the tab */
+//             if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
+//                 suggestion += `
+//                 <p class="suggApp  resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
+//             }
+//         })
+//     }
+//     document.getElementById("suggApp").innerHTML = suggestion;
+// })
+
+// searchUst.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
+//     displayUstList();
+//     const inputUst = searchUst.value;
+//     const resultUst = recipes.filter(item => item.name.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase()));
+//      // const resultUst = recipes.filter(item => item.ustensils.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+//     showRecipes(resultUst);
+//     let suggestion = "";
+
+//     if (inputUst != "") { /*if input is not empty */
+//         tabUstensiles.forEach(currentUstensile => { /*to browse & check in all the tab */
+//             if (currentUstensile.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase())) { /*et on verifie pour chaque ustensile si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/            
+//                 suggestion += `
+//                 <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
+//             }
+//         })
+//     }
+//     document.getElementById("suggUst").innerHTML = suggestion;
+// })
 
 function removeElementFromTab(tab, searchElement) {
     for(let i = 0; i < tab.length; i++){
@@ -367,25 +395,68 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
 function addTag(element, type) {
     if (type == 'ingredient') {
         // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
-        removeElementFromTab(tabIngredients, element.innerHTML);  
+        removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
-        // moveElementFromTabToTab(tabIngredients, tabSelectIngr, element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
         loadAllIngr(); /*load list of all the Ingr that are not tagged*/
+        const filteredRecipes =[];
+        recipes.forEach(rTagged => {
+            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLocaleLowerCase())
+            let nbTag = 0;
+            tabSelectIngr.forEach(ingrTag => {
+                if (ingredientsNames.includes(ingrTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectIngr.length){
+                filteredRecipes.push(rTagged);
+            }
+        })
+        showRecipes(filteredRecipes);
+
     }
 
     else if (type == 'appareil') {
-        removeElementFromTab(tabAppareils, element.innerHTML);
+        removeElementFromTab(tabAppareils, element.innerHTML); 
         tabSelectApp.push(element.innerHTML);
         displayTags("tagApp", tabSelectApp);
-        loadAllApp();  
+        loadAllApp();
+        const filteredRecipes =[];
+        recipes.forEach(rTagged => {
+            const appareilsNames = rTagged.appareil.map(rMap => rMap.appareil.toLocaleLowerCase())
+            let nbTag = 0;
+            tabSelectApp.forEach(appTag => {
+                if (appareilsNames.includes(appTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectApp.length){
+                filteredRecipes.push(rTagged);
+            }
+        })
+        showRecipes(filteredRecipes);
     }
 
     else if (type == 'ustensile') {
-        removeElementFromTab(tabUstensiles, element.innerHTML);
+        removeElementFromTab(tabUstensiles, element.innerHTML); 
         tabSelectUst.push(element.innerHTML);
         displayTags("tagUst", tabSelectUst);
-        loadAllUst();  
+        loadAllUst(); 
+        const filteredRecipes =[];
+        recipes.forEach(rTagged => {
+            const ustensilesNames = rTagged.ustensile.map(rMap => rMap.ustensile.toLocaleLowerCase())
+            let nbTag = 0;
+            tabSelectUst.forEach(ustTag => {
+                if (ustensilesNames.includes(ustTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectUstr.length){
+                filteredRecipes.push(rTagged);
+            }
+        })
+        showRecipes(filteredRecipes);
+
     }
 }
 
