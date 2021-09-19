@@ -152,7 +152,7 @@ searchinput.addEventListener("keyup", function(){
   const input = searchinput.value;
 
   /* filter to get all words in title or description of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-  const result = recipes.filter(item => item.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||item.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+  const result = recipes.filter(item => item.name.toLowerCase().includes(input.toLowerCase())||item.description.toLowerCase().includes(input.toLowerCase()));
   showRecipes(result);
   let suggestion = "";
   if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/

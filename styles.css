@@ -430,9 +430,9 @@ FILTER ZONE
 }
 
 .resultSugg {
-  min-width    : 100%;
+  min-width    : 100%; /*so that the element result only takes all width of the container sugg to get 1 single column*/
   padding-right: 50px;
-  /*so that the element result only takes all width of the container sugg to get 1 single column*/
+  
 }
 
 /* -----------------------------------------------------
@@ -535,7 +535,6 @@ footer h4 {
   flex-direction: row;
 }
 
-
 .icon1 {
   /*icons for page "Proposer un partenariat"*/
   padding-right: 20px;
@@ -548,6 +547,17 @@ footer h4 {
   padding-right: 15px;
   font-size    : 0.8rem;
   margin-top   : 5px;
+}
+
+.backarrow{
+  margin-right: 40px;
+  font-size    :2rem;
+  color: #D04F4F;
+  font-weight   : bolder;
+}
+h3{
+  margin-top: 50px;
+  font-weight   : bold;
 }
 
 /* -----------------------------------------------------

@@ -26,10 +26,32 @@ let tabSelectUst = [];
 // FUNCTIONS
 // -----------------------------------------------------
 
+
+// .....................................................
+// Rename Element to avoid duplicates and /or typos
+// .....................................................
 function renameElement(suggElement){
     switch (suggElement) {
         case "Bananes":
             return "Banane"
+        case "Kiwis":
+            return "Kiwi"
+        case "Échalote":
+            return "Echalote" 
+        case "Poudre d'amendes":
+            return "Poudre d'amandes" 
+        case "Pommes":
+            return "Pomme"
+        case "Coulis de tomate":
+            return "Coulis de tomates"  
+        case "Casserolle":
+            return "Casserole"
+        case "Casserolle.":
+            return "Casserole"
+        case "casserolle":
+            return "casserole"
+        case "Économe":
+            return "Econome"
         default:
             return suggElement
     }
@@ -49,7 +71,8 @@ function getAllIngr() {
     recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
-            let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle locale*/
+            let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle*/
+            ingr=renameElement(ingr);
             if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
@@ -63,7 +86,8 @@ function getAllIngr() {
 function getAllApp() {
     let tabAllApp = []; 
     recipes.forEach(recette => { 
-        let app = recette.appliance; 
+        let app = recette.appliance;
+        app=renameElement(app);
         if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
             tabAllApp.push(app.toLowerCase()); 
         }
@@ -77,6 +101,7 @@ function getAllUst() {
     recipes.forEach(recette => { 
         recette.ustensils.forEach(currentUstensile => {
             let ust = currentUstensile; 
+            ust=renameElement(ust);
             if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
                 tabAllUst.push(ust.toLowerCase()); 
             }
@@ -258,7 +283,7 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
     const inputIngr = searchIngr.value;
     let suggestion = "";
     tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
-        if (currentIngredient.toLocaleLowerCase().includes(inputIngr.toLocaleLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
+        if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
             suggestion += `
             <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
         }
@@ -271,7 +296,7 @@ searchApp.addEventListener("keyup", function () {
     const inputApp = searchApp.value;
     let suggestion = "";
     tabAppareils.forEach(currentAppareil => { 
-        if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { 
+        if (currentAppareil.toLowerCase().includes(inputApp.toLowerCase())) { 
             suggestion += `
             <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` 
         }
@@ -284,51 +309,13 @@ searchUst.addEventListener("keyup", function () {
     const inputUst = searchUst.value;
     let suggestion = "";
     tabUstensiles.forEach(currentUstensile => { 
-        if (currentUstensile.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase())) { 
+        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
             suggestion += `
             <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` 
         }
     })
     document.getElementById("suggUst").innerHTML = suggestion;
 })
-
-
-// searchApp.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
-//     displayAppList();
-//     const inputApp = searchApp.value;
-//      const resultApp = recipes.filter(item => item.appliance.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase()));
-//     showRecipes(resultApp);
-//     let suggestion = "";
-
-//     if (inputApp != "") { /*if input is not empty */
-//         tabAppareils.forEach(currentAppareil => { /*to browse & check in all the tab */
-//             if (currentAppareil.toLocaleLowerCase().includes(inputApp.toLocaleLowerCase())) { /*et on verifie pour chaque appareil si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/
-//                 suggestion += `
-//                 <p class="suggApp  resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggApp" onclick = "addTag(this,'appareil')"*/
-//             }
-//         })
-//     }
-//     document.getElementById("suggApp").innerHTML = suggestion;
-// })
-
-// searchUst.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
-//     displayUstList();
-//     const inputUst = searchUst.value;
-//     const resultUst = recipes.filter(item => item.name.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase()) || item.description.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase()));
-//      // const resultUst = recipes.filter(item => item.ustensils.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-//     showRecipes(resultUst);
-//     let suggestion = "";
-
-//     if (inputUst != "") { /*if input is not empty */
-//         tabUstensiles.forEach(currentUstensile => { /*to browse & check in all the tab */
-//             if (currentUstensile.toLocaleLowerCase().includes(inputUst.toLocaleLowerCase())) { /*et on verifie pour chaque ustensile si il correspond à la recherche et on part sur le principe qu'un même mot ecrit en min puis ailleurs en maj va etre considéré les 2 fois en min pour comparer et ne le garder qu'une fois*/            
-//                 suggestion += `
-//                 <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` /* test est la fonction et this est l'argument ou paramètre cad soit l'élement html représenté par <div class="suggUst" onclick = "addTag(this,'iustensile')"*/
-//             }
-//         })
-//     }
-//     document.getElementById("suggUst").innerHTML = suggestion;
-// })
 
 function removeElementFromTab(tab, searchElement) {
     for(let i = 0; i < tab.length; i++){
@@ -401,7 +388,7 @@ function addTag(element, type) {
         loadAllIngr(); /*load list of all the Ingr that are not tagged*/
         const filteredRecipes =[];
         recipes.forEach(rTagged => {
-            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLocaleLowerCase())
+            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase())
             let nbTag = 0;
             tabSelectIngr.forEach(ingrTag => {
                 if (ingredientsNames.includes(ingrTag)){
@@ -413,7 +400,6 @@ function addTag(element, type) {
             }
         })
         showRecipes(filteredRecipes);
-
     }
 
     else if (type == 'appareil') {
@@ -423,7 +409,7 @@ function addTag(element, type) {
         loadAllApp();
         const filteredRecipes =[];
         recipes.forEach(rTagged => {
-            const appareilsNames = rTagged.appareil.map(rMap => rMap.appareil.toLocaleLowerCase())
+            const appareilsNames = rTagged.appliance.toLowerCase();
             let nbTag = 0;
             tabSelectApp.forEach(appTag => {
                 if (appareilsNames.includes(appTag)){
@@ -443,20 +429,20 @@ function addTag(element, type) {
         displayTags("tagUst", tabSelectUst);
         loadAllUst(); 
         const filteredRecipes =[];
-        recipes.forEach(rTagged => {
-            const ustensilesNames = rTagged.ustensile.map(rMap => rMap.ustensile.toLocaleLowerCase())
+
+        recipes.forEach(rTagged => {  /*"rTag" est la variable ou élément courant*/ 
+            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase())
             let nbTag = 0;
             tabSelectUst.forEach(ustTag => {
                 if (ustensilesNames.includes(ustTag)){
                     nbTag++
                 }
             })
-            if (nbTag===tabSelectUstr.length){
+            if (nbTag===tabSelectUst.length){
                 filteredRecipes.push(rTagged);
             }
         })
         showRecipes(filteredRecipes);
-
     }
 }
 
