@@ -1,19 +1,21 @@
+/*jshint esversion: 6 */
+
 showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
 
 function renameUnit(longUnit){
     switch (longUnit) {
         case "grammes":
-            return "g"
+            return "g";
         case "cuillères à soupe":
-            return "cas"
+            return "cas";
         case "cuillère à soupe":
-            return "cas"
+            return "cas";
         case "litres":
-            return "l"
+            return "l";
         case "litre":
-            return "l"
+            return "l";
         default:
-            return longUnit
+            return longUnit;
     }
 }
 
@@ -57,14 +59,14 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on crée les objets name + icon + time qui sont dans la div recipeHeader*/
         let recipeName = document.createElement("h1");
         recipeName.setAttribute("class", "name");
-        recipeName.innerHTML = recipeTab[i]["name"];  /*on va chercher l'intitulé de la recette*/
+        recipeName.innerHTML = recipeTab[i].name;  /*on va chercher l'intitulé de la recette*/
 
         let timeIcon = document.createElement("i");
         timeIcon.setAttribute("class", "far fa-clock");
 
         let recipeTime = document.createElement("h1");
         recipeTime.setAttribute("class", "time");
-        recipeTime.innerHTML = recipeTab[i]["time"] + " min";  /*on va chercher le temps de la recette avec + " min" pour avoir espace entre time et min*/
+        recipeTime.innerHTML = recipeTab[i].time + " min";  /*on va chercher le temps de la recette avec + " min" pour avoir espace entre time et min*/
 
         /*on met les objets name + icon + time dans l'objet div recipeHeader:*/
         recipeHeader.appendChild(recipeName);
@@ -83,7 +85,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on met l'objet recipeIngredients dans l'objet div generale recipe:*/
         recipeDetails.appendChild(recipeIngredients);
 
-        let ingredientsTab = recipeTab[i]["ingredients"];
+        let ingredientsTab = recipeTab[i].ingredients; /*.ingredients can also be writen ["ingredients"] but dot notation better for JS check*/
 
         for (let j = 0; j < ingredientsTab.length; j++) {
             /*pour FOR we need 3 info: 1) initialisation (i=xx) 2) condition pour continuer à faire tourner le code 3) l'incrément (savoir comment évolue la variable quand on fait le tour du code)*/
@@ -93,23 +95,23 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
             /*on crée un élément li qui contiendra les info ingredient+quantity+unit si existant*/
             let ingredientInfoList = document.createElement("li");
-            ingredientInfoList.innerHTML = `<b>${ingredientData["ingredient"]}</b>`
+            ingredientInfoList.innerHTML = `<b>${ingredientData.ingredient}</b>`;
             // "<b>" + ingredientData["ingredient"] + "</b>:  "; /*on a des paires clé/valeurs; on va chercher la valeur de la clé "ingredient"*/
 
            /* OU BIEN ECRIRE: ingredientInfoList.innerHTML = ingredientData.ingredient + " "*/
 
             /*dans le cas où seul l'ingrédient apparait sans qty ni unit (par exemple le sel) et palier aux différentes orthographes de qty & qté // unit & unite*/
             if (ingredientData.hasOwnProperty("quantity") == true) { /*dans js possible de ne pas mettre ==true (true est implicite)*/
-                ingredientInfoList.innerHTML += ": " + ingredientData["quantity"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
+                ingredientInfoList.innerHTML += ": " + ingredientData.quantity + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
             }
             if (ingredientData.hasOwnProperty("quantite") == true) { /*dans js possible de ne pas mettre ==true (true est implicite)*/
-                ingredientInfoList.innerHTML += ": " + ingredientData["quantite"] + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
+                ingredientInfoList.innerHTML += ": " + ingredientData.quantite + " "; /* += pour dire que le texte est, en plus de ingredient, la quantité (si il y a une clé quantity)*/
             }
             if (ingredientData.hasOwnProperty("unit") == true) {
-               ingredientInfoList.innerHTML += renameUnit(ingredientData["unit"]);/*pour dire qu'on rajoute (+=) au texte, l'unité (si il y a une clé unit)*/
+               ingredientInfoList.innerHTML += renameUnit(ingredientData.unit);/*pour dire qu'on rajoute (+=) au texte, l'unité (si il y a une clé unit)*/
             }
             if (ingredientData.hasOwnProperty("unite") == true) {
-                ingredientInfoList.innerHTML += renameUnit(ingredientData["unite"]);/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
+                ingredientInfoList.innerHTML += renameUnit(ingredientData.unite);/*pour dire qu'on rajoute au texte, l'unité (si il y a une clé unit)*/
             }
 
             /*on met l'objet li ingredient+qty+unit dans l'objet ul recipeIngredients*/
@@ -117,7 +119,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         }
 
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
-        let instructions = recipeTab[i]["description"];
+        let instructions = recipeTab[i].description;
 
         let maxLength = 345; // maxLength for screens > 850px
         if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
@@ -159,7 +161,7 @@ searchinput.addEventListener("keyup", function(){
     result.forEach(resultItem => 
       suggestion += `
       <div class="suggSearch">${resultItem.name}</div>`
-    )
+    );
   }
   document.getElementById("suggSearch").innerHTML = suggestion;
-})
+});

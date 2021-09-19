@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 // -----------------------------------------------------
 // CONSTANTS
 // -----------------------------------------------------
@@ -77,9 +79,9 @@ function getAllIngr() {
                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
-        })
-    })
-    tabAllIngr.sort(Intl.Collator().compare)
+        });
+    });
+    tabAllIngr.sort(Intl.Collator().compare);
     return tabAllIngr;
 }
 
@@ -91,8 +93,8 @@ function getAllApp() {
         if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
             tabAllApp.push(app.toLowerCase()); 
         }
-    })
-    tabAllApp.sort(Intl.Collator().compare)
+    });
+    tabAllApp.sort(Intl.Collator().compare);
     return tabAllApp;
 }
 
@@ -105,9 +107,9 @@ function getAllUst() {
             if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
                 tabAllUst.push(ust.toLowerCase()); 
             }
-        })
-    })
-    tabAllUst.sort(Intl.Collator().compare)
+        });
+    });
+    tabAllUst.sort(Intl.Collator().compare);
     return tabAllUst;
 }
 
@@ -117,28 +119,28 @@ function getAllUst() {
 
 function loadAllIngr() {
     
-    let allIngr = ""
+    let allIngr = "";
     tabIngredients.forEach(currentIngredient => {
-        allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`
-    })
+        allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
+    });
     document.getElementById("suggIngr").innerHTML = allIngr;
 }
 
 function loadAllApp() {
 
-    let allApp = ""
+    let allApp = "";
     tabAppareils.forEach(currentAppareil => {
-        allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`
-    })
+        allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
+    });
     document.getElementById("suggApp").innerHTML = allApp;
 }
 
 function loadAllUst() {
     
-    let allUst = ""
+    let allUst = "";
     tabUstensiles.forEach(currentUstensile => {
-        allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`
-    })
+        allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
+    });
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
@@ -285,11 +287,11 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
     tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
         if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
             suggestion += `
-            <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>` /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
+            <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`; /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
         }
-    })
+    });
     document.getElementById("suggIngr").innerHTML = suggestion;
-})
+});
 
 searchApp.addEventListener("keyup", function () { 
     displayAppList();
@@ -298,11 +300,11 @@ searchApp.addEventListener("keyup", function () {
     tabAppareils.forEach(currentAppareil => { 
         if (currentAppareil.toLowerCase().includes(inputApp.toLowerCase())) { 
             suggestion += `
-            <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>` 
+            <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
         }
-    })
+    });
     document.getElementById("suggApp").innerHTML = suggestion;
-})
+});
 
 searchUst.addEventListener("keyup", function () { 
     displayUstList();
@@ -311,16 +313,16 @@ searchUst.addEventListener("keyup", function () {
     tabUstensiles.forEach(currentUstensile => { 
         if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
             suggestion += `
-            <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>` 
+            <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`; 
         }
-    })
+    });
     document.getElementById("suggUst").innerHTML = suggestion;
-})
+});
 
 function removeElementFromTab(tab, searchElement) {
     for(let i = 0; i < tab.length; i++){
         if (tab[i] == searchElement) {
-            tab.splice(i,1) // splice(index_debut_suppr, nombre_element_a_suppr)
+            tab.splice(i,1); // splice(index_debut_suppr, nombre_element_a_suppr)
             break;
         }
     }
@@ -331,34 +333,34 @@ function removeElementFromTab(tab, searchElement) {
 // -----------------------------------------------------
 function displayTags(idTagZone, tabSelect){
     let tagZone = document.getElementById(idTagZone);
-    tagZone.innerHTML = "" 
+    tagZone.innerHTML = "";
 
     tabSelect.forEach(currentElement => {
-        let div = document.createElement("div")
-        div.className = "inner-tag"
+        let div = document.createElement("div");
+        div.className = "inner-tag";
 
-        let label = document.createElement("label")
+        let label = document.createElement("label");
         label.innerHTML = currentElement;
         div.appendChild(label);
 
-        let button = document.createElement("button")
-        button.className = "tagBtn far fa-times-circle"
+        let button = document.createElement("button");
+        button.className = "tagBtn far fa-times-circle";
 
         switch (idTagZone) {
             case "tagIngr":
-                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ingr")`)
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ingr")`);
                 break;
             case "tagApp":
-                button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`)
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`);
                 break;
             default: /*i.e. "tagUst"*/
-                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ust")`)
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ust")`);
                 break;
         }
 
         div.appendChild(button);
         tagZone.appendChild(div);
-    })
+    });
 }
 
 function moveElementFromTabToTab(fromTab, toTab, elem){
@@ -388,17 +390,17 @@ function addTag(element, type) {
         loadAllIngr(); /*load list of all the Ingr that are not tagged*/
         const filteredRecipes =[];
         recipes.forEach(rTagged => {
-            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase())
+            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
             let nbTag = 0;
             tabSelectIngr.forEach(ingrTag => {
                 if (ingredientsNames.includes(ingrTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectIngr.length){
                 filteredRecipes.push(rTagged);
             }
-        })        
+        });      
         showRecipes(filteredRecipes);
     }
 
@@ -413,13 +415,13 @@ function addTag(element, type) {
             let nbTag = 0;
             tabSelectApp.forEach(appTag => {
                 if (appareilsNames.includes(appTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectApp.length){
                 filteredRecipes.push(rTagged);
             }
-        })
+        });
         showRecipes(filteredRecipes);
     }
 
@@ -431,17 +433,17 @@ function addTag(element, type) {
         const filteredRecipes =[];
 
         recipes.forEach(rTagged => {  /*"rTag" est la variable ou élément courant*/ 
-            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase())
+            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
             let nbTag = 0;
             tabSelectUst.forEach(ustTag => {
                 if (ustensilesNames.includes(ustTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectUst.length){
                 filteredRecipes.push(rTagged);
             }
-        })
+        });
         showRecipes(filteredRecipes);
     }
 }
@@ -455,21 +457,21 @@ function closeTag(btn_close, element, type) {
 
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
-        tabIngredients.sort()
+        tabIngredients.sort();
         loadAllIngr(); 
         const filteredRecipes =[];
         recipes.forEach(rTagged => {
-            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase())
+            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
             let nbTag = 0;
             tabSelectIngr.forEach(ingrTag => {
                 if (ingredientsNames.includes(ingrTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectIngr.length){
                 filteredRecipes.push(rTagged);
             }
-        })        
+        });        
         showRecipes(filteredRecipes);
     
         
@@ -484,33 +486,33 @@ function closeTag(btn_close, element, type) {
             let nbTag = 0;
             tabSelectApp.forEach(appTag => {
                 if (appareilsNames.includes(appTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectApp.length){
                 filteredRecipes.push(rTagged);
             }
-        })
+        });
         showRecipes(filteredRecipes);
 
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
-        tabUstensiles.sort()
+        tabUstensiles.sort();
         loadAllUst();
         const filteredRecipes =[];
 
         recipes.forEach(rTagged => {  
-            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase())
+            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
             let nbTag = 0;
             tabSelectUst.forEach(ustTag => {
                 if (ustensilesNames.includes(ustTag)){
-                    nbTag++
+                    nbTag++;
                 }
-            })
+            });
             if (nbTag===tabSelectUst.length){
                 filteredRecipes.push(rTagged);
             }
-        })
+        });
         showRecipes(filteredRecipes);
     }    
 }
