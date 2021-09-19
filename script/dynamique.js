@@ -30,32 +30,32 @@ let tabSelectUst = [];
 // .....................................................
 // Rename Element to avoid duplicates and /or typos
 // .....................................................
-function renameElement(suggElement){
-    switch (suggElement) {
-        case "Bananes":
-            return "Banane"
-        case "Kiwis":
-            return "Kiwi"
-        case "Échalote":
-            return "Echalote" 
-        case "Poudre d'amendes":
-            return "Poudre d'amandes" 
-        case "Pommes":
-            return "Pomme"
-        case "Coulis de tomate":
-            return "Coulis de tomates"  
-        case "Casserolle":
-            return "Casserole"
-        case "Casserolle.":
-            return "Casserole"
-        case "casserolle":
-            return "casserole"
-        case "Économe":
-            return "Econome"
-        default:
-            return suggElement
-    }
-}
+// function renameElement(suggElement){
+//     switch (suggElement) {
+//         case "Bananes":
+//             return "Banane"
+//         case "Kiwis":
+//             return "Kiwi"
+//         case "Échalote":
+//             return "Echalote" 
+//         case "Poudre d'amendes":
+//             return "Poudre d'amandes" 
+//         case "Pommes":
+//             return "Pomme"
+//         case "Coulis de tomate":
+//             return "Coulis de tomates"  
+//         case "Casserolle":
+//             return "Casserole"
+//         case "Casserolle.":
+//             return "Casserole"
+//         case "casserolle":
+//             return "casserole"
+//         case "Économe":
+//             return "Econome"
+//         default:
+//             return suggElement
+//     }
+// }
 
 // .....................................................
 // Tables containing element list
@@ -72,14 +72,14 @@ function getAllIngr() {
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
             let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle*/
-            ingr=renameElement(ingr);
+            // ingr=renameElement(ingr);
             if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
         })
     })
-    tabAllIngr.sort();
+    tabAllIngr.sort(Intl.Collator().compare)
     return tabAllIngr;
 }
 
@@ -87,12 +87,12 @@ function getAllApp() {
     let tabAllApp = []; 
     recipes.forEach(recette => { 
         let app = recette.appliance;
-        app=renameElement(app);
+        // app=renameElement(app);
         if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
             tabAllApp.push(app.toLowerCase()); 
         }
     })
-    tabAllApp.sort();
+    tabAllApp.sort(Intl.Collator().compare)
     return tabAllApp;
 }
 
@@ -101,13 +101,13 @@ function getAllUst() {
     recipes.forEach(recette => { 
         recette.ustensils.forEach(currentUstensile => {
             let ust = currentUstensile; 
-            ust=renameElement(ust);
+            // ust=renameElement(ust);
             if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
                 tabAllUst.push(ust.toLowerCase()); 
             }
         })
     })
-    tabAllUst.sort();
+    tabAllUst.sort(Intl.Collator().compare)
     return tabAllUst;
 }
 
@@ -351,7 +351,7 @@ function displayTags(idTagZone, tabSelect){
             case "tagApp":
                 button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`)
                 break;
-            default:
+            default: /*i.e. "tagUst"*/
                 button.setAttribute('onclick',`closeTag(this,"${currentElement}","ust")`)
                 break;
         }
@@ -398,7 +398,7 @@ function addTag(element, type) {
             if (nbTag===tabSelectIngr.length){
                 filteredRecipes.push(rTagged);
             }
-        })
+        })        
         showRecipes(filteredRecipes);
     }
 
@@ -457,14 +457,61 @@ function closeTag(btn_close, element, type) {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
         tabIngredients.sort()
         loadAllIngr(); 
+        const filteredRecipes =[];
+        recipes.forEach(rTagged => {
+            const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase())
+            let nbTag = 0;
+            tabSelectIngr.forEach(ingrTag => {
+                if (ingredientsNames.includes(ingrTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectIngr.length){
+                filteredRecipes.push(rTagged);
+            }
+        })        
+        showRecipes(filteredRecipes);
+    
+        
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
         tabAppareils.sort();
         loadAllApp();
+
+        const filteredRecipes =[];
+        recipes.forEach(rTagged => {
+            const appareilsNames = rTagged.appliance.toLowerCase();
+            let nbTag = 0;
+            tabSelectApp.forEach(appTag => {
+                if (appareilsNames.includes(appTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectApp.length){
+                filteredRecipes.push(rTagged);
+            }
+        })
+        showRecipes(filteredRecipes);
+
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
         tabUstensiles.sort()
         loadAllUst();
-    }
+        const filteredRecipes =[];
+
+        recipes.forEach(rTagged => {  
+            const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase())
+            let nbTag = 0;
+            tabSelectUst.forEach(ustTag => {
+                if (ustensilesNames.includes(ustTag)){
+                    nbTag++
+                }
+            })
+            if (nbTag===tabSelectUst.length){
+                filteredRecipes.push(rTagged);
+            }
+        })
+        showRecipes(filteredRecipes);
+    }    
 }
 
