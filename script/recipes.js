@@ -1650,7 +1650,7 @@ const recipes = [
         ],
         "time": 40,
         "description":"Étaler la pate a pizza. Ecraser les tomates pelées, les étaler sur la pâte, ajouter les lardons et les champignons. Ajouter le gruyère eet passer au four à 220° durant 20 minutes",
-        "appliance": "Four",
+        "appliance": "Four", 
         "ustensils":["rouleau à patisserie", "râpe à fromage","couteau"]
     },
     {

@@ -59,8 +59,9 @@ let tabSelectUst = [];
 //     }
 // }
 
+
 // .....................................................
-// Tables containing element list
+// Complete Tables containing element list
 // .....................................................
 
 // NB
@@ -73,15 +74,15 @@ function getAllIngr() {
     recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
-            let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle*/
+            let ingr = currentIngredient.ingredient; /*variable to avoid repeats of currentingredient.ingredient in this very same loop*/
             // ingr=renameElement(ingr);
             if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
-               /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
-                tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
+               /* whatever the way word is written in recipe, we get it all in lowercase to have element listed if not already listed; then we use CSS text transform capitalize pour display words starting by uppercase*/
+                tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the element if it is what we are searching for*/
             }
         });
     });
-    tabAllIngr.sort(Intl.Collator().compare);
+    tabAllIngr.sort(Intl.Collator().compare); /*to sort elements by Alpha order ignoring accents*/
     return tabAllIngr;
 }
 
@@ -215,7 +216,7 @@ function hideUstList() {
 
 
 // .....................................................
-// Show & hide Placeholder text
+// Show or hide Placeholder text
 // .....................................................
 
 function displayIngrInput2() { /*to show placeholder text input2*/
@@ -349,7 +350,7 @@ function displayTags(idTagZone, tabSelect){
         switch (idTagZone) {
             case "tagIngr":
                 button.setAttribute('onclick',`closeTag(this,"${currentElement}","ingr")`);
-                break;
+                break; /*break statement to terminate the current switch statement when a case is matched and corresponding code has ran*/
             case "tagApp":
                 button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`);
                 break;
@@ -381,14 +382,83 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
 // </div>
 
  
+// function addTag(element, type) {
+//     if (type == 'ingredient') {
+//         // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
+//         removeElementFromTab(tabIngredients, element.innerHTML); 
+//         tabSelectIngr.push(element.innerHTML);
+//         displayTags("tagIngr", tabSelectIngr);
+//         loadAllIngr(); /*load list of all the Ingr that are not tagged*/
+//         const filteredRecipes =[];
+//         recipes.forEach(rTagged => {
+//             const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
+//             let nbTag = 0;
+//             tabSelectIngr.forEach(ingrTag => {
+//                 if (ingredientsNames.includes(ingrTag)){
+//                     nbTag++;
+//                 }
+//             });
+//             if (nbTag===tabSelectIngr.length){
+//                 filteredRecipes.push(rTagged);
+//             }
+//         });      
+//         showRecipes(filteredRecipes);
+//     }
+
+//     else if (type == 'appareil') {
+//         removeElementFromTab(tabAppareils, element.innerHTML); 
+//         tabSelectApp.push(element.innerHTML);
+//         displayTags("tagApp", tabSelectApp);
+//         loadAllApp();
+//         const filteredRecipes =[];
+//         recipes.forEach(rTagged => {
+//             const appareilsNames = rTagged.appliance.toLowerCase();
+//             let nbTag = 0;
+//             tabSelectApp.forEach(appTag => {
+//                 if (appareilsNames.includes(appTag)){
+//                     nbTag++;
+//                 }
+//             });
+//             if (nbTag===tabSelectApp.length){
+//                 filteredRecipes.push(rTagged);
+//             }
+//         });
+//         showRecipes(filteredRecipes);
+//     }
+
+//     else if (type == 'ustensile') {
+//         removeElementFromTab(tabUstensiles, element.innerHTML); 
+//         tabSelectUst.push(element.innerHTML);
+//         displayTags("tagUst", tabSelectUst);
+//         loadAllUst(); 
+//         const filteredRecipes =[];
+
+//         recipes.forEach(rTagged => {  /*"rTag" est la variable ou élément courant*/ 
+//             const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
+//             let nbTag = 0;
+//             tabSelectUst.forEach(ustTag => {
+//                 if (ustensilesNames.includes(ustTag)){
+//                     nbTag++;
+//                 }
+//             });
+//             if (nbTag===tabSelectUst.length){
+//                 filteredRecipes.push(rTagged);
+//             }
+//         });
+//         showRecipes(filteredRecipes);
+//     }
+// }
+
+
 function addTag(element, type) {
+    const filteredRecipes =[];
+
     if (type == 'ingredient') {
         // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
         removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
         loadAllIngr(); /*load list of all the Ingr that are not tagged*/
-        const filteredRecipes =[];
         recipes.forEach(rTagged => {
             const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
             let nbTag = 0;
@@ -401,7 +471,6 @@ function addTag(element, type) {
                 filteredRecipes.push(rTagged);
             }
         });      
-        showRecipes(filteredRecipes);
     }
 
     else if (type == 'appareil') {
@@ -409,7 +478,6 @@ function addTag(element, type) {
         tabSelectApp.push(element.innerHTML);
         displayTags("tagApp", tabSelectApp);
         loadAllApp();
-        const filteredRecipes =[];
         recipes.forEach(rTagged => {
             const appareilsNames = rTagged.appliance.toLowerCase();
             let nbTag = 0;
@@ -422,16 +490,13 @@ function addTag(element, type) {
                 filteredRecipes.push(rTagged);
             }
         });
-        showRecipes(filteredRecipes);
     }
 
     else if (type == 'ustensile') {
         removeElementFromTab(tabUstensiles, element.innerHTML); 
         tabSelectUst.push(element.innerHTML);
         displayTags("tagUst", tabSelectUst);
-        loadAllUst(); 
-        const filteredRecipes =[];
-
+        loadAllUst();
         recipes.forEach(rTagged => {  /*"rTag" est la variable ou élément courant*/ 
             const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
             let nbTag = 0;
@@ -444,9 +509,12 @@ function addTag(element, type) {
                 filteredRecipes.push(rTagged);
             }
         });
-        showRecipes(filteredRecipes);
     }
+
+    showRecipes(filteredRecipes);
 }
+
+
 
 // -----------------------------------------------------
 // CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
@@ -457,7 +525,7 @@ function closeTag(btn_close, element, type) {
 
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
-        tabIngredients.sort();
+        tabIngredients.sort(Intl.Collator().compare);
         loadAllIngr(); 
         const filteredRecipes =[];
         recipes.forEach(rTagged => {
@@ -477,7 +545,7 @@ function closeTag(btn_close, element, type) {
         
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
-        tabAppareils.sort();
+        tabAppareils.sort(Intl.Collator().compare);
         loadAllApp();
 
         const filteredRecipes =[];
@@ -497,7 +565,7 @@ function closeTag(btn_close, element, type) {
 
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
-        tabUstensiles.sort();
+        tabUstensiles.sort(Intl.Collator().compare);
         loadAllUst();
         const filteredRecipes =[];
 
