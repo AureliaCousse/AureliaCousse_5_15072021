@@ -146,7 +146,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
     }
 }
 
-
 /*SEARCH BAR*/
 
 const searchinput = document.getElementById("searchInput");
@@ -155,11 +154,7 @@ searchinput.addEventListener("keyup", function(){
   const input = searchinput.value;
 
   /* filter to get all words in title or description of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-  const result = recipes.filter(item => 
-    item.name.toLowerCase().includes(input.toLowerCase())
-    ||item.ingredients[toLowerCase()].includes(input.toLowerCase())
-    ||item.description.toLowerCase().includes(input.toLowerCase()));
-
+  const result = recipes.filter(item => item.name.toLowerCase().includes(input.toLowerCase())||item.description.toLowerCase().includes(input.toLowerCase()));
   showRecipes(result);
   let suggestion = "";
   if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
@@ -170,30 +165,3 @@ searchinput.addEventListener("keyup", function(){
   }
   document.getElementById("suggSearch").innerHTML = suggestion;
 });
-
-// let a = [1,2,3,4,5]
-// let b = a.map(val_a => val_a + 10)
-// b = [11,12,13,14,15]
-
-// function add_5(number){
-//     return number + 5
-// }
-// let v = 10
-// console.log(add_5(v)) // => 15 
-
-function selectAllFilteredRecipes(ingrFilter, ustFilter, appFilter){
-    let filteredRecipes = [];
-    recipes.forEach(currentRecipe => { 
-        const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-        const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
-        const appNames = currentRecipe.appliance.toLowerCase();
-        if (
-            ( ingrFilter.length == 0 || ingrNames.some(r => ingrFilter.includes(r)) )
-         && ( ustFilter.length == 0 || ustNames.some(r => ustFilter.includes(r)) )
-         && ( appFilter.length == 0 || [appNames].some(r => appFilter.includes(r)) )
-         ) {
-         filteredRecipes.push(currentRecipe)
-     }
-    })
-    return filteredRecipes;
-}
