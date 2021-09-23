@@ -165,3 +165,49 @@ searchinput.addEventListener("keyup", function(){
   }
   document.getElementById("suggSearch").innerHTML = suggestion;
 });
+
+
+/*But de la fonction suivante: la fonction va aller sur toutes les recettes & vérifier si chaque recettes correspond au tag ING, au tag APP & au tag UST */
+
+// function selectAllRecipes(ingrFilterTags, appFilterTags, ustFilterTags){
+
+//     let filteredRecipes =[];
+//     ingFilter = ingrFilter.map(ingr =>ingr.toLowerCase());
+//     appFilter = apprFilter.map(app =>app.toLowerCase());
+//     ustFilter = ustFilter.map(ust =>ust.toLowerCase());
+
+//     recipes.forEach(currentRecipe => {
+//         const ingredientsNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
+//         /*on fait une map sur les ingredients avec un "s" i.e. le tableau de tous les ingrédients- rMap ce sont les objets dans ce tableau donc on applique .ingredient */
+//         const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
+//         const appNames = currentRecipe.appliance.toLowerCase();
+//         const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
+       
+//         if (ingrNames.includes(ingrFilter) && appNames.includes(appFilter) && ustNames.includes(ustFilter))
+//         filteredRecipes.push(currentRecipe)
+//     }
+// })
+// return
+// }
+
+function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
+    let filteredRecipes = [];
+    // ingrFilter = ingrFilter.map(ingr => ingr.toLowerCase());
+    // appFilter = appFilter.map(app => app.toLowerCase());
+    // ustFilter = ustFilter.map(ust => ust.toLowerCase());
+
+    recipes.forEach(currentRecipe => { 
+        const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
+        const appNames = currentRecipe.appliance.toLowerCase();
+        const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
+
+        if (
+            ( ingrFilter.length == 0 || ingrNames.some(r => ingrFilter.includes(r)) ) /*"r" est lélément courant que l'on check - si pas d'ingr taggué (tab tag vide) ou si ingr name contient le tag*/
+         && ( appFilter.length == 0 || [appNames].some(r => appFilter.includes(r)) ) /*ici on met des [] pour créer un tableau puisque App pas dans un tableau dans les recipes*/
+         && ( ustFilter.length == 0 || ustNames.some(r => ustFilter.includes(r)) )
+         ) {
+         filteredRecipes.push(currentRecipe)
+     }
+    })
+    return filteredRecipes;
+}
