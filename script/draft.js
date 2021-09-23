@@ -80,3 +80,4 @@
 // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
     // tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
     // tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
+
