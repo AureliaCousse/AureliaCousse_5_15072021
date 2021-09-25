@@ -32,7 +32,7 @@ let filteredRecipes =[];
 
 
 // .....................................................
-// Rename Element to avoid duplicates and /or typos
+// TO BE DELETED   Rename Element to avoid duplicates and /or typos
 // .....................................................
 // function renameElement(suggElement){
 //     switch (suggElement) {
@@ -116,7 +116,7 @@ function getAllUst() {
 }
 
 // .....................................................
-// 
+// LOAD LIST OF INGR - APP & UST
 // .....................................................
 
 function loadAllIngr() {
@@ -373,6 +373,53 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
 }
 
 // -----------------------------------------------------
+// Check each recipe & see if it contains tag INGR, APP or UST
+// -----------------------------------------------------
+
+function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
+    let filteredRecipes = [];
+    // ingrFilter = ingrFilter.map(ingr => ingr.toLowerCase());
+    // appFilter = appFilter.map(app => app.toLowerCase());
+    // ustFilter = ustFilter.map(ust => ust.toLowerCase());
+
+    recipes.forEach(currentRecipe => { 
+        const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
+        const appNames = currentRecipe.appliance.toLowerCase();
+        const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
+
+        let nbTagIngr = 0;
+        let nbTagApp = 0;
+        let nbTagUst = 0;
+        
+            tabSelectIngr.forEach(ingrTag => {
+                if (ingrNames.includes(ingrTag)){
+                    nbTagIngr++;
+                }
+
+            });
+            tabSelectApp.forEach(appTag => {
+                if (appNames.includes(appTag)){
+                    nbTagApp++;
+                }
+                
+            });
+            tabSelectUst.forEach(ustTag => {
+                if (ustNames.includes(ustTag)){
+                    nbTagUst++;
+                }
+                
+            });
+            if (nbTagApp===tabSelectApp.length 
+                &&  nbTagIngr===tabSelectIngr.length
+                && nbTagUst===tabSelectUst.length)
+            
+            {
+                filteredRecipes.push(currentRecipe);
+            }
+        });
+    return filteredRecipes;
+}
+// -----------------------------------------------------
 // ADD TAGS & REMOVE ELEMENT FROM LIST
 // -----------------------------------------------------
 
@@ -390,64 +437,19 @@ function addTag(element, type) {
         removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
-        loadAllIngr(); /*load list of all the Ingr that are not tagged*/
-       
-        // recipes.forEach(rTagged => {
-        //     const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-        //     let nbTag = 0;
-        //     tabSelectIngr.forEach(ingrTag => {
-        //         if (ingredientsNames.includes(ingrTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectIngr.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });      
-        
+        loadAllIngr(); /*load list of all the Ingr that are not tagged*/       
     }
-
     else if (type == 'appareil') {
         removeElementFromTab(tabAppareils, element.innerHTML); 
         tabSelectApp.push(element.innerHTML);
         displayTags("tagApp", tabSelectApp);
         loadAllApp();
-        
-        // recipes.forEach(rTagged => {
-        //     const appareilsNames = rTagged.appliance.toLowerCase();
-        //     let nbTag = 0;
-        //     tabSelectApp.forEach(appTag => {
-        //         if (appareilsNames.includes(appTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectApp.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });
-        
     }
-
     else if (type == 'ustensile') {
         removeElementFromTab(tabUstensiles, element.innerHTML); 
         tabSelectUst.push(element.innerHTML);
         displayTags("tagUst", tabSelectUst);
         loadAllUst(); 
-       
-/************************** TO BE DELETED*****************************************/
-        // recipes.forEach(rTagged => {  /*"rTag" est la variable ou élément courant*/ 
-        //     const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
-        //     let nbTag = 0;
-        //     tabSelectUst.forEach(ustTag => {
-        //         if (ustensilesNames.includes(ustTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectUst.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });
-/***************************************************************************************/       
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
@@ -463,61 +465,19 @@ function closeTag(btn_close, element, type) {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
         tabIngredients.sort();
         loadAllIngr(); 
-        
-        // recipes.forEach(rTagged => {
-        //     const ingredientsNames = rTagged.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-        //     let nbTag = 0;
-        //     tabSelectIngr.forEach(ingrTag => {
-        //         if (ingredientsNames.includes(ingrTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectIngr.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });        
-       
-    
-        
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
         tabAppareils.sort();
         loadAllApp();
-
-       
-        // recipes.forEach(rTagged => {
-        //     const appareilsNames = rTagged.appliance.toLowerCase();
-        //     let nbTag = 0;
-        //     tabSelectApp.forEach(appTag => {
-        //         if (appareilsNames.includes(appTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectApp.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });
-       
-
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
         tabUstensiles.sort();
-        loadAllUst();
-      
-
-        // recipes.forEach(rTagged => {  
-        //     const ustensilesNames = rTagged.ustensils.map(rMap => rMap.toLowerCase());
-        //     let nbTag = 0;
-        //     tabSelectUst.forEach(ustTag => {
-        //         if (ustensilesNames.includes(ustTag)){
-        //             nbTag++;
-        //         }
-        //     });
-        //     if (nbTag===tabSelectUst.length){
-        //         filteredRecipes.push(rTagged);
-        //     }
-        // });
-        
+        loadAllUst();       
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
+
+
+
+
+

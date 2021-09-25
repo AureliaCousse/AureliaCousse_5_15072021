@@ -1,6 +1,14 @@
 /*jshint esversion: 6 */
+/*line one is to prevent from message at js check */
 
-showRecipes(recipes);/*on appelle la fonction "showrecipes" créée ci-dessous pour afficher les recettes avec la constante "recipes" deja créée dans le fichier js recipes*/
+
+// -----------------------------------------------------
+// FUNCTION
+// -----------------------------------------------------
+
+/* Function "showrecipes" created to display recipes with the constant "recipes" already created in js file "recipes*/
+
+showRecipes(recipes);
 
 function renameUnit(longUnit){
     switch (longUnit) {
@@ -19,10 +27,13 @@ function renameUnit(longUnit){
     }
 }
 
-/** Fonction pour afficher toutes les recettes en paramètre
- * 
+// -----------------------------------------------------
+// DISPLAY ALL THE RECIPES BY DEFAULT
+// -----------------------------------------------------
+/** 
  * @param recipeTab: le tableau contenant les recettes à afficher
  */
+
 function showRecipes(recipeTab) { /*fonction qui contient:*/
 
     let recipeList = document.getElementById("recipeList"); /*Attention: cette div recipeList a été créée dans fichier html*/   
@@ -34,7 +45,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on crée la div generale vide qui va contenir tous les objects nécessaire constituant la boite recette*/
         let newRecipe = document.createElement("a");
         newRecipe.setAttribute("class", "recipe");
-        // newRecipe.setAttribute("href", "newRecipe.html"); *************    A REMETTRE QD CSS TERMINE   ***************
+        // newRecipe.setAttribute("href", "newRecipe.html"); *************    A METTRE QD CSS TERMINE   ***************
         newRecipe.setAttribute("id", i + 1);
 
         /*on crée une image*/
@@ -151,63 +162,91 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 const searchinput = document.getElementById("searchInput");
 searchinput.addEventListener("keyup", function(){
 
+
+
   const input = searchinput.value;
 
-  /* filter to get all words in title or description of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-  const result = recipes.filter(item => item.name.toLowerCase().includes(input.toLowerCase())||item.description.toLowerCase().includes(input.toLowerCase()));
+
+if (input.length>2){
+
+  /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
+  const result = recipes.filter(item => 
+    item.name.toLowerCase().includes(input.toLowerCase())
+    ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+    ||item.description.toLowerCase().includes(input.toLowerCase()));
+
   showRecipes(result);
+}
   let suggestion = "";
-  if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
+  if (input !=""){  /*if field input is not empty show result - if empty, show nothing*/
     result.forEach(resultItem => 
       suggestion += `
       <div class="suggSearch">${resultItem.name}</div>`
     );
   }
   document.getElementById("suggSearch").innerHTML = suggestion;
-});
+})
+;
 
 
-/*But de la fonction suivante: la fonction va aller sur toutes les recettes & vérifier si chaque recettes correspond au tag ING, au tag APP & au tag UST */
+// const searchinput = document.getElementById("searchInput");
+// searchinput.addEventListener("keyup", function(){
 
-// function selectAllRecipes(ingrFilterTags, appFilterTags, ustFilterTags){
+//     const input = searchinput.value;
+    
+//     const result = recipes.filter(item => {
 
-//     let filteredRecipes =[];
-//     ingFilter = ingrFilter.map(ingr =>ingr.toLowerCase());
-//     appFilter = apprFilter.map(app =>app.toLowerCase());
-//     ustFilter = ustFilter.map(ust =>ust.toLowerCase());
+//     const ingrNames = item.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
+//     const appNames = item.appliance.toLowerCase();
+//     const ustNames = item.ustensils.map(rMap => rMap.toLowerCase());
 
-//     recipes.forEach(currentRecipe => {
-//         const ingredientsNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-//         /*on fait une map sur les ingredients avec un "s" i.e. le tableau de tous les ingrédients- rMap ce sont les objets dans ce tableau donc on applique .ingredient */
-//         const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-//         const appNames = currentRecipe.appliance.toLowerCase();
-//         const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
-       
-//         if (ingrNames.includes(ingrFilter) && appNames.includes(appFilter) && ustNames.includes(ustFilter))
-//         filteredRecipes.push(currentRecipe)
-//     }
-// })
-// return
+//     if (
+//         ( item.name.toLowerCase().includes(input.toLowerCase()) )
+//         || ( item.description.toLowerCase().includes(input.toLowerCase()) )
+//         || ( item.ingredients.map(rMap => rMap.ingredient.toLowerCase()).includes(input.toLowerCase()) )
+//         && ( ingrFilter.length == 0 || ingrNames.some(r => ingrFilter.includes(r)) ) 
+//         && ( appFilter.length == 0 || [appNames].some(r => appFilter.includes(r)) ) 
+//         && ( ustFilter.length == 0 || ustNames.some(r => ustFilter.includes(r)) )
+//     )
+
+//   showRecipes(result);
+//   let suggestion = "";
+//   if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
+//     result.forEach(resultItem => 
+//       suggestion += `
+//       <div class="suggSearch">${resultItem.name}</div>`
+//     );
+//   }
+//   document.getElementById("suggSearch").innerHTML = suggestion;
+// });
+
+
+
+// let a = [1,2,3,4,5]
+// let b = a.map(val_a => val_a + 10)
+// b = [11,12,13,14,15]
+
+// function add_5(number){
+//     return number + 5
 // }
+// let v = 10
+// console.log(add_5(v)) // => 15 
 
-function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
-    let filteredRecipes = [];
-    // ingrFilter = ingrFilter.map(ingr => ingr.toLowerCase());
-    // appFilter = appFilter.map(app => app.toLowerCase());
-    // ustFilter = ustFilter.map(ust => ust.toLowerCase());
 
-    recipes.forEach(currentRecipe => { 
-        const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
-        const appNames = currentRecipe.appliance.toLowerCase();
-        const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
 
-        if (
-            ( ingrFilter.length == 0 || ingrNames.some(r => ingrFilter.includes(r)) ) /*"r" est lélément courant que l'on check - si pas d'ingr taggué (tab tag vide) ou si ingr name contient le tag*/
-         && ( appFilter.length == 0 || [appNames].some(r => appFilter.includes(r)) ) /*ici on met des [] pour créer un tableau puisque App pas dans un tableau dans les recipes*/
-         && ( ustFilter.length == 0 || ustNames.some(r => ustFilter.includes(r)) )
-         ) {
-         filteredRecipes.push(currentRecipe)
-     }
-    })
-    return filteredRecipes;
-}
+
+
+
+
+
+
+// //DISPLAY RECIPES SELECTED BY SEARCH BAR INPUT + FILTERS
+
+// showSelectedR(allSelectedR);
+
+// function showSelectedR (ingrFilter, appFilter, ustFilter, searchInput)
+// let filteredRecipes = [];
+
+   
+    
+// }
