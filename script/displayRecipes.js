@@ -157,68 +157,33 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
     }
 }
 
-/*SEARCH BAR*/
-
-const searchinput = document.getElementById("searchInput");
-searchinput.addEventListener("keyup", function(){
-
-
-
-  const input = searchinput.value;
-
-
-if (input.length>2){
-
-  /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-  const result = recipes.filter(item => 
-    item.name.toLowerCase().includes(input.toLowerCase())
-    ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-    ||item.description.toLowerCase().includes(input.toLowerCase()));
-
-  showRecipes(result);
-}
-  let suggestion = "";
-  if (input !=""){  /*if field input is not empty show result - if empty, show nothing*/
-    result.forEach(resultItem => 
-      suggestion += `
-      <div class="suggSearch">${resultItem.name}</div>`
-    );
-  }
-  document.getElementById("suggSearch").innerHTML = suggestion;
-})
-;
-
+// /*SEARCH BAR*/
 
 // const searchinput = document.getElementById("searchInput");
 // searchinput.addEventListener("keyup", function(){
 
 //     const input = searchinput.value;
-    
-//     const result = recipes.filter(item => {
 
-//     const ingrNames = item.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
-//     const appNames = item.appliance.toLowerCase();
-//     const ustNames = item.ustensils.map(rMap => rMap.toLowerCase());
+//     if (input.length>2 || input.length===0){
 
-//     if (
-//         ( item.name.toLowerCase().includes(input.toLowerCase()) )
-//         || ( item.description.toLowerCase().includes(input.toLowerCase()) )
-//         || ( item.ingredients.map(rMap => rMap.ingredient.toLowerCase()).includes(input.toLowerCase()) )
-//         && ( ingrFilter.length == 0 || ingrNames.some(r => ingrFilter.includes(r)) ) 
-//         && ( appFilter.length == 0 || [appNames].some(r => appFilter.includes(r)) ) 
-//         && ( ustFilter.length == 0 || ustNames.some(r => ustFilter.includes(r)) )
-//     )
+//   /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
+//     let result = recipes.filter(item => 
+//     item.name.toLowerCase().includes(input.toLowerCase())
+//     ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+//     ||item.description.toLowerCase().includes(input.toLowerCase()));
 
-//   showRecipes(result);
-//   let suggestion = "";
-//   if (input !=""){  /*if field input is not empty show result - if not empty, show nothing*/
-//     result.forEach(resultItem => 
-//       suggestion += `
-//       <div class="suggSearch">${resultItem.name}</div>`
-//     );
-//   }
-//   document.getElementById("suggSearch").innerHTML = suggestion;
-// });
+//     showRecipes(result);
+// }
+// //    let suggestion = "";
+// //     if (input !=""){  /*if field input is not empty show result - if empty, show nothing*/
+// //         result.forEach(resultItem => 
+// //         suggestion += `
+// //         <div class="suggSearch">${resultItem.name}</div>`
+// //         );
+// //     }
+// //   document.getElementById("suggSearch").innerHTML = suggestion; 
+// }); 
+
 
 
 
@@ -240,13 +205,3 @@ if (input.length>2){
 
 
 
-// //DISPLAY RECIPES SELECTED BY SEARCH BAR INPUT + FILTERS
-
-// showSelectedR(allSelectedR);
-
-// function showSelectedR (ingrFilter, appFilter, ustFilter, searchInput)
-// let filteredRecipes = [];
-
-   
-    
-// }

@@ -7,6 +7,7 @@
 const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
 const searchUst = document.getElementById("userUst"); 
 const searchApp = document.getElementById("userApp"); 
+const searchinput = document.getElementById("searchInput");
 
 
 // -----------------------------------------------------
@@ -376,13 +377,32 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
 // Check each recipe & see if it contains tag INGR, APP or UST
 // -----------------------------------------------------
 
+searchinput.addEventListener("keyup", function(){
+    let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
+    showRecipes(allSelect);
+}
+);
+
 function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
+
+    const input = searchinput.value;
+
+    let result = recipes.slice();
+    if (input.length>2 || input.length===0){
+
+  /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
+    result = recipes.filter(item => 
+    item.name.toLowerCase().includes(input.toLowerCase())
+    ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+    ||item.description.toLowerCase().includes(input.toLowerCase()));
+    }
+
     let filteredRecipes = [];
     // ingrFilter = ingrFilter.map(ingr => ingr.toLowerCase());
     // appFilter = appFilter.map(app => app.toLowerCase());
     // ustFilter = ustFilter.map(ust => ust.toLowerCase());
 
-    recipes.forEach(currentRecipe => { 
+    result.forEach(currentRecipe => { 
         const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
         const appNames = currentRecipe.appliance.toLowerCase();
         const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
@@ -463,15 +483,15 @@ function closeTag(btn_close, element, type) {
 
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
-        tabIngredients.sort();
+        tabIngredients.sort(Intl.Collator().compare);
         loadAllIngr(); 
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
-        tabAppareils.sort();
+        tabAppareils.sort(Intl.Collator().compare);
         loadAllApp();
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
-        tabUstensiles.sort();
+        tabUstensiles.sort(Intl.Collator().compare);
         loadAllUst();       
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
