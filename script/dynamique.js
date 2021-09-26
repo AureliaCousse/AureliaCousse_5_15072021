@@ -31,37 +31,6 @@ let filteredRecipes =[];
 // FUNCTIONS
 // -----------------------------------------------------
 
-
-// .....................................................
-// TO BE DELETED   Rename Element to avoid duplicates and /or typos
-// .....................................................
-// function renameElement(suggElement){
-//     switch (suggElement) {
-//         case "Bananes":
-//             return "Banane"
-//         case "Kiwis":
-//             return "Kiwi"
-//         case "Échalote":
-//             return "Echalote" 
-//         case "Poudre d'amendes":
-//             return "Poudre d'amandes" 
-//         case "Pommes":
-//             return "Pomme"
-//         case "Coulis de tomate":
-//             return "Coulis de tomates"  
-//         case "Casserolle":
-//             return "Casserole"
-//         case "Casserolle.":
-//             return "Casserole"
-//         case "casserolle":
-//             return "casserole"
-//         case "Économe":
-//             return "Econome"
-//         default:
-//             return suggElement
-//     }
-// }
-
 // .....................................................
 // Tables containing element list
 // .....................................................
@@ -147,7 +116,6 @@ function loadAllUst() {
     document.getElementById("suggUst").innerHTML = allUst;
 }
 
-
 // .....................................................
 // Show or hide all the element lists / list closed when another open
 // .....................................................
@@ -216,7 +184,6 @@ function hideUstList() {
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
 }
 
-
 // .....................................................
 // Show & hide Placeholder text
 // .....................................................
@@ -245,9 +212,9 @@ function hideUstInput2() {
     document.getElementById("userUst").placeholder = "Ustensiles";
 }
 
-// -----------------------------------------------------
+// .....................................................
 // Placeholder change on click
-// -----------------------------------------------------
+// .....................................................
 
 document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); 
 document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2);  
@@ -258,9 +225,9 @@ document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hi
 document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstInput2); 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstInput2);
 
-// -----------------------------------------------------
+// .....................................................
 //OPEN  or CLOSE element list when click on dropdown harrow
-// -----------------------------------------------------
+// .....................................................
 
 // let btnDownIngr = document.querySelector("#ingrFilter .fa-chevron-down")
 // btnDownIngr.onclick = function() {
@@ -279,9 +246,9 @@ document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstList);
 
 
-// -----------------------------------------------------
+// .....................................................
 // Element list when user input entered in dropdown search bar
-// -----------------------------------------------------
+// .....................................................
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
@@ -331,9 +298,10 @@ function removeElementFromTab(tab, searchElement) {
     }
 }
 
-// -----------------------------------------------------
+// .....................................................
 // CREATION & DISPLAY TAG ZONE
-// -----------------------------------------------------
+// .....................................................
+
 function displayTags(idTagZone, tabSelect){
     let tagZone = document.getElementById(idTagZone);
     tagZone.innerHTML = "";
@@ -373,9 +341,9 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
     }
 }
 
-// -----------------------------------------------------
-// Check each recipe & see if it contains tag INGR, APP or UST
-// -----------------------------------------------------
+// .....................................................
+// Check each recipe & see if it contains input Search Bar or Tag INGR, APP or UST
+// .....................................................
 
 searchinput.addEventListener("keyup", function(){
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
@@ -398,10 +366,7 @@ function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
     }
 
     let filteredRecipes = [];
-    // ingrFilter = ingrFilter.map(ingr => ingr.toLowerCase());
-    // appFilter = appFilter.map(app => app.toLowerCase());
-    // ustFilter = ustFilter.map(ust => ust.toLowerCase());
-
+    
     result.forEach(currentRecipe => { 
         const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
         const appNames = currentRecipe.appliance.toLowerCase();
@@ -415,45 +380,36 @@ function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
                 if (ingrNames.includes(ingrTag)){
                     nbTagIngr++;
                 }
-
             });
+
             tabSelectApp.forEach(appTag => {
                 if (appNames.includes(appTag)){
                     nbTagApp++;
                 }
-                
             });
+
             tabSelectUst.forEach(ustTag => {
                 if (ustNames.includes(ustTag)){
                     nbTagUst++;
-                }
-                
+                }                
             });
+
             if (nbTagApp===tabSelectApp.length 
                 &&  nbTagIngr===tabSelectIngr.length
                 && nbTagUst===tabSelectUst.length)
-            
             {
                 filteredRecipes.push(currentRecipe);
             }
         });
     return filteredRecipes;
 }
-// -----------------------------------------------------
+
+// .....................................................
 // ADD TAGS & REMOVE ELEMENT FROM LIST
-// -----------------------------------------------------
-
-
-// <div class="inner-tag">
-    // <label>mot clé</label>
-    // <button class="tagBtn far fa-times-circle" type="button" onclick="closeTag(this)"></button>
-// </div>
-
- /*rTagged:recettes qui sont filtrées suite à un tag*/
+// .....................................................
 
 function addTag(element, type) {
     if (type == 'ingredient') {
-        // tabIngredients = getAllIngr(); /*at each event we get new tab with all Ingr even the ones previously tagged*/
         removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
@@ -474,9 +430,14 @@ function addTag(element, type) {
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
 
-// -----------------------------------------------------
+// .....................................................
 // CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
-// -----------------------------------------------------
+// .....................................................
+
+// <div class="inner-tag">
+    // <label>mot clé</label>
+    // <button class="tagBtn far fa-times-circle" type="button" onclick="closeTag(this)"></button>
+// </div>
 
 function closeTag(btn_close, element, type) {
     btn_close.parentNode.style.display = 'none';

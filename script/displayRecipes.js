@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-/*line one is to prevent from message at js check */
+/*line 1 is to prevent from message at js check */
 
 
 // -----------------------------------------------------
@@ -157,45 +157,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
     }
 }
 
-// /*SEARCH BAR*/
-
-// const searchinput = document.getElementById("searchInput");
-// searchinput.addEventListener("keyup", function(){
-
-//     const input = searchinput.value;
-
-//     if (input.length>2 || input.length===0){
-
-//   /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-//     let result = recipes.filter(item => 
-//     item.name.toLowerCase().includes(input.toLowerCase())
-//     ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-//     ||item.description.toLowerCase().includes(input.toLowerCase()));
-
-//     showRecipes(result);
-// }
-// //    let suggestion = "";
-// //     if (input !=""){  /*if field input is not empty show result - if empty, show nothing*/
-// //         result.forEach(resultItem => 
-// //         suggestion += `
-// //         <div class="suggSearch">${resultItem.name}</div>`
-// //         );
-// //     }
-// //   document.getElementById("suggSearch").innerHTML = suggestion; 
-// }); 
-
-
-
-
-// let a = [1,2,3,4,5]
-// let b = a.map(val_a => val_a + 10)
-// b = [11,12,13,14,15]
-
-// function add_5(number){
-//     return number + 5
-// }
-// let v = 10
-// console.log(add_5(v)) // => 15 
 
 
 

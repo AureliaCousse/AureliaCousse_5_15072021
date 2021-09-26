@@ -81,3 +81,14 @@
     // tabAppareils = getAllApp(); /*at each event we get new tab with all App even the ones previously tagged*/
     // tabUstensiles = getAllUst(); /*at each event we get new tab with all Ust even the ones previously tagged*/
 
+
+    
+// let a = [1,2,3,4,5]
+// let b = a.map(val_a => val_a + 10)
+// b = [11,12,13,14,15]
+
+// function add_5(number){
+//     return number + 5
+// }
+// let v = 10
+// console.log(add_5(v)) // => 15 
