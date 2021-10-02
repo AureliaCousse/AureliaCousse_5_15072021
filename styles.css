@@ -436,11 +436,13 @@ RECIPE LIST
 ----------------------------------------------------- */
 #recipeList {
   margin-top: 300px;
+  justify-content: space-around;
 }
 
 .recipe {
   display         : flex;
   flex-direction  : column;
+  align-content: space-around;
   height          : 350px;
   border-radius   : 5px;
   background-color: #E7E7E7;
@@ -449,9 +451,11 @@ RECIPE LIST
 }
 
 .recipePhoto {
-  height          : 178px;
+  height          : 210px;
   background-color: #C7BEBE;
   margin          : -15px -15px 15px -15px;
+  border-top-left-radius   : 5px;
+  border-top-right-radius   : 5px;
 }
 
 .recipeHeader {
@@ -636,6 +640,7 @@ MEDIA QUERIES (changed from 768 to 850)
 
   #recipeList {
     margin-top: 150px;
+    justify-content: space-around;
   }
 
   .ingredients {

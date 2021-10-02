@@ -48,10 +48,9 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         // newRecipe.setAttribute("href", "newRecipe.html"); *************    A METTRE QD CSS TERMINE   ***************
         newRecipe.setAttribute("id", i + 1);
 
-        /*on crée une image*/
-        let recipePhoto = document.createElement("img");
+        /*on crée un cadre image*/
+        let recipePhoto = document.createElement("div");
         recipePhoto.setAttribute("class", "recipePhoto");
-        recipePhoto.setAttribute("alt", "photo recipe");
         /*on met l'objet image dans l'objet div:*/
         newRecipe.appendChild(recipePhoto);
 

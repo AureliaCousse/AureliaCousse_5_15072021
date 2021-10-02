@@ -25,7 +25,7 @@ let tabSelectApp = [];
 let tabUstensiles = getAllUst();
 let tabSelectUst = []; 
 
-let filteredRecipes =[];
+// let filteredRecipes =[];/*Tab with recipes remaining after search*/
 
 // -----------------------------------------------------
 // FUNCTIONS
@@ -54,7 +54,7 @@ function getAllIngr() {
         });
     });
     tabAllIngr.sort(Intl.Collator().compare);
-    return tabAllIngr;
+    return tabAllIngr; /*Tab containing all elements ingredient*/
 }
 
 function getAllApp() {
@@ -89,14 +89,36 @@ function getAllUst() {
 // LOAD LIST OF INGR - APP & UST
 // .....................................................
 
-function loadAllIngr() {
+function loadFilteredIngr() {
     
     let allIngr = "";
-    tabIngredients.forEach(currentIngredient => {
-        allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
+    let tabIngrDisplayedR = [];
+    let tabDisplayedR = selectAllFilteredRecipes(); /*displayedR prend pour valeur la valeur de retour de la fonction selectfilteredRecipes*/
+    const inputIngr = searchIngr.value;
+
+    tabDisplayedR.forEach(currentRecipe =>{
+        currentRecipe.ingredients.forEach(currentIngredient=>{
+            if(!tabIngrDisplayedR.includes(currentIngredient.ingredient.toLowerCase())){
+                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase());
+            }
+            
+        })
+    })
+    tabIngrDisplayedR.forEach(currentIngredient => {
+        if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
+            allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
+        }
+        //on click: permet de pouvoir plus tard clic et créer le tag
     });
     document.getElementById("suggIngr").innerHTML = allIngr;
 }
+
+//Peudo code de cette fonction:
+//On regarde le tab contenant tous les ingr 
+//pour chaque ingr 
+//-> ajouter dans suggestion list
+
+
 
 function loadAllApp() {
 
@@ -121,7 +143,7 @@ function loadAllUst() {
 // .....................................................
 
 function displayIngrList() { /*to show the all ingredient list*/
-    loadAllIngr();
+    loadFilteredIngr();
     document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
     document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; /*CSS: block-> parent space & as many children created*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
@@ -185,7 +207,7 @@ function hideUstList() {
 }
 
 // .....................................................
-// Show & hide Placeholder text
+// Show / Hide Placeholder text
 // .....................................................
 
 function displayIngrInput2() { /*to show placeholder text input2*/
@@ -247,20 +269,12 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 
 
 // .....................................................
-// Element list when user input entered in dropdown search bar
+// Element list when user input entered in DROPDOWN search bar
 // .....................................................
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
-    const inputIngr = searchIngr.value;
-    let suggestion = "";
-    tabIngredients.forEach(currentIngredient => { /*to browse & check in all the tab */
-        if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
-            suggestion += `
-            <p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`; /* test is the function and this is the arument or parameter i.e. the element html represented by <p class="suggIngr" onclick = "addTag(this,'ingrédient')"*/
-        }
-    });
-    document.getElementById("suggIngr").innerHTML = suggestion;
+    loadFilteredIngr();
 });
 
 searchApp.addEventListener("keyup", function () { 
@@ -342,27 +356,21 @@ function moveElementFromTabToTab(fromTab, toTab, elem){
 }
 
 // .....................................................
-// Check each recipe & see if it contains input Search Bar or Tag INGR, APP or UST
+// Check each recipe & see if it contains Search Bar input or Tag INGR, APP or UST
 // .....................................................
 
-searchinput.addEventListener("keyup", function(){
-    let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-    showRecipes(allSelect);
-}
-);
-
-function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
+function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
 
     const input = searchinput.value;
+    let result = recipes.slice(); /*slice is to get a part of a array ie slice(2) we will get all objects of array from element index 2 till the end*/
+    
+    if (input.length>2 || input.length===0){ /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
-    let result = recipes.slice();
-    if (input.length>2 || input.length===0){
-
-  /* filter to get all words in title, description or ingredient list of the recipe containing caracters entered in search bar in lowercase or uppercase. */
-    result = recipes.filter(item => 
-    item.name.toLowerCase().includes(input.toLowerCase())
-    ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-    ||item.description.toLowerCase().includes(input.toLowerCase()));
+        /* Search to find input in title, description or ingredient list of the recipe*/
+        result = recipes.filter(item => 
+            item.name.toLowerCase().includes(input.toLowerCase())
+            ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+            ||item.description.toLowerCase().includes(input.toLowerCase()));
     }
 
     let filteredRecipes = [];
@@ -401,8 +409,23 @@ function selectAllFilteredRecipes(ingrFilter, appFilter, ustFilter){
                 filteredRecipes.push(currentRecipe);
             }
         });
+
     return filteredRecipes;
 }
+
+searchinput.addEventListener("keyup", function(){
+    let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
+    showRecipes(allSelect);
+    
+    getAllIngr.forEach
+    // getAllIngr(allSelect)
+    
+});
+
+//pseudo code: si element dans recettes select & affichées, garder dans la liste, 
+//si ingredient pas dans une des recettes affichées alors remove from list
+
+
 
 // .....................................................
 // ADD TAGS & REMOVE ELEMENT FROM LIST
@@ -413,7 +436,7 @@ function addTag(element, type) {
         removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
-        loadAllIngr(); /*load list of all the Ingr that are not tagged*/       
+        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/       
     }
     else if (type == 'appareil') {
         removeElementFromTab(tabAppareils, element.innerHTML); 
@@ -445,7 +468,7 @@ function closeTag(btn_close, element, type) {
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
         tabIngredients.sort(Intl.Collator().compare);
-        loadAllIngr(); 
+        loadFilteredIngr(); 
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
         tabAppareils.sort(Intl.Collator().compare);
