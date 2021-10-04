@@ -93,22 +93,21 @@ function loadFilteredIngr() {
     tabDisplayedR.forEach(currentRecipe =>{
         currentRecipe.ingredients.forEach(currentIngredient=>{
             if(!tabIngrDisplayedR.includes(currentIngredient.ingredient.toLowerCase())){
-                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase());
-            }   
+                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase()); 
+            }  
+            tabIngrDisplayedR.sort(Intl.Collator().compare);
+            return tabIngrDisplayedR;
         })
     })
+
     tabIngrDisplayedR.forEach(currentIngredient => {
         if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
             allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
         }             //on click: permet de pouvoir plus tard clic et créer le tag
     });
-    document.getElementById("suggIngr").innerHTML = allIngr;
+    document.getElementById("suggIngr").innerHTML = allIngr;     
 }
 
-//Peudo code de cette fonction:
-//On regarde le tab contenant tous les ingr 
-//pour chaque ingr 
-//-> ajouter dans suggestion list
 
 function loadFilteredApp() {
 
@@ -117,21 +116,25 @@ function loadFilteredApp() {
     let tabDisplayedR = selectAllFilteredRecipes(); 
     const inputApp = searchApp.value;
 
-tabDisplayedR.forEach(currentRecipe =>{
-    [currentRecipe.appliance].forEach(currentAppareil =>{
-        if(!tabAppDisplayedR.includes(currentAppareil.toLowerCase())){
-            tabAppDisplayedR.push(currentAppareil.toLowerCase());
-        }
+    tabDisplayedR.forEach(currentRecipe =>{
+        [currentRecipe.appliance].forEach(currentAppareil =>{
+            if(!tabAppDisplayedR.includes(currentAppareil.toLowerCase())){
+                tabAppDisplayedR.push(currentAppareil.toLowerCase());
+            }
+            tabAppDisplayedR.sort(Intl.Collator().compare);
+            return tabAppDisplayedR;
+        })
     })
-})
 
-tabAppDisplayedR.forEach(currentAppareil => {
-    if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
-        allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
-        }
-    });
-    document.getElementById("suggApp").innerHTML = allApp;
+    tabAppDisplayedR.forEach(currentAppareil => {
+        if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
+            allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
+            }
+        });
+        document.getElementById("suggApp").innerHTML = allApp;
 }
+
+
 
 function loadFilteredUst() {
     
@@ -145,13 +148,15 @@ function loadFilteredUst() {
             if(!tabUstDisplayedR.includes(currentUstensile.toLowerCase())){
                 tabUstDisplayedR.push(currentUstensile.toLowerCase());
             }
+            tabUstDisplayedR.sort(Intl.Collator().compare);
+            return tabUstDisplayedR;
         })
     })   
     tabUstDisplayedR.forEach(currentUstensile => {
         if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
         allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
-    }
-});
+        }
+    });
     document.getElementById("suggUst").innerHTML = allUst;
 }
         
@@ -283,7 +288,6 @@ document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hi
 
 document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstList); 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstList);
-
 
 // .....................................................
 // Element list when user input entered in DROPDOWN search bar
