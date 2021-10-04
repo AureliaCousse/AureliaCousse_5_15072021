@@ -131,7 +131,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
         let instructions = recipeTab[i].description;
 
-        let maxLength = 345; // maxLength for screens > 850px
+        let maxLength = 285; // maxLength for screens > 850px
         if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
             maxLength = 225; 
         }
