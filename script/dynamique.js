@@ -113,6 +113,12 @@ function loadFilteredIngr() {
 function loadFilteredApp() {
 
     let allApp = "";
+    let tabAppDisplayedR = [];
+    let tabDisplayedR = selectAllFilteredRecipes(); 
+    const inputApp = searchApp.value;
+
+
+
     tabAppareils.forEach(currentAppareil => {
         allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
     });
@@ -134,15 +140,13 @@ function loadFilteredUst() {
         })
     })   
     tabUstDisplayedR.forEach(currentUstensile => {
-        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
+        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
         allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
     }
 });
     document.getElementById("suggUst").innerHTML = allUst;
 }
         
-   
-
 // .....................................................
 // Show or hide all the element lists / list closed when another open
 // .....................................................
@@ -284,15 +288,7 @@ searchIngr.addEventListener("keyup", function () { /*To listen input entered in 
 
 searchApp.addEventListener("keyup", function () { 
     displayAppList();
-    const inputApp = searchApp.value;
-    let suggestion = "";
-    tabAppareils.forEach(currentAppareil => { 
-        if (currentAppareil.toLowerCase().includes(inputApp.toLowerCase())) { 
-            suggestion += `
-            <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
-        }
-    });
-    document.getElementById("suggApp").innerHTML = suggestion;
+    loadFilteredApp();
 });
 
 searchUst.addEventListener("keyup", function () { 
@@ -468,4 +464,3 @@ function closeTag(btn_close, element, type) {
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
-
