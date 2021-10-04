@@ -133,7 +133,7 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
 
         let maxLength = 345; // maxLength for screens > 850px
         if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
-            maxLength = 250; 
+            maxLength = 225; 
         }
 
         /*on crée la div recipeDescription*/
