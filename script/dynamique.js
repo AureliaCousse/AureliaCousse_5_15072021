@@ -117,10 +117,18 @@ function loadFilteredApp() {
     let tabDisplayedR = selectAllFilteredRecipes(); 
     const inputApp = searchApp.value;
 
+tabDisplayedR.forEach(currentRecipe =>{
+    [currentRecipe.appliance].forEach(currentAppareil =>{
+        if(!tabAppDisplayedR.includes(currentAppareil.toLowerCase())){
+            tabAppDisplayedR.push(currentAppareil.toLowerCase());
+        }
+    })
+})
 
-
-    tabAppareils.forEach(currentAppareil => {
+tabAppDisplayedR.forEach(currentAppareil => {
+    if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
         allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
+        }
     });
     document.getElementById("suggApp").innerHTML = allApp;
 }
