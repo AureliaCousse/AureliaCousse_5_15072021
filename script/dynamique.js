@@ -108,6 +108,7 @@ function loadFilteredIngr() {
             tabIngrDisplayedR.sort(Intl.Collator().compare);
             return tabIngrDisplayedR;
         })
+        
     })
 
     tabIngrDisplayedR.forEach(currentIngredient => {
@@ -302,7 +303,7 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
-    loadFilteredIngr();
+    loadFilteredIngr();  
 });
 
 searchApp.addEventListener("keyup", function () { 
@@ -434,11 +435,16 @@ searchinput.addEventListener("keyup", function(){
 // .....................................................
 
 function addTag(element, type) {
+    
     if (type == 'ingredient') {
-        removeElementFromTab(tabIngredients, element.innerHTML); 
+        
+        // let tabIngrDisplayedR = [];
+        // removeElementFromTab(tabIngrDisplayedR, element.innerHTML);
+        removeElementFromTab(tabIngredients, element.innerHTML);
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
-        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/       
+        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/   
+           
     }
     else if (type == 'appareil') {
         removeElementFromTab(tabAppareils, element.innerHTML); 
@@ -466,6 +472,7 @@ function addTag(element, type) {
 
 function closeTag(btn_close, element, type) {
     btn_close.parentNode.style.display = 'none';
+    
 
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
