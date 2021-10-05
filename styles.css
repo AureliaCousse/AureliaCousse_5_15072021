@@ -1,12 +1,10 @@
 /* -----------------------------------------------------
 RESET Margin & Padding on all page
 ----------------------------------------------------- */
-
 * {
   margin : 0;
   padding: 0;
 }
-
 /* -----------------------------------------------------
 RESET CSS / Eric Meyer
 ----------------------------------------------------- */
@@ -99,11 +97,9 @@ video {
   vertical-align : baseline;
   text-decoration: none;
 }
-
 /* -----------------------------------------------------
 HTML5 display-role reset for older browsers
 ----------------------------------------------------- */
-
 article,
 aside,
 details,
@@ -117,21 +113,17 @@ nav,
 section {
   display: block;
 }
-
 body {
   line-height: 1;
 }
-
 ol,
 ul {
   list-style: none;
 }
-
 blockquote,
 q {
   quotes: none;
 }
-
 blockquote:before,
 blockquote:after,
 q:before,
@@ -139,7 +131,6 @@ q:after {
   content: "";
   content: none;
 }
-
 table {
   border-collapse: collapse;
   border-spacing : 0;
@@ -148,7 +139,6 @@ table {
 /* -----------------------------------------------------
 FONTS (one specific @font-face line for each font)
 ----------------------------------------------------- */
-
 /*logo*/
 @font-face {
   font-family: "DMSans-Regular";
@@ -256,6 +246,23 @@ MAIN SEARCH BAR
   text-transform: capitalize;
   color         : black;
 }
+/* -----------------------------------------------------
+MESSAGE
+----------------------------------------------------- */
+#noResultMessage{
+background-color: #f0c7c7;
+color: rgb(129, 127, 127);
+margin-top: 10px;
+padding: 20px 10px 10px 10px;
+height: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+justify-items: center;
+border-radius   : 5px 5px 5px 5px;
+font-family: "Lato-Regular";
+display: none;  
+}
 
 /* -----------------------------------------------------
 SEARCH BY SELECT - INGR, APP & UST TAB LISTS
@@ -283,8 +290,7 @@ TAG BUTTON
   flex-wrap      : wrap;
   align-items    : stretch;
   justify-content: flex-start;
-  margin-top     : 20px;
-  margin-bottom  : 20px;
+  margin-top     : 10px;
 }
 
 .tag {
@@ -428,7 +434,6 @@ FILTER ZONE
 .resultSugg {
   min-width    : 100%; /*so that the element result only takes all width of the container sugg to get 1 single column*/
   padding-right: 50px;
-  
 }
 
 /* -----------------------------------------------------
@@ -646,7 +651,6 @@ MEDIA QUERIES (changed from 768 to 850)
   .ingredients {
     width: 250px;
   }
-
 }
 
 @media only screen and (min-width:1200px) {

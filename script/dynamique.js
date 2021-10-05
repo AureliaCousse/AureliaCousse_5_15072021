@@ -1,5 +1,15 @@
 /*jshint esversion: 6 */
 
+
+//ALGO 2
+// same logic Algo 1; only change all methods for tables (forEach) 
+//by JS native methods such as  boucles FOR
+//instead of .forEach, .includes, .find, .map => write tem all with FOR
+//example: if tab[i] = what I am looking for then return TRUE (if boolean expected)
+//or when .find return an object then  return object
+//other ex: when .includes => replace by a function that says "if exist in array"
+
+
 // -----------------------------------------------------
 // CONSTANTS
 // -----------------------------------------------------
@@ -108,7 +118,6 @@ function loadFilteredIngr() {
     document.getElementById("suggIngr").innerHTML = allIngr;     
 }
 
-
 function loadFilteredApp() {
 
     let allApp = "";
@@ -133,8 +142,6 @@ function loadFilteredApp() {
         });
         document.getElementById("suggApp").innerHTML = allApp;
 }
-
-
 
 function loadFilteredUst() {
     
@@ -412,15 +419,14 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
                 && nbTagUst===tabSelectUst.length)
             {
                 filteredRecipes.push(currentRecipe);
-            }
+            };   
         });
-
-    return filteredRecipes;
-}
-
+        return filteredRecipes;    
+    }
+ 
 searchinput.addEventListener("keyup", function(){
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-    showRecipes(allSelect);
+        showRecipes(allSelect);      
 });
 
 // .....................................................
@@ -476,3 +482,4 @@ function closeTag(btn_close, element, type) {
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
+
