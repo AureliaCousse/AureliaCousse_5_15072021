@@ -1,14 +1,6 @@
+//COPY DEV-36
+
 /*jshint esversion: 6 */
-
-
-//ALGO 2
-// same logic Algo 1; only change all methods for tables (forEach) 
-//by JS native methods such as  boucles FOR
-//instead of .forEach, .includes, .find, .map => write tem all with FOR
-//example: if tab[i] = what I am looking for then return TRUE (if boolean expected)
-//or when .find return an object then  return object
-//other ex: when .includes => replace by a function that says "if exist in array"
-
 
 // -----------------------------------------------------
 // CONSTANTS
@@ -18,6 +10,7 @@ const searchIngr = document.getElementById("userIngr"); /*tells what is to be li
 const searchUst = document.getElementById("userUst"); 
 const searchApp = document.getElementById("userApp"); 
 const searchinput = document.getElementById("searchInput");
+
 
 // -----------------------------------------------------
 // VARIABLES
@@ -33,6 +26,8 @@ let tabSelectApp = [];
 
 let tabUstensiles = getAllUst();
 let tabSelectUst = []; 
+
+// let filteredRecipes =[];/*Tab with recipes remaining after search*/
 
 // -----------------------------------------------------
 // FUNCTIONS
@@ -52,7 +47,8 @@ function getAllIngr() {
     recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
-            let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.ingredient dans cette même boucle*/
+            let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.infgredient dans cette même boucle*/
+            // ingr=renameElement(ingr);
             if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
@@ -67,6 +63,7 @@ function getAllApp() {
     let tabAllApp = []; 
     recipes.forEach(recette => { 
         let app = recette.appliance;
+        // app=renameElement(app);
         if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
             tabAllApp.push(app.toLowerCase()); 
         }
@@ -80,6 +77,7 @@ function getAllUst() {
     recipes.forEach(recette => { 
         recette.ustensils.forEach(currentUstensile => {
             let ust = currentUstensile; 
+            // ust=renameElement(ust);
             if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
                 tabAllUst.push(ust.toLowerCase()); 
             }
@@ -90,7 +88,7 @@ function getAllUst() {
 }
 
 // .....................................................
-// LOAD LISTS OF INGR - APP & UST + reduced list when recipes filtered
+// LOAD LIST OF INGR - APP & UST
 // .....................................................
 
 function loadFilteredIngr() {
@@ -103,71 +101,45 @@ function loadFilteredIngr() {
     tabDisplayedR.forEach(currentRecipe =>{
         currentRecipe.ingredients.forEach(currentIngredient=>{
             if(!tabIngrDisplayedR.includes(currentIngredient.ingredient.toLowerCase())){
-                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase()); 
-            }  
-            tabIngrDisplayedR.sort(Intl.Collator().compare);
-            return tabIngrDisplayedR;
+                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase());
+            }
+            
         })
-        
     })
-
     tabIngrDisplayedR.forEach(currentIngredient => {
         if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
             allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
-        }             //on click: permet de pouvoir plus tard clic et créer le tag
+        }
+        //on click: permet de pouvoir plus tard clic et créer le tag
     });
-    document.getElementById("suggIngr").innerHTML = allIngr;     
+    document.getElementById("suggIngr").innerHTML = allIngr;
 }
 
-function loadFilteredApp() {
+//Peudo code de cette fonction:
+//On regarde le tab contenant tous les ingr 
+//pour chaque ingr 
+//-> ajouter dans suggestion list
+
+
+
+function loadAllApp() {
 
     let allApp = "";
-    let tabAppDisplayedR = [];
-    let tabDisplayedR = selectAllFilteredRecipes(); 
-    const inputApp = searchApp.value;
-
-    tabDisplayedR.forEach(currentRecipe =>{
-        [currentRecipe.appliance].forEach(currentAppareil =>{
-            if(!tabAppDisplayedR.includes(currentAppareil.toLowerCase())){
-                tabAppDisplayedR.push(currentAppareil.toLowerCase());
-            }
-            tabAppDisplayedR.sort(Intl.Collator().compare);
-            return tabAppDisplayedR;
-        })
-    })
-
-    tabAppDisplayedR.forEach(currentAppareil => {
-        if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
-            allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
-            }
-        });
-        document.getElementById("suggApp").innerHTML = allApp;
+    tabAppareils.forEach(currentAppareil => {
+        allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
+    });
+    document.getElementById("suggApp").innerHTML = allApp;
 }
 
-function loadFilteredUst() {
+function loadAllUst() {
     
     let allUst = "";
-    let tabUstDisplayedR = [];
-    let tabDisplayedR = selectAllFilteredRecipes(); 
-    const inputUst = searchUst.value;
-
-    tabDisplayedR.forEach(currentRecipe =>{
-        currentRecipe.ustensils.forEach(currentUstensile=>{
-            if(!tabUstDisplayedR.includes(currentUstensile.toLowerCase())){
-                tabUstDisplayedR.push(currentUstensile.toLowerCase());
-            }
-            tabUstDisplayedR.sort(Intl.Collator().compare);
-            return tabUstDisplayedR;
-        })
-    })   
-    tabUstDisplayedR.forEach(currentUstensile => {
-        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
+    tabUstensiles.forEach(currentUstensile => {
         allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
-        }
     });
     document.getElementById("suggUst").innerHTML = allUst;
 }
-        
+
 // .....................................................
 // Show or hide all the element lists / list closed when another open
 // .....................................................
@@ -194,7 +166,7 @@ function hideIngrList() { /*to hide the all ingredient list*/
 }
 
 function displayAppList() { 
-    loadFilteredApp();
+    loadAllApp();
     document.getElementById("suggApp").style.display = "flex";
     document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
@@ -216,7 +188,7 @@ function hideAppList() {
 }
 
 function displayUstList() { 
-    loadFilteredUst();
+    loadAllUst();
     document.getElementById("suggUst").style.display = "flex"; 
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
@@ -297,23 +269,40 @@ document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hi
 document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstList); 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstList);
 
+
 // .....................................................
 // Element list when user input entered in DROPDOWN search bar
 // .....................................................
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
-    loadFilteredIngr();  
+    loadFilteredIngr();
 });
 
 searchApp.addEventListener("keyup", function () { 
     displayAppList();
-    loadFilteredApp();
+    const inputApp = searchApp.value;
+    let suggestion = "";
+    tabAppareils.forEach(currentAppareil => { 
+        if (currentAppareil.toLowerCase().includes(inputApp.toLowerCase())) { 
+            suggestion += `
+            <p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
+        }
+    });
+    document.getElementById("suggApp").innerHTML = suggestion;
 });
 
 searchUst.addEventListener("keyup", function () { 
     displayUstList();
-    loadFilteredUst();   
+    const inputUst = searchUst.value;
+    let suggestion = "";
+    tabUstensiles.forEach(currentUstensile => { 
+        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
+            suggestion += `
+            <p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`; 
+        }
+    });
+    document.getElementById("suggUst").innerHTML = suggestion;
 });
 
 function removeElementFromTab(tab, searchElement) {
@@ -420,39 +409,48 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
                 && nbTagUst===tabSelectUst.length)
             {
                 filteredRecipes.push(currentRecipe);
-            };   
+            }
         });
-        return filteredRecipes;    
-    }
- 
+
+    return filteredRecipes;
+}
+
 searchinput.addEventListener("keyup", function(){
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-        showRecipes(allSelect);      
+    showRecipes(allSelect);
+    
+    getAllIngr.forEach
+    // getAllIngr(allSelect)
+    
 });
+
+//pseudo code: si element dans recettes select & affichées, garder dans la liste, 
+//si ingredient pas dans une des recettes affichées alors remove from list
+
+
 
 // .....................................................
 // ADD TAGS & REMOVE ELEMENT FROM LIST
 // .....................................................
 
 function addTag(element, type) {
-    
     if (type == 'ingredient') {
-        removeElementFromTab(tabIngredients, element.innerHTML);
+        removeElementFromTab(tabIngredients, element.innerHTML); 
         tabSelectIngr.push(element.innerHTML);
         displayTags("tagIngr", tabSelectIngr);
-        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/         
+        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/       
     }
     else if (type == 'appareil') {
         removeElementFromTab(tabAppareils, element.innerHTML); 
         tabSelectApp.push(element.innerHTML);
         displayTags("tagApp", tabSelectApp);
-        loadFilteredApp();
+        loadAllApp();
     }
     else if (type == 'ustensile') {
         removeElementFromTab(tabUstensiles, element.innerHTML); 
         tabSelectUst.push(element.innerHTML);
         displayTags("tagUst", tabSelectUst);
-        loadFilteredUst(); 
+        loadAllUst(); 
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
@@ -468,7 +466,6 @@ function addTag(element, type) {
 
 function closeTag(btn_close, element, type) {
     btn_close.parentNode.style.display = 'none';
-    
 
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
@@ -477,12 +474,11 @@ function closeTag(btn_close, element, type) {
     } else if(type == "app") {
         moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
         tabAppareils.sort(Intl.Collator().compare);
-        loadFilteredApp();
+        loadAllApp();
     } else {
         moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
         tabUstensiles.sort(Intl.Collator().compare);
-        loadFilteredUst();       
+        loadAllUst();       
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
-
