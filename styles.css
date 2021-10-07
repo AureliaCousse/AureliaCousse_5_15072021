@@ -5,6 +5,7 @@ RESET Margin & Padding on all page
   margin : 0;
   padding: 0;
 }
+
 /* -----------------------------------------------------
 RESET CSS / Eric Meyer
 ----------------------------------------------------- */
@@ -97,6 +98,7 @@ video {
   vertical-align : baseline;
   text-decoration: none;
 }
+
 /* -----------------------------------------------------
 HTML5 display-role reset for older browsers
 ----------------------------------------------------- */
@@ -113,17 +115,21 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -131,6 +137,7 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing : 0;
@@ -246,22 +253,23 @@ MAIN SEARCH BAR
   text-transform: capitalize;
   color         : black;
 }
+
 /* -----------------------------------------------------
 MESSAGE
 ----------------------------------------------------- */
-#noResultMessage{
-background-color: #f3eaea;
-color: rgb(129, 127, 127);
-margin-top: 10px;
-padding: 20px 10px 10px 10px;
-height: 30px;
-display: flex;
-align-items: center;
-justify-content: center;
-justify-items: center;
-border-radius   : 5px 5px 5px 5px;
-font-family: "Lato-Regular";
-display: none;  
+#noResultMessage {
+  background-color: #f3eaea;
+  color           : rgb(129, 127, 127);
+  margin-top      : 10px;
+  padding         : 20px 10px 10px 10px;
+  height          : 30px;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  justify-items   : center;
+  border-radius   : 5px 5px 5px 5px;
+  font-family     : "Lato-Regular";
+  display         : none;
 }
 
 /* -----------------------------------------------------
@@ -432,7 +440,8 @@ FILTER ZONE
 }
 
 .resultSugg {
-  min-width    : 100%; /*so that the element result only takes all width of the container sugg to get 1 single column*/
+  min-width    : 100%;
+  /*so that the element result only takes all width of the container sugg to get 1 single column*/
   padding-right: 50px;
 }
 
@@ -440,14 +449,14 @@ FILTER ZONE
 RECIPE LIST
 ----------------------------------------------------- */
 #recipeList {
-  margin-top: 300px;
+  margin-top     : 300px;
   justify-content: space-around;
 }
 
 .recipe {
   display         : flex;
   flex-direction  : column;
-  align-content: space-around;
+  align-content   : space-around;
   height          : 350px;
   border-radius   : 5px;
   background-color: #E7E7E7;
@@ -456,11 +465,11 @@ RECIPE LIST
 }
 
 .recipePhoto {
-  height          : 210px;
-  background-color: #C7BEBE;
-  margin          : -15px -15px 15px -15px;
-  border-top-left-radius   : 5px;
-  border-top-right-radius   : 5px;
+  height                 : 210px;
+  background-color       : #C7BEBE;
+  margin                 : -15px -15px 15px -15px;
+  border-top-left-radius : 5px;
+  border-top-right-radius: 5px;
 }
 
 .recipeHeader {
@@ -554,15 +563,22 @@ footer h4 {
   margin-top   : 5px;
 }
 
-.backarrow{
+.backarrow {
   margin-right: 40px;
-  font-size    :2rem;
-  color: #D04F4F;
-  font-weight   : bolder;
+  font-size   : 2rem;
+  color       : #D04F4F;
+  font-weight : bolder;
 }
-h3{
-  margin-top: 50px;
-  font-weight   : bold;
+
+h3 {
+  margin-top     : 150px;
+  font-size      : 20px;
+  font-weight    : bold;
+  padding        : 20px 20px 20px 20px;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  border         : 4px #D04F4F dashed;
 }
 
 /* -----------------------------------------------------
@@ -644,7 +660,7 @@ MEDIA QUERIES (changed from 768 to 850)
   }
 
   #recipeList {
-    margin-top: 150px;
+    margin-top     : 150px;
     justify-content: space-around;
   }
 
