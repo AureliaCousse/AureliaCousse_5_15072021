@@ -281,6 +281,7 @@ SEARCH BY SELECT - INGR, APP & UST TAB LISTS
 
 #suggIngr {
   display: none;
+
 }
 
 #suggApp {
@@ -374,17 +375,17 @@ FILTER ZONE
 
 #ingrFilter {
   background-color: #3282F7;
-  padding-left: 15px;
+  padding-left    : 15px;
 }
 
 #appFilter {
   background-color: #68D9A4;
-  padding-left: 26px;
+  padding-left    : 26px;
 }
 
 #ustFilter {
   background-color: #ED6454;
-  padding-left: 19px;
+  padding-left    : 19px;
 }
 
 .filter {
@@ -627,7 +628,7 @@ MEDIA QUERIES (changed from 768 to 850)
 
   .suggestions {
     min-width      : 170px;
-    max-width      : 700px;
+    max-width      : 650px;
     display        : flex;
     align-items    : flex-start;
     justify-content: flex-start;
@@ -635,8 +636,9 @@ MEDIA QUERIES (changed from 768 to 850)
   }
 
   .resultSugg {
-    min-width: 33%;
-    /*so that the element result only takes 1/3 of the container sugg to get 3 columns*/
+    min-width    : 30%;
+    /*x% so that the element result only takes 1/3 of the container sugg to get 3 columns*/
+    padding-right: 20px;
   }
 
   #chevronIngr {
