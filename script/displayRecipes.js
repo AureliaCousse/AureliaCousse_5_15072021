@@ -164,9 +164,8 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         displayNoResultMessage();
     }
 
-    if (searchinput.value.length > 0
-        && searchinput.value.length < 3
-    ) {
+    if (searchinput.value.length > 0 && searchinput.value.length < 3) 
+    {
         hideNoResultMessage();
     }
 }
