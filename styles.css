@@ -189,8 +189,9 @@ header {
 }
 
 .logo {
-  height: 93px;
-  width : 268px;
+  height    : 93px;
+  width     : 268px;
+  margin-top: 42px;
 }
 
 main {
@@ -231,11 +232,12 @@ MAIN SEARCH BAR
   color           : black;
   overflow        : hidden;
   text-overflow   : ellipsis;
-  padding-right   : 15px;
+  padding         : 23px 15px 24px 22px;
 }
 
 .inputSearch::placeholder {
-  color: #757474;
+  color    : #b8b5b5;
+  font-size: 16px;
 }
 
 .searchBtn {
@@ -261,12 +263,13 @@ MESSAGE
   background-color: #f3eaea;
   color           : rgb(129, 127, 127);
   margin-top      : 10px;
-  padding         : 20px 10px 10px 10px;
+  padding         : 20px 10px 20px 10px;
   height          : 30px;
   display         : flex;
   align-items     : center;
   justify-content : center;
   justify-items   : center;
+  height          : auto;
   border-radius   : 5px 5px 5px 5px;
   font-family     : "Lato-Regular";
   display         : none;
@@ -342,7 +345,7 @@ TAG BUTTON
   border          : none;
   font-size       : 15px;
   background-color: transparent;
-  padding         : 0 30px 0 20px;
+  padding         : 8px 22px 9px 10px;
 }
 
 i.far.fa-times-circle {
@@ -371,14 +374,17 @@ FILTER ZONE
 
 #ingrFilter {
   background-color: #3282F7;
+  padding-left: 15px;
 }
 
 #appFilter {
   background-color: #68D9A4;
+  padding-left: 26px;
 }
 
 #ustFilter {
   background-color: #ED6454;
+  padding-left: 19px;
 }
 
 .filter {

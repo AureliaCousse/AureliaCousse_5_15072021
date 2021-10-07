@@ -407,7 +407,7 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
             ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
             ||item.description.toLowerCase().includes(input.toLowerCase()));
     }
-
+    
     let filteredRecipes = [];
     
     result.forEach(currentRecipe => { 
@@ -449,7 +449,8 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
  
 searchinput.addEventListener("keyup", function(){
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-        showRecipes(allSelect);      
+        showRecipes(allSelect); 
+        removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);     
 });
 
 // .....................................................
