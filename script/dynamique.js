@@ -106,10 +106,11 @@ function loadFilteredIngr() {
                 tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase()); 
             }  
             tabIngrDisplayedR.sort(Intl.Collator().compare);
-            return tabIngrDisplayedR;
+            // return tabIngrDisplayedR;
         })
-        
     })
+    
+    removeTab1FromTab2(tabSelectIngr, tabIngrDisplayedR);
 
     tabIngrDisplayedR.forEach(currentIngredient => {
         if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
@@ -325,6 +326,22 @@ function removeElementFromTab(tab, searchElement) {
     }
 }
 
+// a = [1,2,3,4,5]
+// b = [2,3,4,5,6]
+// removeTab1FromTab2(a, b)
+// console.log(b)
+
+function removeTab1FromTab2(tab1, tab2) {   
+    for(let i = 0; i < tab1.length; i++){
+        for(let k = 0; k < tab2.length; k++){
+            if (tab1[i] == tab2[k] ) {
+                tab2.splice(k,1); // splice(index_debut_suppr, nombre_element_a_suppr)
+                break;
+            }
+        }
+    }
+}
+
 // .....................................................
 // CREATION & DISPLAY TAG ZONE
 // .....................................................
@@ -435,7 +452,6 @@ searchinput.addEventListener("keyup", function(){
 // .....................................................
 
 function addTag(element, type) {
-    
     if (type == 'ingredient') {
         removeElementFromTab(tabIngredients, element.innerHTML);
         tabSelectIngr.push(element.innerHTML);
@@ -469,7 +485,6 @@ function addTag(element, type) {
 function closeTag(btn_close, element, type) {
     btn_close.parentNode.style.display = 'none';
     
-
     if(type == "ingr") {
         moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
         tabIngredients.sort(Intl.Collator().compare);
