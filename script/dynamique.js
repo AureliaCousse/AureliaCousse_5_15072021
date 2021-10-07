@@ -110,7 +110,7 @@ function loadFilteredIngr() {
         })
     })
     
-    removeTab1FromTab2(tabSelectIngr, tabIngrDisplayedR);
+    removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
     tabIngrDisplayedR.forEach(currentIngredient => {
         if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
@@ -133,9 +133,11 @@ function loadFilteredApp() {
                 tabAppDisplayedR.push(currentAppareil.toLowerCase());
             }
             tabAppDisplayedR.sort(Intl.Collator().compare);
-            return tabAppDisplayedR;
+            // return tabAppDisplayedR;
         })
     })
+
+    removeTabElSelectFromTabElDisplayedR(tabSelectApp, tabAppDisplayedR);
 
     tabAppDisplayedR.forEach(currentAppareil => {
         if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
@@ -158,9 +160,12 @@ function loadFilteredUst() {
                 tabUstDisplayedR.push(currentUstensile.toLowerCase());
             }
             tabUstDisplayedR.sort(Intl.Collator().compare);
-            return tabUstDisplayedR;
+            // return tabUstDisplayedR;
         })
-    })   
+    }) 
+    
+    removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
+
     tabUstDisplayedR.forEach(currentUstensile => {
         if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
         allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
@@ -331,12 +336,12 @@ function removeElementFromTab(tab, searchElement) {
 // removeTab1FromTab2(a, b)
 // console.log(b)
 
-function removeTab1FromTab2(tab1, tab2) {   
+function removeTabElSelectFromTabElDisplayedR(tab1, tab2) {   
     for(let i = 0; i < tab1.length; i++){
         for(let k = 0; k < tab2.length; k++){
             if (tab1[i] == tab2[k] ) {
                 tab2.splice(k,1); // splice(index_debut_suppr, nombre_element_a_suppr)
-                break;
+                break;//when element found no need to carry on with loop
             }
         }
     }
