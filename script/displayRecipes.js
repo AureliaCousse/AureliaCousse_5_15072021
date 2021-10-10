@@ -42,6 +42,10 @@ function renameUnit(longUnit) {
 
 function showRecipes(recipeTab) { /*fonction qui contient:*/
 
+    if(recipeTab==undefined){
+        return;
+    }
+
     let recipeList = document.getElementById("recipeList"); /*Attention: cette div recipeList a été créée dans fichier html*/
     recipeList.innerHTML = "";
 
