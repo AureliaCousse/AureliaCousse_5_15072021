@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 
-//ALGO 2  ----------FROM ALGO 1 DEV-42------------
+//ALGO 2
 // same logic Algo 1; only change all methods for tables (forEach) 
 //by JS native methods such as  boucles FOR
 //instead of .forEach, .includes, .find, .map => write tem all with FOR
@@ -402,29 +402,10 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
     if (input.length>2 || input.length===0){ /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
         /* Search to find input in title, description or ingredient list of the recipe*/
-        // result = recipes.filter(item => 
-        //     item.name.toLowerCase().includes(input.toLowerCase())
-        //     ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-        //     ||item.description.toLowerCase().includes(input.toLowerCase()));
-    }
-
-
-
-    //ALGO 2 CLEMENT *************************************************
-                
-    for (let i = 0; i < recipes.length; i++){
-        let item=recipes[i];
-        if (item.name.toLowerCase().includes(input.toLowerCase())
-            ||item.description.toLowerCase().includes(input.toLowerCase())){
-                result.push(recipes[i]);
-                continue;
-        }
-        for (let j=0; j < item.ingredients.length; j++){
-            if (item.ingredients[j].ingredient.toLocaleLowerCase().includes(input.toLowerCase())){
-                result.push(recipes[i]);
-                break;                        
-            }
-        }
+        result = recipes.filter(item => 
+            item.name.toLowerCase().includes(input.toLowerCase())
+            ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+            ||item.description.toLowerCase().includes(input.toLowerCase()));
     }
 
     let filteredRecipes = [];
@@ -462,9 +443,8 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
             {
                 filteredRecipes.push(currentRecipe);
             };   
-            return filteredRecipes;   
         });
-        
+        return filteredRecipes;    
     }
  
 searchinput.addEventListener("keyup", function(){
