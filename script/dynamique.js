@@ -107,8 +107,8 @@ function loadFilteredIngr() {
             }  
             tabIngrDisplayedR.sort(Intl.Collator().compare);
             // return tabIngrDisplayedR;
-        });
-    });
+        })
+    })
     
     removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
@@ -134,8 +134,8 @@ function loadFilteredApp() {
             }
             tabAppDisplayedR.sort(Intl.Collator().compare);
             // return tabAppDisplayedR;
-        });
-    });
+        })
+    })
 
     removeTabElSelectFromTabElDisplayedR(tabSelectApp, tabAppDisplayedR);
 
@@ -161,8 +161,8 @@ function loadFilteredUst() {
             }
             tabUstDisplayedR.sort(Intl.Collator().compare);
             // return tabUstDisplayedR;
-        });
-    }); 
+        })
+    }) 
     
     removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
 
@@ -407,7 +407,7 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
             ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
             ||item.description.toLowerCase().includes(input.toLowerCase()));
     }
-    
+
     let filteredRecipes = [];
     
     result.forEach(currentRecipe => { 
@@ -442,15 +442,14 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
                 && nbTagUst===tabSelectUst.length)
             {
                 filteredRecipes.push(currentRecipe);
-            }   
+            };   
         });
         return filteredRecipes;    
     }
  
 searchinput.addEventListener("keyup", function(){
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-        showRecipes(allSelect); 
-        removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);     
+        showRecipes(allSelect);      
 });
 
 // .....................................................
@@ -506,4 +505,3 @@ function closeTag(btn_close, element, type) {
     }
     showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
-
