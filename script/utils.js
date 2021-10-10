@@ -10,17 +10,17 @@ class Utils{
     }
 
 
-    static arrayContainString(array, value){
-        console.log(array)
-        console.log(value)
-        let result=false;
-        for (let i=0 ; i<value.length; i++){
-            if (array[i].toLowerCase().includes(value.toLowerCase())){
-                result=true;
-            }
-        }
-        return result;
-    }
+    // static arrayContainString(array, value){
+    //     console.log(array)
+    //     console.log(value)
+    //     let result=false;
+    //     for (let i=0 ; i<value.length; i++){
+    //         if (array[i].toLowerCase().includes(value.toLowerCase())){
+    //             result=true;
+    //         }
+    //     }
+    //     return result;
+    // }
     
     
     // renameElement(suggElement){

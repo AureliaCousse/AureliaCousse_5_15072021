@@ -402,7 +402,6 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
     let result = [];
     if (input.length > 2 || input.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
-
         //TO BE REPLACED FOR ALGO 2  ******************************* 
         /* Search to find input in title, description or ingredient list of the recipe*/
             // result = recipes.filter(item => 
@@ -428,30 +427,6 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
                         }
                     }
                 }
-                            
-                                //ALGO 2 DAVID ****************************************
-                        //         for (let i = 0; i < recipes.length; i++) {
-
-                        //             // const item = result[i];
-                        //             let name = recipes[i].name;
-                        //             let ingredients = [];
-                        //             for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                        //                 // console.log(recipes[i].ingredients[j])
-                        //                 ingredients.push(recipes[i].ingredients[j].ingredient);
-                        //             }
-                        //             console.log(ingredients)
-                        //             let instructions = recipes[i].description;
-                        //             if ((name.toLowerCase().includes(input.toLowerCase()))
-                        //                 || Utils.arrayContainString(ingredients, input)
-                        //                 || (instructions.toLowerCase().includes(input.toLowerCase()))) {
-                        //                 result.push(recipes[i])
-                                //             }
-                                //         }
-                                // console.log(result)
-                                        //ALGO 2 - END ****************************************    
-
-
-    
 
         let filteredRecipes = [];
 
@@ -488,8 +463,8 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
                 filteredRecipes.push(currentRecipe);
             }
         });
-    }
-    return filteredRecipes;
+        return filteredRecipes;
+    }    
 }
 
     searchinput.addEventListener("keyup", function () {
