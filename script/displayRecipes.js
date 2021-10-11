@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-/*line 1 is to prevent from message at js check */
+//When relying upon ECMAScript 6 features such as const, set this option so JSHint doesn't raise unnecessary warnings.
 
 // -----------------------------------------------------
 // FUNCTION
@@ -37,16 +37,12 @@ function renameUnit(longUnit) {
 // DISPLAY ALL THE RECIPES BY DEFAULT
 // -----------------------------------------------------
 /** 
- * @param recipeTab: le tableau contenant les recettes à afficher
+ * @param recipeTab: Tab containing recipes to be displayed
  */
 
-function showRecipes(recipeTab) { /*fonction qui contient:*/
+function showRecipes(recipeTab) {
 
-    if (recipeTab == undefined){   /*when not this condition, there is an undefined message (when no value given to recipeTab, it is "undefined") */
-       return; /*return to get out the the function*/
-    }
-
-    let recipeList = document.getElementById("recipeList"); /*Attention: cette div recipeList a été créée dans fichier html*/
+    let recipeList = document.getElementById("recipeList"); /*Nota bene: div "recipeList" has been created in html file*/
     recipeList.innerHTML = "";
 
     /*on lance une boucle pour afficher toutes les recettes en répétant le code en partant de index 0 et on l'implemente autant de fois jusque indice soit égal à recipeTab.length (cad aller jusqu' à la fin du tableau des recettes*/
@@ -55,7 +51,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on crée la div generale vide qui va contenir tous les objects nécessaire constituant la boite recette*/
         let newRecipe = document.createElement("a");
         newRecipe.setAttribute("class", "recipe");
-        // newRecipe.setAttribute("href", "newRecipe.html"); *************    A METTRE QD CSS TERMINE   ***************
         newRecipe.setAttribute("id", i + 1);
 
         /*on crée un cadre image*/
@@ -150,12 +145,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         let recipeDescription = document.createElement("div");
         recipeDescription.setAttribute("class", "recipeDescription");
         recipeDescription.innerHTML = instructions.length > maxLength ? instructions.substring(0, maxLength) + "..." : instructions;  /*on va chercher les instructions de la recette*/
-        /* instructions ternaires: ? => if // ":" =>else*/
-
-        // to be deleted (replaced by line85 all in 1):
-        //   if (instructions.length > maxLength) {
-        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la longueur des instructions - si trop long; ...*/
-        // }
 
         /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
         recipeDetails.appendChild(recipeDescription);
@@ -164,6 +153,10 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on ajoute le tout au fichier html*/
         recipeList.appendChild(newRecipe);
     } 
+
+// -----------------------------------------------------
+// DISPLAY MESSAGE if no recipe available related to user's input
+// -----------------------------------------------------    
     if (recipeTab.length === 0) {
         displayNoResultMessage();
     }
