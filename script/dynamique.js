@@ -397,29 +397,6 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
             }
         }
 }
-        //ALGO 2 END ************************************
-
-//         //ALGO 2 DAVID ****************************************
-//         for (let i = 0; i < recipes.length; i++) {
-
-//         // const item = result[i];
-//             let name = recipes[i].name;
-//             let ingredients = [];
-//                 for (let j = 0; j < recipes[i].ingredients.length; j++) {
-//                 // console.log(recipes[i].ingredients[j])
-//                     ingredients.push(recipes[i].ingredients[j].ingredient);
-//                 }
-//                 // console.log(ingredients)
-//             let instructions = recipes[i].description;
-//             if ((name.toLowerCase().includes(input.toLowerCase()))
-//                 || Utils.arrayContainString(ingredients, input)
-//                 || (instructions.toLowerCase().includes(input.toLowerCase()))) {
-//                     result.push(recipes[i])
-//                     }
-//             }
-//             // console.log(result)
-//             //ALGO 2 - END ****************************************  
-// }  
 
     let filteredRecipes = [];
     
