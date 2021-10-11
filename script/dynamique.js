@@ -5,7 +5,7 @@
 // CONSTANTS: tells what is to be listened: the user input i.e. userIngr
 // -----------------------------------------------------
 
-const searchIngr = document.getElementById("userIngr"); 
+const searchIngr = document.getElementById("userIngr");
 const searchUst = document.getElementById("userUst"); 
 const searchApp = document.getElementById("userApp"); 
 const searchinput = document.getElementById("searchInput");
@@ -37,19 +37,19 @@ let tabSelectUst = [];
 // } is REPLACED BY CLASS "Utils" in dedicated file
 
 function getAllIngr() {
-    let tabAllIngr = []; /*to create an empty tab that will contain all the App*/
+    let tabAllIngr = []; /*to create an empty tab that will contain all the Ingr*/
     recipes.forEach(recette => { /*to go through all the recipes 1 by 1 with the variable "recette" that is the current recipe, beginning by the recipe  index 0 then index 0 etc...till the end of tab*/
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
-            /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
             let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.ingredient dans cette même boucle*/
-            if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
-               /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
+            if (!tabAllIngr.find(i => Utils.normString(i) === Utils.normString(ingr))) {  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
+                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
         });
     });
     tabAllIngr.sort(Intl.Collator().compare);
-    return tabAllIngr; 
+    return tabAllIngr;
+
 }
 
 function getAllApp() {
@@ -101,7 +101,7 @@ function loadFilteredIngr() {
     removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
     tabIngrDisplayedR.forEach(currentIngredient => {
-        if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { /*and for each ingr if it is what is looked for (we consider that a same word written in lower case  and somewhere else in uppercase will be considered both in lowercase so we can compare and keep it only once in list*/
+        if (currentIngredient.toLowerCase().includes(inputIngr.toLowerCase())) { 
             allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
         }             //on click: so later we can click and create tag
     });
@@ -148,7 +148,7 @@ function loadFilteredUst() {
             }
             tabUstDisplayedR.sort(Intl.Collator().compare);
         });
-    }); 
+    });
     
     removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
 
@@ -167,7 +167,7 @@ function loadFilteredUst() {
 function displayIngrList() { /*to show the all ingredient list*/
     loadFilteredIngr();
     document.getElementById("suggIngr").style.display = "flex"; /*flex to allow suggIngr to appear in column*/
-    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block"; 
+    document.querySelector("#ingrFilter .fa-chevron-up").style.display = "block";
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "none";
 
     document.getElementById("suggApp").style.display = "none";
@@ -372,54 +372,15 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
 
     const input = searchinput.value;
     let result = [];
+    
     if (input.length>2 || input.length===0){ /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
         /* Search to find input in title, description or ingredient list of the recipe*/
-    //     result = recipes.filter(item => 
-    //         item.name.toLowerCase().includes(input.toLowerCase())
-    //         ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-    //         ||item.description.toLowerCase().includes(input.toLowerCase()));
-    // }
-
-        //ALGO 2 ************************************
-        for (let i = 0; i < recipes.length; i++){
-            let item=recipes[i];
-            if (item.name.toLowerCase().includes(input.toLowerCase())
-                ||item.description.toLowerCase().includes(input.toLowerCase())){
-                    result.push(recipes[i]);
-                    continue;
-            }
-            for (let j=0; j < item.ingredients.length; j++){
-                if (item.ingredients[j].ingredient.toLocaleLowerCase().includes(input.toLowerCase())){
-                    result.push(recipes[i]);
-                    break;                        
-                }
-            }
-        }
-}
-        //ALGO 2 END ************************************
-
-//         //ALGO 2 DAVID ****************************************
-//         for (let i = 0; i < recipes.length; i++) {
-
-//         // const item = result[i];
-//             let name = recipes[i].name;
-//             let ingredients = [];
-//                 for (let j = 0; j < recipes[i].ingredients.length; j++) {
-//                 // console.log(recipes[i].ingredients[j])
-//                     ingredients.push(recipes[i].ingredients[j].ingredient);
-//                 }
-//                 // console.log(ingredients)
-//             let instructions = recipes[i].description;
-//             if ((name.toLowerCase().includes(input.toLowerCase()))
-//                 || Utils.arrayContainString(ingredients, input)
-//                 || (instructions.toLowerCase().includes(input.toLowerCase()))) {
-//                     result.push(recipes[i])
-//                     }
-//             }
-//             // console.log(result)
-//             //ALGO 2 - END ****************************************  
-// }  
+        result = recipes.filter(item => 
+            item.name.toLowerCase().includes(input.toLowerCase())
+            ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+            ||item.description.toLowerCase().includes(input.toLowerCase()));
+    }
 
     let filteredRecipes = [];
     
@@ -494,11 +455,6 @@ function addTag(element, type) {
 // .....................................................
 // CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
 // .....................................................
-
-// <div class="inner-tag">
-    // <label>mot clé</label>
-    // <button class="tagBtn far fa-times-circle" type="button" onclick="closeTag(this)"></button>
-// </div>
 
 function closeTag(btn_close, element, type) {
     btn_close.parentNode.style.display = 'none';
