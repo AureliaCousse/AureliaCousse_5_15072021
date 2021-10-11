@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-/*line 1 is to prevent from message at js check */
+//When relying upon ECMAScript 6 features such as const, set this option so JSHint doesn't raise unnecessary warnings.
 
 // -----------------------------------------------------
 // FUNCTION
