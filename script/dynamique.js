@@ -3,7 +3,7 @@
 
 //ALGO 2
 // same logic Algo 1; only change all methods for tables (forEach) 
-//by JS native methods such as loop FOR
+//by JS native methods such as  boucles FOR
 //instead of .forEach, .includes, .find, .map => write tem all with FOR
 //example: if tab[i] = what I am looking for then return TRUE (if boolean expected)
 //or when .find return an object then  return object
@@ -15,8 +15,8 @@
 // -----------------------------------------------------
 
 const searchIngr = document.getElementById("userIngr"); /*tells what is to be listened: the user input i.e. userIngr*/
-const searchUst = document.getElementById("userUst");
-const searchApp = document.getElementById("userApp");
+const searchUst = document.getElementById("userUst"); 
+const searchApp = document.getElementById("userApp"); 
 const searchinput = document.getElementById("searchInput");
 
 // -----------------------------------------------------
@@ -32,7 +32,7 @@ let tabAppareils = getAllApp();
 let tabSelectApp = [];
 
 let tabUstensiles = getAllUst();
-let tabSelectUst = [];
+let tabSelectUst = []; 
 
 // -----------------------------------------------------
 // FUNCTIONS
@@ -53,8 +53,8 @@ function getAllIngr() {
         recette.ingredients.forEach(currentIngredient => {   /*current ingredient is each box containing ingredient+qty+unit in the main tab of the ingr of a given recipe*/
             /*currentIngredient exists for this loop ONLY: it is a local variable so we can reuse the name for another loop, function etc... it will be a different thing*/
             let ingr = currentIngredient.ingredient; /*variable pour éviter les répétitions de currentingredient.ingredient dans cette même boucle*/
-            if (!tabAllIngr.find(i => Utils.normString(i) === Utils.normString(ingr))) {  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
-                /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
+            if (!tabAllIngr.find(i=>Utils.normString(i)===Utils.normString(ingr))){  /*if one Ingr of one of the recipes is not yet (negative shown by "!") listed in the Ingr table, then  it is displayed*/
+               /* whatever the way word is written in recipe, we get it all in lowercase; then we use CSS text transform capitalize pour display words starting by uppercase*/
                 tabAllIngr.push(ingr.toLowerCase()); /*push: at each loop, we add the Ingr if it is what we are searching for*/
             }
         });
@@ -64,11 +64,11 @@ function getAllIngr() {
 }
 
 function getAllApp() {
-    let tabAllApp = [];
-    recipes.forEach(recette => {
+    let tabAllApp = []; 
+    recipes.forEach(recette => { 
         let app = recette.appliance;
-        if (!tabAllApp.find(i => Utils.normString(i) === Utils.normString(app))) {
-            tabAllApp.push(app.toLowerCase());
+        if (!tabAllApp.find(i=>Utils.normString(i)===Utils.normString(app))){  
+            tabAllApp.push(app.toLowerCase()); 
         }
     });
     tabAllApp.sort(Intl.Collator().compare);
@@ -76,12 +76,12 @@ function getAllApp() {
 }
 
 function getAllUst() {
-    let tabAllUst = [];
-    recipes.forEach(recette => {
+    let tabAllUst = []; 
+    recipes.forEach(recette => { 
         recette.ustensils.forEach(currentUstensile => {
-            let ust = currentUstensile;
-            if (!tabAllUst.find(i => Utils.normString(i) === Utils.normString(ust))) {
-                tabAllUst.push(ust.toLowerCase());
+            let ust = currentUstensile; 
+            if (!tabAllUst.find(i=>Utils.normString(i)===Utils.normString(ust))){  
+                tabAllUst.push(ust.toLowerCase()); 
             }
         });
     });
@@ -92,25 +92,24 @@ function getAllUst() {
 // .....................................................
 // LOAD LISTS OF INGR - APP & UST + reduced list when recipes filtered
 // .....................................................
-let tabIngrDisplayedR = [];
 
 function loadFilteredIngr() {
-
-    let allIngr = "";
     
+    let allIngr = "";
+    let tabIngrDisplayedR = [];
     let tabDisplayedR = selectAllFilteredRecipes(); /*displayedR prend pour valeur la valeur de retour de la fonction selectfilteredRecipes*/
     const inputIngr = searchIngr.value;
 
-    tabDisplayedR.forEach(currentRecipe => {
-        currentRecipe.ingredients.forEach(currentIngredient => {
-            if (!tabIngrDisplayedR.includes(currentIngredient.ingredient.toLowerCase())) {
-                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase());
-            }
+    tabDisplayedR.forEach(currentRecipe =>{
+        currentRecipe.ingredients.forEach(currentIngredient=>{
+            if(!tabIngrDisplayedR.includes(currentIngredient.ingredient.toLowerCase())){
+                tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase()); 
+            }  
             tabIngrDisplayedR.sort(Intl.Collator().compare);
             // return tabIngrDisplayedR;
-        });
-    });
-
+        })
+    })
+    
     removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
     tabIngrDisplayedR.forEach(currentIngredient => {
@@ -118,63 +117,63 @@ function loadFilteredIngr() {
             allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
         }             //on click: permet de pouvoir plus tard clic et créer le tag
     });
-    document.getElementById("suggIngr").innerHTML = allIngr;
+    document.getElementById("suggIngr").innerHTML = allIngr;     
 }
 
 function loadFilteredApp() {
 
     let allApp = "";
     let tabAppDisplayedR = [];
-    let tabDisplayedR = selectAllFilteredRecipes();
+    let tabDisplayedR = selectAllFilteredRecipes(); 
     const inputApp = searchApp.value;
 
-    tabDisplayedR.forEach(currentRecipe => {
-        [currentRecipe.appliance].forEach(currentAppareil => {
-            if (!tabAppDisplayedR.includes(currentAppareil.toLowerCase())) {
+    tabDisplayedR.forEach(currentRecipe =>{
+        [currentRecipe.appliance].forEach(currentAppareil =>{
+            if(!tabAppDisplayedR.includes(currentAppareil.toLowerCase())){
                 tabAppDisplayedR.push(currentAppareil.toLowerCase());
             }
             tabAppDisplayedR.sort(Intl.Collator().compare);
             // return tabAppDisplayedR;
-        });
-    });
+        })
+    })
 
     removeTabElSelectFromTabElDisplayedR(tabSelectApp, tabAppDisplayedR);
 
     tabAppDisplayedR.forEach(currentAppareil => {
-        if (currentAppareil.toLowerCase().includes(inputApp.toLowerCase())) {
+        if(currentAppareil.toLowerCase().includes(inputApp.toLowerCase())){
             allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
-        }
-    });
-    document.getElementById("suggApp").innerHTML = allApp;
+            }
+        });
+        document.getElementById("suggApp").innerHTML = allApp;
 }
 
 function loadFilteredUst() {
-
+    
     let allUst = "";
     let tabUstDisplayedR = [];
-    let tabDisplayedR = selectAllFilteredRecipes();
+    let tabDisplayedR = selectAllFilteredRecipes(); 
     const inputUst = searchUst.value;
 
-    tabDisplayedR.forEach(currentRecipe => {
-        currentRecipe.ustensils.forEach(currentUstensile => {
-            if (!tabUstDisplayedR.includes(currentUstensile.toLowerCase())) {
+    tabDisplayedR.forEach(currentRecipe =>{
+        currentRecipe.ustensils.forEach(currentUstensile=>{
+            if(!tabUstDisplayedR.includes(currentUstensile.toLowerCase())){
                 tabUstDisplayedR.push(currentUstensile.toLowerCase());
             }
             tabUstDisplayedR.sort(Intl.Collator().compare);
             // return tabUstDisplayedR;
-        });
-    });
-
+        })
+    }) 
+    
     removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
 
     tabUstDisplayedR.forEach(currentUstensile => {
-        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) {
-            allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
+        if (currentUstensile.toLowerCase().includes(inputUst.toLowerCase())) { 
+        allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
         }
     });
     document.getElementById("suggUst").innerHTML = allUst;
 }
-
+        
 // .....................................................
 // Show or hide all the element lists / list closed when another open
 // .....................................................
@@ -191,7 +190,7 @@ function displayIngrList() { /*to show the all ingredient list*/
 
     document.getElementById("suggUst").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";    
 }
 
 function hideIngrList() { /*to hide the all ingredient list*/
@@ -200,10 +199,10 @@ function hideIngrList() { /*to hide the all ingredient list*/
     document.querySelector("#ingrFilter .fa-chevron-down").style.display = "block";
 }
 
-function displayAppList() {
+function displayAppList() { 
     loadFilteredApp();
     document.getElementById("suggApp").style.display = "flex";
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "block";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#appFilter .fa-chevron-down").style.display = "none";
 
 
@@ -213,19 +212,19 @@ function displayAppList() {
 
     document.getElementById("suggUst").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";   
 }
 
-function hideAppList() {
+function hideAppList() { 
     document.getElementById("suggApp").style.display = "none";
     document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
     document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
 }
 
-function displayUstList() {
+function displayUstList() { 
     loadFilteredUst();
-    document.getElementById("suggUst").style.display = "flex";
-    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block";
+    document.getElementById("suggUst").style.display = "flex"; 
+    document.querySelector("#ustFilter .fa-chevron-up").style.display = "block"; 
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "none";
 
     document.getElementById("suggIngr").style.display = "none";
@@ -234,10 +233,10 @@ function displayUstList() {
 
     document.getElementById("suggApp").style.display = "none";
     document.querySelector("#appFilter .fa-chevron-down").style.display = "block";
-    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";
+    document.querySelector("#appFilter .fa-chevron-up").style.display = "none";   
 }
 
-function hideUstList() {
+function hideUstList() { 
     document.getElementById("suggUst").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-up").style.display = "none";
     document.querySelector("#ustFilter .fa-chevron-down").style.display = "block";
@@ -248,26 +247,26 @@ function hideUstList() {
 // .....................................................
 
 function displayIngrInput2() { /*to show placeholder text input2*/
-    document.getElementById("userIngr").placeholder = "Rechercher un ingrédient";
+    document.getElementById("userIngr").placeholder = "Rechercher un ingrédient"; 
 }
 
 function hideIngrInput2() { /*to hide placeholder text input2*/
     document.getElementById("userIngr").placeholder = "Ingrédients";
 }
 
-function displayAppInput2() {
-    document.getElementById("userApp").placeholder = "Rechercher un appareil";
+function displayAppInput2() { 
+    document.getElementById("userApp").placeholder = "Rechercher un appareil"; 
 }
 
-function hideAppInput2() {
+function hideAppInput2() { 
     document.getElementById("userApp").placeholder = "Appareils";
 }
 
-function displayUstInput2() {
-    document.getElementById("userUst").placeholder = "Rechercher un ustensile";
+function displayUstInput2() { 
+    document.getElementById("userUst").placeholder = "Rechercher un ustensile"; 
 }
 
-function hideUstInput2() {
+function hideUstInput2() { 
     document.getElementById("userUst").placeholder = "Ustensiles";
 }
 
@@ -275,13 +274,13 @@ function hideUstInput2() {
 // Placeholder change on click
 // .....................................................
 
-document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2);
-document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2);
+document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrInput2); 
+document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrInput2);  
 
-document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppInput2);
+document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppInput2); 
 document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hideAppInput2);
 
-document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstInput2);
+document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstInput2); 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstInput2);
 
 // .....................................................
@@ -295,13 +294,13 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 // }   
 //REPLACED BY:
 
-document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrList);
+document.querySelector("#ingrFilter .fa-chevron-down").addEventListener("click", displayIngrList); 
 document.querySelector("#ingrFilter .fa-chevron-up").addEventListener("click", hideIngrList);
 
-document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppList);
+document.querySelector("#appFilter .fa-chevron-down").addEventListener("click", displayAppList); 
 document.querySelector("#appFilter .fa-chevron-up").addEventListener("click", hideAppList);
 
-document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstList);
+document.querySelector("#ustFilter .fa-chevron-down").addEventListener("click", displayUstList); 
 document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hideUstList);
 
 // .....................................................
@@ -310,23 +309,23 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 
 searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
-    loadFilteredIngr();
+    loadFilteredIngr();  
 });
 
-searchApp.addEventListener("keyup", function () {
+searchApp.addEventListener("keyup", function () { 
     displayAppList();
     loadFilteredApp();
 });
 
-searchUst.addEventListener("keyup", function () {
+searchUst.addEventListener("keyup", function () { 
     displayUstList();
-    loadFilteredUst();
+    loadFilteredUst();   
 });
 
 function removeElementFromTab(tab, searchElement) {
-    for (let i = 0; i < tab.length; i++) {
+    for(let i = 0; i < tab.length; i++){
         if (tab[i] == searchElement) {
-            tab.splice(i, 1); // splice(index_debut_suppr, nombre_element_a_suppr)
+            tab.splice(i,1); // splice(index_debut_suppr, nombre_element_a_suppr)
             break;
         }
     }
@@ -337,11 +336,11 @@ function removeElementFromTab(tab, searchElement) {
 // removeTab1FromTab2(a, b)
 // console.log(b)
 
-function removeTabElSelectFromTabElDisplayedR(tab1, tab2) {
-    for (let i = 0; i < tab1.length; i++) {
-        for (let k = 0; k < tab2.length; k++) {
-            if (tab1[i] == tab2[k]) {
-                tab2.splice(k, 1); // splice(index_debut_suppr, nombre_element_a_suppr)
+function removeTabElSelectFromTabElDisplayedR(tab1, tab2) {   
+    for(let i = 0; i < tab1.length; i++){
+        for(let k = 0; k < tab2.length; k++){
+            if (tab1[i] == tab2[k] ) {
+                tab2.splice(k,1); // splice(index_debut_suppr, nombre_element_a_suppr)
                 break;//when element found no need to carry on with loop
             }
         }
@@ -352,7 +351,7 @@ function removeTabElSelectFromTabElDisplayedR(tab1, tab2) {
 // CREATION & DISPLAY TAG ZONE
 // .....................................................
 
-function displayTags(idTagZone, tabSelect) {
+function displayTags(idTagZone, tabSelect){
     let tagZone = document.getElementById(idTagZone);
     tagZone.innerHTML = "";
 
@@ -369,13 +368,13 @@ function displayTags(idTagZone, tabSelect) {
 
         switch (idTagZone) {
             case "tagIngr":
-                button.setAttribute('onclick', `closeTag(this,"${currentElement}","ingr")`);
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ingr")`);
                 break;
             case "tagApp":
-                button.setAttribute('onclick', `closeTag(this,"${currentElement}","app")`);
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","app")`);
                 break;
             default: /*i.e. "tagUst"*/
-                button.setAttribute('onclick', `closeTag(this,"${currentElement}","ust")`);
+                button.setAttribute('onclick',`closeTag(this,"${currentElement}","ust")`);
                 break;
         }
 
@@ -384,9 +383,9 @@ function displayTags(idTagZone, tabSelect) {
     });
 }
 
-function moveElementFromTabToTab(fromTab, toTab, elem) {
+function moveElementFromTabToTab(fromTab, toTab, elem){
     if (fromTab.includes(elem)) {
-        removeElementFromTab(fromTab, elem);
+        removeElementFromTab(fromTab, elem);  
         toTab.push(elem);
     }
 }
@@ -395,162 +394,154 @@ function moveElementFromTabToTab(fromTab, toTab, elem) {
 // Check each recipe & see if it contains Search Bar input or Tag INGR, APP or UST
 // .....................................................
 
-function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
+function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
 
     const input = searchinput.value;
     // let result = recipes.slice(); /*slice is to get a part of a array ie slice(2) we will get all objects of array from element index 2 till the end*/
     let result = [];
-    if (input.length > 2 || input.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
+    if (input.length>2 || input.length===0){ /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
-
-        //TO BE REPLACED FOR ALGO 2  ******************************* 
         /* Search to find input in title, description or ingredient list of the recipe*/
-            // result = recipes.filter(item => 
-            //     item.name.toLowerCase().includes(input.toLowerCase())
-            //     ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
-            //     ||item.description.toLowerCase().includes(input.toLowerCase()));
-        // 
-        //TO BE REPLACED FOR ALGO 2 - END ******************************* 
+    //     result = recipes.filter(item => 
+    //         item.name.toLowerCase().includes(input.toLowerCase())
+    //         ||item.ingredients.map(rMap=> rMap.ingredient.toLowerCase()).includes(input.toLowerCase())
+    //         ||item.description.toLowerCase().includes(input.toLowerCase()));
+    // }
 
-        //ALGO 2 CLEMENT
-                
-                for (let i = 0; i < recipes.length; i++){
-                    let item=recipes[i];
-                    if (item.name.toLowerCase().includes(input.toLowerCase())
-                        ||item.description.toLowerCase().includes(input.toLowerCase())){
-                            result.push(recipes[i]);
-                            continue;
-                    }
-                    for (let j=0; j < item.ingredients.length; j++){
-                        if (item.ingredients[j].ingredient.toLocaleLowerCase().includes(input.toLowerCase())){
-                            result.push(recipes[i]);
-                            break;                        
-                        }
-                    }
+        //ALGO 2 ************************************
+        for (let i = 0; i < recipes.length; i++){
+            let item=recipes[i];
+            if (item.name.toLowerCase().includes(input.toLowerCase())
+                ||item.description.toLowerCase().includes(input.toLowerCase())){
+                    result.push(recipes[i]);
+                    continue;
+            }
+            for (let j=0; j < item.ingredients.length; j++){
+                if (item.ingredients[j].ingredient.toLocaleLowerCase().includes(input.toLowerCase())){
+                    result.push(recipes[i]);
+                    break;                        
                 }
-    }
-                            
-                                //ALGO 2 DAVID ****************************************
-                        //         for (let i = 0; i < recipes.length; i++) {
+            }
+        }
+}
+        //ALGO 2 END ************************************
 
-                        //             // const item = result[i];
-                        //             let name = recipes[i].name;
-                        //             let ingredients = [];
-                        //             for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                        //                 // console.log(recipes[i].ingredients[j])
-                        //                 ingredients.push(recipes[i].ingredients[j].ingredient);
-                        //             }
-                        //             console.log(ingredients)
-                        //             let instructions = recipes[i].description;
-                        //             if ((name.toLowerCase().includes(input.toLowerCase()))
-                        //                 || Utils.arrayContainString(ingredients, input)
-                        //                 || (instructions.toLowerCase().includes(input.toLowerCase()))) {
-                        //                 result.push(recipes[i])
-                                //             }
-                                //         }
-                                // console.log(result)
-                                        //ALGO 2 - END ****************************************    
+//         //ALGO 2 DAVID ****************************************
+//         for (let i = 0; i < recipes.length; i++) {
 
+//         // const item = result[i];
+//             let name = recipes[i].name;
+//             let ingredients = [];
+//                 for (let j = 0; j < recipes[i].ingredients.length; j++) {
+//                 // console.log(recipes[i].ingredients[j])
+//                     ingredients.push(recipes[i].ingredients[j].ingredient);
+//                 }
+//                 // console.log(ingredients)
+//             let instructions = recipes[i].description;
+//             if ((name.toLowerCase().includes(input.toLowerCase()))
+//                 || Utils.arrayContainString(ingredients, input)
+//                 || (instructions.toLowerCase().includes(input.toLowerCase()))) {
+//                     result.push(recipes[i])
+//                     }
+//             }
+//             // console.log(result)
+//             //ALGO 2 - END ****************************************  
+// }  
 
+    let filteredRecipes = [];
     
+    result.forEach(currentRecipe => { 
+        const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());    
+        const appNames = currentRecipe.appliance.toLowerCase();
+        const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
 
-        let filteredRecipes = [];
-
-        result.forEach(currentRecipe => {
-            const ingrNames = currentRecipe.ingredients.map(rMap => rMap.ingredient.toLowerCase());
-            const appNames = currentRecipe.appliance.toLowerCase();
-            const ustNames = currentRecipe.ustensils.map(rMap => rMap.toLowerCase());
-
-            let nbTagIngr = 0;
-            let nbTagApp = 0;
-            let nbTagUst = 0;
-
+        let nbTagIngr = 0;
+        let nbTagApp = 0;
+        let nbTagUst = 0;
+        
             tabSelectIngr.forEach(ingrTag => {
-                if (ingrNames.includes(ingrTag)) {
+                if (ingrNames.includes(ingrTag)){
                     nbTagIngr++;
                 }
             });
 
             tabSelectApp.forEach(appTag => {
-                if (appNames.includes(appTag)) {
+                if (appNames.includes(appTag)){
                     nbTagApp++;
                 }
             });
 
             tabSelectUst.forEach(ustTag => {
-                if (ustNames.includes(ustTag)) {
+                if (ustNames.includes(ustTag)){
                     nbTagUst++;
-                }
+                }                
             });
 
-            if (nbTagApp === tabSelectApp.length
-                && nbTagIngr === tabSelectIngr.length
-                && nbTagUst === tabSelectUst.length) {
+            if (nbTagApp===tabSelectApp.length 
+                &&  nbTagIngr===tabSelectIngr.length
+                && nbTagUst===tabSelectUst.length)
+            {
                 filteredRecipes.push(currentRecipe);
-            }
+            };   
         });
-        return filteredRecipes;
-    
+        return filteredRecipes;    
+    }
+ 
+searchinput.addEventListener("keyup", function(){
+    let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
+        showRecipes(allSelect);      
+});
+
+// .....................................................
+// ADD TAGS & REMOVE ELEMENT FROM LIST
+// .....................................................
+
+function addTag(element, type) {
+    if (type == 'ingredient') {
+        removeElementFromTab(tabIngredients, element.innerHTML);
+        tabSelectIngr.push(element.innerHTML);
+        displayTags("tagIngr", tabSelectIngr);
+        loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/         
+    }
+    else if (type == 'appareil') {
+        removeElementFromTab(tabAppareils, element.innerHTML); 
+        tabSelectApp.push(element.innerHTML);
+        displayTags("tagApp", tabSelectApp);
+        loadFilteredApp();
+    }
+    else if (type == 'ustensile') {
+        removeElementFromTab(tabUstensiles, element.innerHTML); 
+        tabSelectUst.push(element.innerHTML);
+        displayTags("tagUst", tabSelectUst);
+        loadFilteredUst(); 
+    }
+    showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
 }
 
-    searchinput.addEventListener("keyup", function () {
-        let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
-        showRecipes(allSelect);
-        removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
-    });
+// .....................................................
+// CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
+// .....................................................
 
-
-    // .....................................................
-    // ADD TAGS & REMOVE ELEMENT FROM LIST
-    // .....................................................
-
-    function addTag(element, type) {
-        if (type == 'ingredient') {
-            removeElementFromTab(tabIngredients, element.innerHTML);
-            tabSelectIngr.push(element.innerHTML);
-            displayTags("tagIngr", tabSelectIngr);
-            loadFilteredIngr(); /*load list of all the Ingr that are not tagged*/
-        }
-        else if (type == 'appareil') {
-            removeElementFromTab(tabAppareils, element.innerHTML);
-            tabSelectApp.push(element.innerHTML);
-            displayTags("tagApp", tabSelectApp);
-            loadFilteredApp();
-        }
-        else if (type == 'ustensile') {
-            removeElementFromTab(tabUstensiles, element.innerHTML);
-            tabSelectUst.push(element.innerHTML);
-            displayTags("tagUst", tabSelectUst);
-            loadFilteredUst();
-        }
-        showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
-    }
-
-    // .....................................................
-    // CLOSE TAGS & SHOW ELEMENT BACK IN SUGGESTION LIST
-    // .....................................................
-
-    // <div class="inner-tag">
+// <div class="inner-tag">
     // <label>mot clé</label>
     // <button class="tagBtn far fa-times-circle" type="button" onclick="closeTag(this)"></button>
-    // </div>
+// </div>
 
-    function closeTag(btn_close, element, type) {
-        btn_close.parentNode.style.display = 'none';
-
-        if (type == "ingr") {
-            moveElementFromTabToTab(tabSelectIngr, tabIngredients, element);
-            tabIngredients.sort(Intl.Collator().compare);
-            loadFilteredIngr();
-        } else if (type == "app") {
-            moveElementFromTabToTab(tabSelectApp, tabAppareils, element);
-            tabAppareils.sort(Intl.Collator().compare);
-            loadFilteredApp();
-        } else {
-            moveElementFromTabToTab(tabSelectUst, tabUstensiles, element);
-            tabUstensiles.sort(Intl.Collator().compare);
-            loadFilteredUst();
-        }
-        showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
+function closeTag(btn_close, element, type) {
+    btn_close.parentNode.style.display = 'none';
+    
+    if(type == "ingr") {
+        moveElementFromTabToTab(tabSelectIngr, tabIngredients,element);
+        tabIngredients.sort(Intl.Collator().compare);
+        loadFilteredIngr(); 
+    } else if(type == "app") {
+        moveElementFromTabToTab(tabSelectApp, tabAppareils,element);
+        tabAppareils.sort(Intl.Collator().compare);
+        loadFilteredApp();
+    } else {
+        moveElementFromTabToTab(tabSelectUst, tabUstensiles,element);
+        tabUstensiles.sort(Intl.Collator().compare);
+        loadFilteredUst();       
     }
-
+    showRecipes(selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst));
+}
