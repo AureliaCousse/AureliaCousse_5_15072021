@@ -94,8 +94,8 @@ function loadFilteredIngr() {
                 tabIngrDisplayedR.push(currentIngredient.ingredient.toLowerCase()); 
             }  
             tabIngrDisplayedR.sort(Intl.Collator().compare);
-        })
-    })
+        });
+    });
     
     removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
@@ -120,8 +120,8 @@ function loadFilteredApp() {
                 tabAppDisplayedR.push(currentAppareil.toLowerCase());
             }
             tabAppDisplayedR.sort(Intl.Collator().compare);
-        })
-    })
+        });
+    });
 
     removeTabElSelectFromTabElDisplayedR(tabSelectApp, tabAppDisplayedR);
 
@@ -146,8 +146,8 @@ function loadFilteredUst() {
                 tabUstDisplayedR.push(currentUstensile.toLowerCase());
             }
             tabUstDisplayedR.sort(Intl.Collator().compare);
-        })
-    }) 
+        });
+    });
     
     removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
 
@@ -415,7 +415,7 @@ function selectAllFilteredRecipes(){ /*Nota bene: Parameters (ingrFilter, appFil
                 && nbTagUst===tabSelectUst.length)
             {
                 filteredRecipes.push(currentRecipe);
-            };   
+            }  
         });
         return filteredRecipes;    
     }
