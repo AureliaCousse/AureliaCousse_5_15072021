@@ -26,8 +26,14 @@ function renameUnit(longUnit) {
             return "cas";
         case "litres":
             return "l";
+        case   "Litres":
+            return "l";
         case "litre":
             return "l";
+        case "cuillères à café":
+            return "cac";
+        case "cuillère à café":
+            return "cac";       
         default:
             return longUnit;
     }
