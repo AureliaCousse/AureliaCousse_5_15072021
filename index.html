@@ -21,12 +21,11 @@
   <main>
 
     <div class="mainSearchZone">
-      <form id="userInput">
+      <form id="userInput" autocomplete="off"> <!-- autocomplete off to avoid suggestion list when entering input-->
         <input class="inputSearch" type="text" id="searchInput"
           placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
         <button class="searchBtn fas fa-search" id="searchIcon"></button>
       </form>
-      <div id="suggSearch"></div>
     </div>
 
     <div id="noResultMessage">

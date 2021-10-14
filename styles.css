@@ -249,13 +249,6 @@ MAIN SEARCH BAR
   padding-right   : 10px;
 }
 
-.suggSearch {
-  padding-left  : 20px;
-  line-height   : 30px;
-  text-transform: capitalize;
-  color         : black;
-}
-
 /* -----------------------------------------------------
 MESSAGE
 ----------------------------------------------------- */
