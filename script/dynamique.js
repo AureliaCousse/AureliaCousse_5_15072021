@@ -3,12 +3,13 @@
 
 // -----------------------------------------------------
 // CONSTANTS: tells what is to be listened: the user input i.e. userIngr
+//a common convention is to use all-uppercase letters
 // -----------------------------------------------------
 
-const searchIngr = document.getElementById("userIngr");
-const searchUst = document.getElementById("userUst");
-const searchApp = document.getElementById("userApp");
-const searchinput = document.getElementById("searchInput");
+const SEARCH_INGR = document.getElementById("userIngr");
+const SEARCH_UST = document.getElementById("userUst");
+const SEARCH_APP = document.getElementById("userApp");
+const SEARCH_INPUT = document.getElementById("searchInput");
 
 // -----------------------------------------------------
 // VARIABLES: To create tables in which will be stoked the elements INGR, APP & UST
@@ -81,7 +82,7 @@ function loadFilteredIngr() {
     let allIngr = "";
     let tabIngrDisplayedR = [];
     let tabDisplayedR = selectAllFilteredRecipes(); /*displayedR takes as value the return value of the function selectfilteredRecipes*/
-    const inputIngr = searchIngr.value;
+    const INPUT_INGR = SEARCH_INGR.value;
 
     tabDisplayedR.forEach(currentRecipe => {
         currentRecipe.ingredients.forEach(currentIngredient => {
@@ -95,7 +96,7 @@ function loadFilteredIngr() {
     removeTabElSelectFromTabElDisplayedR(tabSelectIngr, tabIngrDisplayedR);
 
     tabIngrDisplayedR.forEach(currentIngredient => {
-        if (Utils.normString(currentIngredient).includes(Utils.normString(inputIngr))) {
+        if (Utils.normString(currentIngredient).includes(Utils.normString(INPUT_INGR))) {
             allIngr += `<p class="suggIngr resultSugg" onclick = "addTag(this,'ingredient')">${currentIngredient}</p>`;
         }             //on click: so later we can click and create tag
     });
@@ -107,7 +108,7 @@ function loadFilteredApp() {
     let allApp = "";
     let tabAppDisplayedR = [];
     let tabDisplayedR = selectAllFilteredRecipes();
-    const inputApp = searchApp.value;
+    const INPUT_APP = SEARCH_APP.value;
 
     tabDisplayedR.forEach(currentRecipe => {
         [currentRecipe.appliance].forEach(currentAppareil => {
@@ -121,7 +122,7 @@ function loadFilteredApp() {
     removeTabElSelectFromTabElDisplayedR(tabSelectApp, tabAppDisplayedR);
 
     tabAppDisplayedR.forEach(currentAppareil => {
-        if (Utils.normString(currentAppareil).includes(Utils.normString(inputApp))) {
+        if (Utils.normString(currentAppareil).includes(Utils.normString(INPUT_APP))) {
             allApp += `<p class="suggApp resultSugg" onclick = "addTag(this,'appareil')">${currentAppareil}</p>`;
         }
     });
@@ -133,7 +134,7 @@ function loadFilteredUst() {
     let allUst = "";
     let tabUstDisplayedR = [];
     let tabDisplayedR = selectAllFilteredRecipes();
-    const inputUst = searchUst.value;
+    const INPUT_UST = SEARCH_UST.value;
 
     tabDisplayedR.forEach(currentRecipe => {
         currentRecipe.ustensils.forEach(currentUstensile => {
@@ -147,7 +148,7 @@ function loadFilteredUst() {
     removeTabElSelectFromTabElDisplayedR(tabSelectUst, tabUstDisplayedR);
 
     tabUstDisplayedR.forEach(currentUstensile => {
-        if (Utils.normString(currentUstensile).includes(Utils.normString(inputUst))) {
+        if (Utils.normString(currentUstensile).includes(Utils.normString(INPUT_UST))) {
             allUst += `<p class="suggUst resultSugg" onclick = "addTag(this,'ustensile')">${currentUstensile}</p>`;
         }
     });
@@ -280,17 +281,17 @@ document.querySelector("#ustFilter .fa-chevron-up").addEventListener("click", hi
 // Element list when user input entered in DROPDOWN search bar
 // .....................................................
 
-searchIngr.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
+SEARCH_INGR.addEventListener("keyup", function () { /*To listen input entered in search to actually run the function*/
     displayIngrList();
     loadFilteredIngr();
 });
 
-searchApp.addEventListener("keyup", function () {
+SEARCH_APP.addEventListener("keyup", function () {
     displayAppList();
     loadFilteredApp();
 });
 
-searchUst.addEventListener("keyup", function () {
+SEARCH_UST.addEventListener("keyup", function () {
     displayUstList();
     loadFilteredUst();
 });
@@ -364,32 +365,32 @@ function moveElementFromTabToTab(fromTab, toTab, elem) {
 
 function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
 
-    const input = searchinput.value;
+    const INPUT = SEARCH_INPUT.value;
     let result = [];
 
-    if (input.length > 2 || input.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
+    if (INPUT.length > 2 || INPUT.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
 
         /* Search to find input in title, description or ingredient list of the recipe*/
 
         // ALGO 1 *********************************
         result = recipes.filter(item =>
-            Utils.normString(item.name).includes(Utils.normString(input))
-            || item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(input))
-            || Utils.normString(item.description).includes(Utils.normString(input)));
+            Utils.normString(item.name).includes(Utils.normString(INPUT))
+            || item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(INPUT))
+            || Utils.normString(item.description).includes(Utils.normString(INPUT)));
         // ALGO 1 *********************************
 
 
         // ALGO 2 *********************************
         // for (let i = 0; i < recipes.length; i++){
         //     let item=recipes[i];
-        //     if ( Utils.normString(item.name).includes(Utils.normString(input))
-        //         ||Utils.normString(item.description).includes(Utils.normString(input))){
+        //     if ( Utils.normString(item.name).includes(Utils.normString(INPUT))
+        //         ||Utils.normString(item.description).includes(Utils.normString(INPUT))){
         //             result.push(recipes[i]);
         //             continue;
         //     }
         //     for (let j=0; j < item.ingredients.length; j++){
-        //         if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(input))){
+        //         if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(INPUT))){
         //             result.push(recipes[i]);
         //             break;                        
         //         }
@@ -436,7 +437,7 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
     return filteredRecipes;
 }
 
-searchinput.addEventListener("keyup", function () {
+SEARCH_INPUT.addEventListener("keyup", function () {
     let allSelect = selectAllFilteredRecipes(tabSelectIngr, tabSelectApp, tabSelectUst);
     showRecipes(allSelect);
 });

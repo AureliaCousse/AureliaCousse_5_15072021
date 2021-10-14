@@ -36,23 +36,19 @@ function renameUnit(longUnit) {
             return "cac";       
         default:
             return longUnit;
-    }
+    }   
 }
 
 // -----------------------------------------------------
 // DISPLAY ALL THE RECIPES BY DEFAULT
 // -----------------------------------------------------
 /** 
- * @param recipeTab: le tableau contenant les recettes à afficher
+ * @param recipeTab: Tab containing recipes to be displayed
  */
 
-function showRecipes(recipeTab) { /*fonction qui contient:*/
+function showRecipes(recipeTab) {
 
-    if(recipeTab==undefined){
-        return;
-    }
-
-    let recipeList = document.getElementById("recipeList"); /*Attention: cette div recipeList a été créée dans fichier html*/
+    let recipeList = document.getElementById("recipeList"); /*Nota bene: div "recipeList" has been created in html file*/
     recipeList.innerHTML = "";
 
     /*on lance une boucle pour afficher toutes les recettes en répétant le code en partant de index 0 et on l'implemente autant de fois jusque indice soit égal à recipeTab.length (cad aller jusqu' à la fin du tableau des recettes*/
@@ -61,7 +57,6 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /*on crée la div generale vide qui va contenir tous les objects nécessaire constituant la boite recette*/
         let newRecipe = document.createElement("a");
         newRecipe.setAttribute("class", "recipe");
-        // newRecipe.setAttribute("href", "newRecipe.html"); *************    A METTRE QD CSS TERMINE   ***************
         newRecipe.setAttribute("id", i + 1);
 
         /*on crée un cadre image*/
@@ -147,35 +142,38 @@ function showRecipes(recipeTab) { /*fonction qui contient:*/
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
         let instructions = recipeTab[i].description;
 
-        let maxLength = 285; // maxLength for screens > 850px
+        let maxLength = 330; // maxLength for screens > 850px
         if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
-            maxLength = 225;
+            maxLength = 220;
         }
 
         /*on crée la div recipeDescription*/
         let recipeDescription = document.createElement("div");
         recipeDescription.setAttribute("class", "recipeDescription");
         recipeDescription.innerHTML = instructions.length > maxLength ? instructions.substring(0, maxLength) + "..." : instructions;  /*on va chercher les instructions de la recette*/
-        /* instructions ternaires: ? => if // ":" =>else*/
-
-        // to be deleted (replaced by line85 all in 1):
-        //   if (instructions.length > maxLength) {
-        //     recipeDescription.innerHTML = instructions.substring(0, maxLength) + "..."; /*pour limiter la longueur des instructions - si trop long; ...*/
-        // }
 
         /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
         recipeDetails.appendChild(recipeDescription);
 
-
         /*on ajoute le tout au fichier html*/
         recipeList.appendChild(newRecipe);
     } 
+
+// -----------------------------------------------------
+// DISPLAY MESSAGE if no recipe available related to user's input
+// -----------------------------------------------------    
     if (recipeTab.length === 0) {
         displayNoResultMessage();
     }
 
-    if (searchinput.value.length > 0 && searchinput.value.length < 3) 
+    if (SEARCH_INPUT.value.length > 0 && SEARCH_INPUT.value.length < 3) 
     {
         hideNoResultMessage();
     }
 }
+
+// for (let i = 0; i < recipeTab.length; i++) {
+//     if (searchinput.value.length > 0 && searchinput.value.length < 3){
+//         showRecipes(recipes);
+//     }
+// }
