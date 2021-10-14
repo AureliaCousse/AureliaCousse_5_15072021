@@ -26,11 +26,17 @@ function renameUnit(longUnit) {
             return "cas";
         case "litres":
             return "l";
+        case   "Litres":
+            return "l";
         case "litre":
             return "l";
+        case "cuillères à café":
+            return "cac";
+        case "cuillère à café":
+            return "cac";       
         default:
             return longUnit;
-    }
+    }   
 }
 
 // -----------------------------------------------------
@@ -136,9 +142,9 @@ function showRecipes(recipeTab) {
         /* on va chercher une partie des info contenues dans le tab recipes, soit la partie "description" et on limite son visuel à 300 caractères */
         let instructions = recipeTab[i].description;
 
-        let maxLength = 285; // maxLength for screens > 850px
+        let maxLength = 330; // maxLength for screens > 850px
         if (window.matchMedia("(max-width: 850px)").matches) { // maxLength for screens < 850px
-            maxLength = 225;
+            maxLength = 220;
         }
 
         /*on crée la div recipeDescription*/
@@ -148,7 +154,6 @@ function showRecipes(recipeTab) {
 
         /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
         recipeDetails.appendChild(recipeDescription);
-
 
         /*on ajoute le tout au fichier html*/
         recipeList.appendChild(newRecipe);
@@ -161,8 +166,14 @@ function showRecipes(recipeTab) {
         displayNoResultMessage();
     }
 
-    if (searchinput.value.length > 0 && searchinput.value.length < 3) 
+    if (SEARCH_INPUT.value.length > 0 && SEARCH_INPUT.value.length < 3) 
     {
         hideNoResultMessage();
     }
 }
+
+// for (let i = 0; i < recipeTab.length; i++) {
+//     if (searchinput.value.length > 0 && searchinput.value.length < 3){
+//         showRecipes(recipes);
+//     }
+// }

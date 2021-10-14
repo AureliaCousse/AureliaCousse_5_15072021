@@ -249,13 +249,6 @@ MAIN SEARCH BAR
   padding-right   : 10px;
 }
 
-.suggSearch {
-  padding-left  : 20px;
-  line-height   : 30px;
-  text-transform: capitalize;
-  color         : black;
-}
-
 /* -----------------------------------------------------
 MESSAGE
 ----------------------------------------------------- */
@@ -472,7 +465,7 @@ RECIPE LIST
 }
 
 .recipePhoto {
-  height                 : 210px;
+  min-height             : 178px;
   background-color       : #C7BEBE;
   margin                 : -15px -15px 15px -15px;
   border-top-left-radius : 5px;
@@ -482,9 +475,11 @@ RECIPE LIST
 .recipeHeader {
   display       : flex;
   flex-direction: row;
+  flex-grow     : 2;
 }
 
 .name {
+  max-width   : 200px;
   margin-right: auto;
   font-weight : 400;
 }
@@ -589,7 +584,7 @@ h3 {
 }
 
 /* -----------------------------------------------------
-MEDIA QUERIES (changed from 768 to 850)
+MEDIA QUERIES
 ----------------------------------------------------- */
 @media only screen and (min-width:500px) {
   .recipe {
