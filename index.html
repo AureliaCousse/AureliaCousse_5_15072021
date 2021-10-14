@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" /> <!-- to keep the encoding style & charater set -->
-  <title>Les Petits Plats | Nos recettes</title> <!-- Title of this web page (on Google, tabs…) -->
+  <title>Les Petits Plats | Toutes nos recettes</title> <!-- Title of this web page (on Google, tabs…) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- pour l'utilisation de # affichages selon le nav/appareil utilisé-->
   <meta name="description" content="Site de recettes de cuisine" />
@@ -21,12 +21,11 @@
   <main>
 
     <div class="mainSearchZone">
-      <form id="userInput">
+      <form id="userInput" autocomplete="off"> <!-- autocomplete off to avoid suggestion list when entering input-->
         <input class="inputSearch" type="text" id="searchInput"
           placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
         <button class="searchBtn fas fa-search" id="searchIcon"></button>
       </form>
-      <div id="suggSearch"></div>
     </div>
 
     <div id="noResultMessage">

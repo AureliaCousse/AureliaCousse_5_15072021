@@ -367,34 +367,34 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
     const input = searchinput.value;
     let result = [];
 
-       if (input.length > 2 || input.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
+    if (input.length > 2 || input.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
 
-            /* Search to find input in title, description or ingredient list of the recipe*/
+        /* Search to find input in title, description or ingredient list of the recipe*/
 
-            // ALGO 1 *********************************
-            // result = recipes.filter(item =>
-            //     Utils.normString(item.name).includes(Utils.normString(input))
-            //     || item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(input))
-            //     || Utils.normString(item.description).includes(Utils.normString(input)));
-            // ALGO 1 *********************************
+        // ALGO 1 *********************************
+        // result = recipes.filter(item =>
+        //     Utils.normString(item.name).includes(Utils.normString(input))
+        //     || item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(input))
+        //     || Utils.normString(item.description).includes(Utils.normString(input)));
+        // ALGO 1 *********************************
 
-            // ALGO 2 *********************************
-            for (let i = 0; i < recipes.length; i++){
-                let item=recipes[i];
-                if ( Utils.normString(item.name).includes(Utils.normString(input))
-                    ||Utils.normString(item.description).includes(Utils.normString(input))){
-                        result.push(recipes[i]);
-                        continue;
-                }
-                for (let j=0; j < item.ingredients.length; j++){
-                    if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(input))){
-                        result.push(recipes[i]);
-                        break;                        
-                    }
+        // ALGO 2 *********************************
+        for (let i = 0; i < recipes.length; i++){
+            let item=recipes[i];
+            if ( Utils.normString(item.name).includes(Utils.normString(input))
+                ||Utils.normString(item.description).includes(Utils.normString(input))){
+                    result.push(recipes[i]);
+                    continue;
+            }
+            for (let j=0; j < item.ingredients.length; j++){
+                if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(input))){
+                    result.push(recipes[i]);
+                    break;                        
                 }
             }
-            // ALGO 2 *********************************
         }
+        // ALGO 2 *********************************
+    }
 
     let filteredRecipes = [];
 
@@ -431,7 +431,7 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
             filteredRecipes.push(currentRecipe);
         }
     });
-    return filteredRecipes;    
+    return filteredRecipes;
 }
 
 searchinput.addEventListener("keyup", function () {

@@ -155,7 +155,6 @@ function showRecipes(recipeTab) {
         /*on met l'objet recipeDescription dans l'objet div generale recipe:*/
         recipeDetails.appendChild(recipeDescription);
 
-
         /*on ajoute le tout au fichier html*/
         recipeList.appendChild(newRecipe);
     } 
@@ -173,11 +172,8 @@ function showRecipes(recipeTab) {
     }
 }
 
-// -----------------------------------------------------
-// DISPLAY all recipes when user's input >=0 et <3 digits
-// -----------------------------------------------------    
-
-if (searchinput.value.length >= 0 && searchinput.value.length < 3){
-   showRecipes(recipes);
-   console.log(recipes)
-}
+// for (let i = 0; i < recipeTab.length; i++) {
+//     if (searchinput.value.length > 0 && searchinput.value.length < 3){
+//         showRecipes(recipes);
+//     }
+// }
