@@ -366,11 +366,9 @@ function moveElementFromTabToTab(fromTab, toTab, elem) {
 function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
 
     const INPUT = SEARCH_INPUT.value;
-    console.log(INPUT);
     let result = [];
 
       if (INPUT.length > 2) {
-
 
         /* Search to find input in title, description or ingredient list of the recipe*/
 
@@ -385,8 +383,8 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
         // ALGO 2 *********************************
         for (let i = 0; i < recipes.length; i++){
             let item=recipes[i];
-            if ( Utils.normString(item.name).includes(Utils.normString(INPUT))
-                ||Utils.normString(item.description).includes(Utils.normString(INPUT))){
+            if ( Utils.normString(item.name).includes(Utils.normString(INPUT))||
+                Utils.normString(item.description).includes(Utils.normString(INPUT))){
                     result.push(recipes[i]);
                     continue;
             }
@@ -432,9 +430,9 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
             }
         });
 
-        if (nbTagApp === tabSelectApp.length
-            && nbTagIngr === tabSelectIngr.length
-            && nbTagUst === tabSelectUst.length) {
+        if (nbTagApp === tabSelectApp.length &&
+            nbTagIngr === tabSelectIngr.length &&
+            nbTagUst === tabSelectUst.length) {
             filteredRecipes.push(currentRecipe);
         }
     });
