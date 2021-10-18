@@ -366,18 +366,19 @@ function moveElementFromTabToTab(fromTab, toTab, elem) {
 function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFilter, ustFilter) deleted since not red */
 
     const INPUT = SEARCH_INPUT.value;
+    console.log(INPUT);
     let result = [];
 
-    if (INPUT.length > 2 || INPUT.length === 0) { /*===0 so in case input is deleted, no more filter and so all 50 recipes are displayed*/
+      if (INPUT.length > 2) {
 
 
         /* Search to find input in title, description or ingredient list of the recipe*/
 
         // ALGO 1 *********************************
         result = recipes.filter(item =>
-            Utils.normString(item.name).includes(Utils.normString(INPUT))
-            || item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(INPUT))
-            || Utils.normString(item.description).includes(Utils.normString(INPUT)));
+            Utils.normString(item.name).includes(Utils.normString(INPUT)) ||
+            item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(INPUT))||
+            Utils.normString(item.description).includes(Utils.normString(INPUT)));
         // ALGO 1 *********************************
 
 
@@ -397,6 +398,9 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
         //     }
         // }
         // ALGO 2 *********************************
+    }
+    else {
+        result=[...recipes]; /*to get all the recipes displayed when less than 3 digits */
     }
 
     let filteredRecipes = [];
