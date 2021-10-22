@@ -3,7 +3,7 @@
 
 // function normString(strToNorm){
 //     return (strToNorm.toLowerCase()).normalize("NFD").replace(/\p{Diacritic}/gu, "");
-// } : REPLACED BY CLASS UTILS:
+// } : REPLACED BY CLASS UTILS:   Utils.normString(elem)
 class Utils{
 
     static normString(strToNorm){
