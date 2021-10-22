@@ -9,4 +9,3 @@ class Utils{
         return (strToNorm.toLowerCase()).normalize("NFD").replace(/\p{Diacritic}/gu, "");
     }
 }
-

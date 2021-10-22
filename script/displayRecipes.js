@@ -170,10 +170,7 @@ function showRecipes(recipeTab) {
     {
         hideNoResultMessage();
     }
+    if (!recipeTab.length === 0) {
+        hideNoResultMessage();
+    }
 }
-
-// for (let i = 0; i < recipeTab.length; i++) {
-//     if (searchinput.value.length > 0 && searchinput.value.length < 3){
-//         showRecipes(recipes);
-//     }
-// }
