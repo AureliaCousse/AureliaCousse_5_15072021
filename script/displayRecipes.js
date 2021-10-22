@@ -166,11 +166,11 @@ function showRecipes(recipeTab) {
         displayNoResultMessage();
     }
 
-    // if (!recipeTab.length === 0) {
-    //     hideNoResultMessage();
-    // }
     if (SEARCH_INPUT.value.length > 0 && SEARCH_INPUT.value.length < 3) 
     {
+        hideNoResultMessage();
+    }
+    if (!recipeTab.length === 0) {
         hideNoResultMessage();
     }
 }
