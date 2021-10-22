@@ -95,3 +95,26 @@
 // }
 // let v = 10
 // console.log(add_5(v)) // => 15 
+
+
+
+
+ // ALGO 2 *********************************
+        //for (const item of recipes){
+        //} à la place de for (let i = 0; i < recipes.length; i++){}
+
+
+        // for (let i = 0; i < recipes.length; i++){
+        //     let item=recipes[i];
+        //     if ( Utils.normString(item.name).includes(Utils.normString(INPUT))||
+        //         Utils.normString(item.description).includes(Utils.normString(INPUT))){
+        //             result.push(recipes[i]);
+        //             continue;
+        //     }
+        //     for (let j=0; j < item.ingredients.length; j++){
+        //         if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(INPUT))){
+        //             result.push(recipes[i]);
+        //             break;                        
+        //         }
+        //     }
+        // }
