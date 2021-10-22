@@ -373,32 +373,37 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
         /* Search to find input in title, description or ingredient list of the recipe*/
 
         // ALGO 1 *********************************
-        // result = recipes.filter(item =>
-        //     Utils.normString(item.name).includes(Utils.normString(INPUT)) ||
-        //     item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).includes(Utils.normString(INPUT))||
-        //     Utils.normString(item.description).includes(Utils.normString(INPUT)));
+        result = recipes.filter(item =>
+            Utils.normString(item.name).includes(Utils.normString(INPUT)) ||
+            item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).join(',').includes(Utils.normString(INPUT))||/*.join to create a string with all elements ingredient in tab ingredients*/
+            Utils.normString(item.description).includes(Utils.normString(INPUT)));
         // ALGO 1 *********************************
 
 
         // ALGO 2 *********************************
-        for (let i = 0; i < recipes.length; i++){
-            let item=recipes[i];
-            if ( Utils.normString(item.name).includes(Utils.normString(INPUT))||
-                Utils.normString(item.description).includes(Utils.normString(INPUT))){
-                    result.push(recipes[i]);
-                    continue;
-            }
-            for (let j=0; j < item.ingredients.length; j++){
-                if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(INPUT))){
-                    result.push(recipes[i]);
-                    break;                        
-                }
-            }
+        //for (const item of recipes){
         }
+
+
+        // for (let i = 0; i < recipes.length; i++){
+        //     let item=recipes[i];
+        //     if ( Utils.normString(item.name).includes(Utils.normString(INPUT))||
+        //         Utils.normString(item.description).includes(Utils.normString(INPUT))){
+        //             result.push(recipes[i]);
+        //             continue;
+        //     }
+        //     for (let j=0; j < item.ingredients.length; j++){
+        //         if (Utils.normString(item.ingredients[j].ingredient).includes(Utils.normString(INPUT))){
+        //             result.push(recipes[i]);
+        //             break;                        
+        //         }
+        //     }
+        // }
+        
         // ALGO 2 *********************************
     }
     else {
-        result=[...recipes]; /*to get all the recipes displayed when less than 3 digits */
+        result=[...recipes]; /*to get all the recipes displayed when input is less than 3 digits */
     }
 
     let filteredRecipes = [];
