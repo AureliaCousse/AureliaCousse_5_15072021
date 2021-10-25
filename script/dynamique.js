@@ -372,10 +372,12 @@ function selectAllFilteredRecipes() { /*Nota bene: Parameters (ingrFilter, appFi
 
         /* Search to find input in title, description or ingredient list of the recipe*/
 
+        /************ALGO 1************/
         result = recipes.filter(item =>
             Utils.normString(item.name).includes(Utils.normString(INPUT)) ||
             item.ingredients.map(rMap => Utils.normString(rMap.ingredient)).join(',').includes(Utils.normString(INPUT))|| /*.join to create a string containing all elements ingredients all together so element TRUE when element="pate"+"brisee" for ex */
             Utils.normString(item.description).includes(Utils.normString(INPUT)));
+        /************ALGO 1************/
         
     }
     else {
